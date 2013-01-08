@@ -831,16 +831,26 @@
 	// Note: to use this within an iframe use the following format: parent.$.fn.colorbox.close();
 	publicMethod.close = function () {
 		
-		//SHARAF START
-		//after multiple upload getAlbumImgs of current album
+		/*This code shuld be placed in a separate onClose function*/
+		//after close multiple upload => getAlbumImgs of current album
 		if($("#cboxContent #uploadImages").length == 1){
 			getAlbumImgs(getCurrentAlbumId());
 		}
-		//after croping show croped image && setNumberName
-		if($("#cboxContent iframe").length == 1){
-			showCropedImg();
+                //after close jmu iframe => getAlbumImgs of current album
+		if($("#cboxContent iframe[src^="+siteUrl+"/iframe/viewJmu/]").length == 1){
+                        getAlbumImgs(getCurrentAlbumId());
 		}
-		//SHARAF END
+		//after close cropping iframe => show croped image && setNumberName
+		if($("#cboxContent iframe[src^="+siteUrl+"/iframe/viewImg/]").length == 1){
+                        showCropedImg();
+		}
+		
+		//after close register => hide result and show form again.  
+		if($("#cboxContent #memeberRegister").length == 1){
+			$('#registerResult').hide();
+			$('#memeberRegister').show();
+		}
+		/*END*/
 		
 		if (open && !closing) {
 			
@@ -894,7 +904,7 @@
 }(jQuery, document, this));
 
 //////////////////////////////
-
+/*This code shuld be placed in a separate initial file*/
 $(document).ready(function(){
 	//Examples of how to assign the ColorBox event to elements
 	$(".group1").colorbox({rel:'group1'});
