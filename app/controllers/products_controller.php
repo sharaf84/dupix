@@ -5,7 +5,7 @@ require_once '../auth_controller.php';
 class ProductsController extends AuthController {
 
     public $name = 'Products';
-    public $components = array('Upload');//use upload component.
+    public $components = array('Upload'); //use upload component.
 
     function index() {
         //select position field to use in ordering and savePositions function
@@ -15,17 +15,17 @@ class ProductsController extends AuthController {
 
         // set this paginate with data
         $this->paginate = array(
-            'conditions' => $this->Session->read('conditions'),
-            'order' => array('Product.'.$positionField => 'ASC'),
+            'conditions' => $this->arrKeyPrefix(array_merge(array('parent_id' => 0), (array)$this->Session->read('conditions')), 'Product'),
+            'order' => array('Product.' . $positionField => 'ASC'),
             'limit' => isset($this->params['named']['limit']) ? $this->params['named']['limit'] : $this->paginate['limit'],
             'page' => isset($this->params['named']['page']) ? $this->params['named']['page'] : $this->paginate['page'],
         );
-        
+
         // save positions 
         $this->savePositions($positionField);
 
         //set products to view
-        $this->Product->recursive = 0;
+        $this->Product->recursive = 1;
         $this->set('products', $this->paginate());
         //get sections and set $this->data to use in filtering form.
         if ($this->Session->check('conditions') && is_array($this->Session->read('conditions')))
@@ -46,7 +46,7 @@ class ProductsController extends AuthController {
             }
             $this->Session->setFlash(__('The positions have been saved', true));
         }
-    }    
+    }
 
     //Filter product by issue or section or both.
     function filter() {
@@ -57,14 +57,13 @@ class ProductsController extends AuthController {
         }
         $this->redirect(array('action' => 'index'));
     }
-	
-	function setHot($id = null){
-		$this->Product->updateAll(array('Product.hot'=>0));
-		$this->Product->id = $id;
-		$this->Product->saveField('hot', 1);
-		$this->redirect(array('action' => 'index'));
-	}
-	
+
+    function setHot($id = null) {
+        $this->Product->updateAll(array('Product.hot' => 0));
+        $this->Product->id = $id;
+        $this->Product->saveField('hot', 1);
+        $this->redirect(array('action' => 'index'));
+    }
 
     function view($id = null) {
         if (!$id) {
@@ -74,18 +73,20 @@ class ProductsController extends AuthController {
         $this->set('product', $this->Product->read(null, $id));
     }
 
-    function add() {
+    function add($parentId = null) {
         if (!empty($this->data)) {
             //upload images and then add it to Gal.
-			$i=0;
-			foreach($this->data['Gal'] as $key=>$val){
-	            $this->data['Gal'][$i]['image']=$this->Upload->uploadImage($val['image']);
-	            if(empty($this->data['Gal'][$i]['image'])) unset($this->data['Gal'][$i]);
-				$i++;
-			}
- 			if(empty($this->data['Gal'])) unset($this->data['Gal']);
+            $i = 0;
+            foreach ($this->data['Gal'] as $key => $val) {
+                $this->data['Gal'][$i]['image'] = $this->Upload->uploadImage($val['image']);
+                if (empty($this->data['Gal'][$i]['image']))
+                    unset($this->data['Gal'][$i]);
+                $i++;
+            }
+            if (empty($this->data['Gal']))
+                unset($this->data['Gal']);
             $this->Product->create();
-            if ($this->Product->saveAll($this->data, array('validate'=>'first'))) {
+            if ($this->Product->saveAll($this->data, array('validate' => 'first'))) {
                 $this->Session->setFlash(__('The product has been saved', true));
                 $this->redirect(array('action' => 'index'));
             } else {
@@ -93,7 +94,10 @@ class ProductsController extends AuthController {
             }
         }
         $sections = $this->Product->Section->find('list');
-        $this->set(compact('sections'));
+        $parents = $this->Product->find('list', array('conditions'=>array('Product.parent_id' => 0)));
+        if($parentId)
+            $this->data['Product']['parent_id'] = $parentId;
+        $this->set(compact('sections', 'parents'));
     }
 
     function edit($id = null) {
@@ -103,14 +107,16 @@ class ProductsController extends AuthController {
         }
         if (!empty($this->data)) {
             //upload images and then add it to Gal.
-			$i=0;
-			foreach($this->data['Gal'] as $key=>$val){
-	            $this->data['Gal'][$i]['image']=$this->Upload->uploadImage($val['image']);
-	            if(empty($this->data['Gal'][$i]['image'])) unset($this->data['Gal'][$i]);
-				$i++;
-			}
- 			if(empty($this->data['Gal'])) unset($this->data['Gal']);
-            if ($this->Product->saveAll($this->data, array('validate'=>'first'))) {
+            $i = 0;
+            foreach ($this->data['Gal'] as $key => $val) {
+                $this->data['Gal'][$i]['image'] = $this->Upload->uploadImage($val['image']);
+                if (empty($this->data['Gal'][$i]['image']))
+                    unset($this->data['Gal'][$i]);
+                $i++;
+            }
+            if (empty($this->data['Gal']))
+                unset($this->data['Gal']);
+            if ($this->Product->saveAll($this->data, array('validate' => 'first'))) {
                 $this->Session->setFlash(__('The product has been saved', true));
                 $this->redirect(array('action' => 'index'));
             } else {
@@ -121,7 +127,8 @@ class ProductsController extends AuthController {
             $this->data = $this->Product->read(null, $id);
         }
         $sections = $this->Product->Section->find('list');
-        $this->set(compact('sections'));
+        $parents = $this->Product->find('list', array('conditions'=>array('Product.parent_id' => 0)));
+        $this->set(compact('sections', 'parents'));
     }
 
     function delete($id = null) {
@@ -130,7 +137,7 @@ class ProductsController extends AuthController {
             $this->redirect(array('action' => 'index'));
         }
         //set the component var filesToDelete with an array of files should be deleted.
-	$this->Upload->filesToDelete  = $this->Product->Gal->find('list', array('fields'=>'Gal.image', 'conditions' => array('product_id' => $id)));
+        $this->Upload->filesToDelete = $this->Product->Gal->find('list', array('fields' => 'Gal.image', 'conditions' => array('product_id' => $id)));
         if ($this->Product->delete($id)) {
             $this->Upload->deleteFiles();
             $this->Session->setFlash(__('Product deleted', true));

@@ -11,6 +11,9 @@ echo $this->Javascript->link('dragdrop/cookies', false);
 echo $this->Javascript->link('dragdrop/main', false);
 ?>
 <!--END DRAG DROP SCRIPTS AND CSS-->
+<style>
+    th, th a {padding: 2px;}
+</style>
 <div class="products index">
     <h2><?php echo "Products"; ?></h2>
     <fieldset style="width: 300px;">
@@ -27,25 +30,24 @@ echo $this->Javascript->link('dragdrop/main', false);
     </fieldset>
 
     <?php echo $this->Form->create('Product', array('url' => substr($this->params['url']['url'], 9))); ?>
-    <table width="850px" cellpadding="0" cellspacing="0" style="margin-bottom:0px;">
+    <table  cellpadding="0" cellspacing="0" style="margin-bottom:0px; width:870px;">
         <tr>
-            <th width="2%" style="padding:0px;"><?php echo $this->Paginator->sort('id'); ?></th>
-            <th width="31%" style="padding:0px;"><?php echo $this->Paginator->sort('title'); ?></th>            
-            <th width="8%" style="padding:0px;"><?php echo $this->Paginator->sort('price'); ?></th>
-            <th width="5%" style="padding:0px;"><?php echo $this->Paginator->sort('hot'); ?></th>            
-            <th width="7%" style="padding:0px;"><?php echo $this->Paginator->sort('home'); ?></th>
-            <th width="14%" style="padding:0px;"><?php echo $this->Paginator->sort('section_id'); ?></th>
-            <th width="10%" style="padding:0px;"><?php echo $this->Paginator->sort('position'); ?></th>
-            <th style="padding:0px;"><?php __('Actions'); ?></th>
+            <th style="width: 30px;"><?php echo $this->Paginator->sort('id'); ?></th>
+            <th style="width: 240px;"><?php echo $this->Paginator->sort('title'); ?></th>            
+            <th style="width: 100px;"><?php echo $this->Paginator->sort('price'); ?></th>
+            <th style="width: 100px;"><?php echo $this->Paginator->sort('hot'); ?></th>            
+            <th style="width: 100px;"><?php echo $this->Paginator->sort('home'); ?></th>
+            <th style="width: 100px;"><?php echo $this->Paginator->sort('section_id'); ?></th>
+            <th style="width: 200px;"><?php __('Actions'); ?></th>
         </tr>
     </table>
-    <table width="850px" cellpadding="0" cellspacing="0">
+    <table cellpadding="0" cellspacing="0" style="width: 870px;">
         <tr>
             <td style="border-bottom:none; padding:0px;" >
                 <ul id="phonetic1" class="boxy">
                     <?php
                     $i = 0;
-                    foreach ($products as $product):
+                    foreach ($products as $product){
                         $class = null;
                         if ($i++ % 2 == 0) {
                             $class = ' class="altrow"';
@@ -53,28 +55,47 @@ echo $this->Javascript->link('dragdrop/main', false);
                         ?>
                         <li style="width:870px;">
                             <input type="hidden" name="data[Product][ids][]" value="<?php echo $product['Product']['id']; ?>">
-                            <table cellpadding="0" cellspacing="0"  style="margin-bottom:0px;">
+                            <table cellpadding="0" cellspacing="0" style="margin-bottom:0px; width:870px;">
                                 <tr<?php echo $class; ?>>
-                                    <td width="3%" style="padding:6px 0"><?php echo $product['Product']['id']; ?>&nbsp;</td>
-                                    <td width="31%" style="padding:6px 0 "><?php echo $product['Product']['title']; ?>&nbsp;</td>
-                                  
-                                    <td width="8%" style="padding:6px 0"><?php echo $product['Product']['price']; ?>&nbsp;</td>
-                                    <td width="5%" style="padding:6px 0"><?php echo $product['Product']['hot'];?> </td>
-                                    <td width="7%" style="padding:6px 0"><?php echo $product['Product']['home'];?></td>
-                                    <td width="14%" style="padding:6px 0">
+                                    <td style="width: 30px;"><?php echo $product['Product']['id']; ?>&nbsp;</td>
+                                    <td style="width: 240px;"><?php echo $product['Product']['title']; ?>&nbsp;</td>
+                                    <td style="width: 100px;"><?php echo $product['Product']['price']; ?>&nbsp;</td>
+                                    <td style="width: 100px;"><?php echo $product['Product']['hot'];?> </td>
+                                    <td style="width: 100px;"><?php echo $product['Product']['home'];?></td>
+                                    <td style="width: 100px;">
                                         <?php echo $this->Html->link($product['Section']['title'], array('controller' => 'sections', 'action' => 'view', $product['Section']['id'])); ?>
                                     </td> 
-                                     <td width="10%" style="padding:6px 0"><?php echo $product['Product']['position']; ?>&nbsp;</td>
-                                    <td class="actions" style="padding:6px 0;">
-                                    	<?php echo $this->Html->link(__('Hot', true), array('action' => 'setHot', $product['Product']['id'])); ?>
-                                        <?php echo $this->Html->link(__('View', true), array('action' => 'view', $product['Product']['id'])); ?>
-                                        <?php echo $this->Html->link(__('Edit', true), array('action' => 'edit', $product['Product']['id'])); ?>
-                                        <?php echo $this->Html->link(__('Delete', true), array('action' => 'delete', $product['Product']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $product['Product']['id'])); ?>
+                                    <td class="actions" style="width: 200px;">
+                                        <span onclick="$('.<?php echo 'child_'.$product['Product']['id']?>').slideToggle(200);" title="Collapse Childs">+</span>
+                                        <?php echo $this->Html->link(__('A', true), array('action' => 'add', $product['Product']['id']), array('title' => 'Add Child')); ?>
+                                    	<?php echo $this->Html->link(__('H', true), array('action' => 'setHot', $product['Product']['id']), array('title' => 'Set Hot')); ?>
+                                        <?php echo $this->Html->link(__('V', true), array('action' => 'view', $product['Product']['id']), array('title' => 'View')); ?>
+                                        <?php echo $this->Html->link(__('E', true), array('action' => 'edit', $product['Product']['id']), array('title' => 'Edit')); ?>
+                                        <?php echo $this->Html->link(__('D', true), array('action' => 'delete', $product['Product']['id']), array('title' => 'Delete'), sprintf(__('Are you sure you want to delete # %s?', true), $product['Product']['id'])); ?>
                                     </td>
                                 </tr>
                             </table>
-                        </li>    
-                    <?php endforeach; ?>
+                            <?php foreach($product['Child'] as $child){?>
+                                <table class="<?php echo 'child_'.$product['Product']['id']?>" cellpadding="0" cellspacing="0" style="width: 850px; margin-bottom:0px; float: right; display: none;">
+                                    <tr<?php echo $class; ?>>
+                                        <td style="width: 30px;"><?php echo $child['id']; ?>&nbsp;</td>
+                                        <td style="width: 220px;"><?php echo $child['title']; ?>&nbsp;</td>
+                                        <td style="width: 100px;"><?php echo $child['price']; ?>&nbsp;</td>
+                                        <td style="width: 100px;"><?php echo $child['hot'];?> </td>
+                                        <td style="width: 100px;"><?php echo $child['home'];?></td>
+                                        <td style="width: 100px;">
+                                            <?php echo $this->Html->link($product['Section']['title'], array('controller' => 'sections', 'action' => 'view', $product['Section']['id'])); ?>
+                                        </td>
+                                        <td class="actions" style="width: 200px;">
+                                            <?php echo $this->Html->link(__('V', true), array('action' => 'view', $child['id']), array('title' => 'View')); ?>
+                                            <?php echo $this->Html->link(__('E', true), array('action' => 'edit', $child['id']), array('title' => 'Edit')); ?>
+                                            <?php echo $this->Html->link(__('D', true), array('action' => 'delete', $child['id']), array('title' => 'Delete'), sprintf(__('Are you sure you want to delete # %s?', true), $child['id'])); ?>
+                                        </td>
+                                    </tr>
+                                </table>
+                            <?php }?>
+                        </li>
+                    <?php } ?>
                 </ul>	
             </td>
         </tr>
