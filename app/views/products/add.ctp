@@ -39,15 +39,16 @@ function removeImage (obj){
                 <!--Privacy-->
                 <div style="display: none;">
                     <?php                    
-                    echo $this->Form->input('price');
-                    echo $this->Form->input('hits');
+                    echo $this->Form->input('price', array('default'=>0));
+                    echo $this->Form->input('hits', array('default'=>0));
                     //echo $this->Form->input('min_images');
-                    echo $this->Form->input('max_images');
-                    echo $this->Form->input('crop_width');
-                    echo $this->Form->input('crop_height');                    
+                    echo $this->Form->input('max_images', array('default'=>1));
+                    echo $this->Form->input('crop_width', array('default'=>0));
+                    echo $this->Form->input('crop_height', array('default'=>0));                    
                     echo $this->Form->input('home');
                     echo $this->Form->input('hot');
                     echo $this->Form->input('section_id');
+                    echo $this->Form->input('parent_id', array('empty' => array(0 => 'Parent Product')));
                     ?>
                 </div>
                 <!--Images-->
