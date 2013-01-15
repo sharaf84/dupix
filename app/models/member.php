@@ -20,11 +20,13 @@ class Member extends AppModel {
 	            'message' => 'Please enter a valid email.',
 	            'last' => true
 	         ),
+                    
 	        'emailRule-2' => array(
 	            'rule' => 'isUnique',
 	            'message' => 'An account with this e-mail already exists.'
 	        )
 		),
+            
 		'password' => array(
 			'notempty' => array(
 				'rule' => 'notEmpty',
@@ -48,7 +50,12 @@ class Member extends AppModel {
 	
 	
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
-
+//        var $belongsTo = array(
+//                        'Parentmem' => array(
+//                                'className' => 'Member',
+//                                'foreignKey' => 'parent_id',
+//                        )
+//                );
 	var $hasMany = array(
 		'Album' => array(
 			'className' => 'Album',
@@ -63,6 +70,8 @@ class Member extends AppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
+            
+                
 		'Project' => array(
 			'className' => 'Project',
 			'foreignKey' => 'member_id',
@@ -75,13 +84,24 @@ class Member extends AppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
-		)
+		),
+            
+//               'Childmem' => array(
+//                            'className' => 'Member',
+//                            'foreignKey' => 'parent_id',
+//                    ),
+            
 	);
 	
 	function afterSave($creat){
 		if($creat)
 			$this->createDir();
 	}
+//	public function allMembers(){
+//	
+//            return $this->Member->find();
+//            
+//        }
 	
 	//create member default album and projects dir.
 	function createDir(){

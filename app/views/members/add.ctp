@@ -17,6 +17,9 @@
 		//echo $this->Form->input('confirm_code');
 		echo $this->Form->input('confirmed');
 		echo $this->Form->input('newsletter');
+                echo $this->Form->input('type', array('type'=>'radio', 'options'=>array('Normal', 'School')));
+         	echo $this->Form->select('parent_id', $options = Configure::read('parentMems'),(isset ($this->data['Member'])) ? $this->data['Member']['parent_id'] : 0, array(), array(), true); 
+
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit', true));?>

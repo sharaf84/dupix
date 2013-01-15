@@ -43,7 +43,7 @@
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Gender'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $member['Member']['gender']; ?>
+			<?php echo ($member['Member']['gender']) ? 'Male' : 'Female'; ?>
 			&nbsp;
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Email'); ?></dt>
@@ -63,12 +63,17 @@
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Confirmed'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $member['Member']['confirmed']; ?>
+			<?php echo ($member['Member']['confirmed']) ? 'Confirmed' : 'Not confirmed'; ?>
 			&nbsp;
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Newsletter'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $member['Member']['newsletter']; ?>
+			<?php echo ($member['Member']['newsletter']) ? 'Enabled' : 'Disabled'; ?>
+			&nbsp;
+		</dd>
+                <dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Type'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+			<?php echo ($member['Member']['type']) ? 'School' : 'Normal'; ?>
 			&nbsp;
 		</dd>
 	</dl>

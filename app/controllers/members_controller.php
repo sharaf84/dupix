@@ -18,7 +18,8 @@ class MembersController extends AuthController {
 	}
 
 	function add() {
-		if (!empty($this->data)) {
+	    $memberList = array();	
+            if (!empty($this->data)) {
 			$this->data['Member']['confirm_code'] = String::uuid();
 			$this->Member->create();
 			if ($this->Member->save($this->data)) {
@@ -28,9 +29,14 @@ class MembersController extends AuthController {
 				$this->Session->setFlash(__('The member could not be saved. Please, try again.', true));
 			}
 		}
+                $memberList = $this->Member->find('list');
+                array_unshift($memberList, "Choose Parent");
+                
+                Configure::write('parentMems',$memberList); 
 	}
 
 	function edit($id = null) {
+                $memberList = array();
 		if (!$id && empty($this->data)) {
 			$this->Session->setFlash(__('Invalid member', true));
 			$this->redirect(array('action' => 'index'));
@@ -46,6 +52,13 @@ class MembersController extends AuthController {
 		if (empty($this->data)) {
 			$this->data = $this->Member->read(null, $id);
 		}
+                $memberList = $this->Member->find('list');
+                array_unshift($memberList, "Choose Parent");
+                
+                Configure::write('parentMems',$this->Member->find('list', array(
+                                                                'conditions' => array('Member.id !=' => $id)
+                                                            )));
+                
 	}
 
 	function delete($id = null) {
