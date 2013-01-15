@@ -1,4 +1,5 @@
 /nbproject/private/
+app/config/database.php
 app/tmp/**
 app/webroot/img/upload/
 app/webroot/files/upload/
