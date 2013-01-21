@@ -1,18 +1,19 @@
 <?php
+
 /*
-* Author "SHARAF" 
-* Author Email "sharaf.developer@gmail.com"
-* Copyright (c) 2012 Programming by "shift.com.eg"
-*/
+ * Author "SHARAF" 
+ * Author Email "sharaf.developer@gmail.com"
+ * Copyright (c) 2012 Programming by "shift.com.eg"
+ */
+
 class UploadComponent extends AppController {
 
     public $name = 'Upload';
-	
     public $imageUploadDir; //img upload dir.
     public $fileUploadDir; //file upload dir.
     public $fileName; // save the base name of the file ex: 'image.jpg'.
-  	public $imageTypes; //string of image types ex "jpeg,gif,png,jpg".
-  	public $fileTypes; //string of file types ex "zip, rar, flv".  
+    public $imageTypes; //string of image types ex "jpeg,gif,png,jpg".
+    public $fileTypes; //string of file types ex "zip, rar, flv".  
     public $maxUploadSize; //max file size in bytes.
     //resize -> 0 no resizing, and make a Thumb copy whith $thumbWidth $thumbHight.
     // 1 -> resize image to $masterImageWidth and $masterImageHeight.
@@ -76,12 +77,12 @@ class UploadComponent extends AppController {
     public function deleteFiles() {
         if (!empty($this->filesToDelete)) {
             foreach ($this->filesToDelete as $fileToDelete) {
-                if(!empty($fileToDelete)){//Important: empty file => all images will be deleted. 
+                if (!empty($fileToDelete)) {//Important: empty file => all images will be deleted. 
                     //glop function match any *fileName ex:(thumb_fileName, medium_fileName, ...fileName)
-                    foreach (glob($this->imageUploadDir."*".$fileToDelete) as $filePath) {
+                    foreach (glob($this->imageUploadDir . "*" . $fileToDelete) as $filePath) {
                         unlink($filePath);
-                    } 
-                    foreach (glob($this->fileUploadDir."*".$fileToDelete) as $filePath) {
+                    }
+                    foreach (glob($this->fileUploadDir . "*" . $fileToDelete) as $filePath) {
                         unlink($filePath);
                     }
                 }
@@ -222,19 +223,11 @@ class UploadComponent extends AppController {
                             $this->error .= 'Could not resize original image to ' . $this->maxImageWidth;
                     }
                 }
-				//size 4 special for fotosoora project.
-				if ($this->resize == 4) {
-					$medium_uploadfile = $this->imageUploadDir . 'medium_' . $this->fileName;
-                    list($width, $height, $type, $attr) = getimagesize($uploadfile);
-                    if ($width > $this->maxImageWidth) {
-                        if (!$this->smartResizeImage($uploadfile, $this->maxImageWidth, 0, true, $medium_uploadfile))
-                            $this->error .= 'Could not resize original image to ' . $this->maxImageWidth;
-                    }else
-						copy($uploadfile, $medium_uploadfile);
-                }
                 if ($this->resize == 0 || $this->resize == 2 || $this->resize == 3 || $this->resize == 4) {
-                    if (!$this->smartResizeImage($uploadfile, $this->thumbWidth, $this->thumbHeight, true, $thumb_uploadfile))
-                        $this->error .= 'Could not resize original image to ' . $this->thumbWidth . 'x' . $this->thumbHeight . ' ( Image ' . "[$cmdStatus] )";
+                    //if (!$this->smartResizeImage($uploadfile, $this->thumbWidth, $this->thumbHeight, true, $thumb_uploadfile))
+                        //$this->error .= 'Could not resize original image to ' . $this->thumbWidth . 'x' . $this->thumbHeight . ' ( Image ' . "[$cmdStatus] )";
+                
+                    $this->resizeCropedImage($uploadfile, 0, 0, $width, $height, $thumb_uploadfile, $this->thumbWidth, $this->thumbHeight);
                 }
             }
         }
@@ -401,8 +394,8 @@ class UploadComponent extends AppController {
     }
 
     //ResizeImage function. 
-    public function resizeCropedImage($imagePath, $cropPath, $cropWidth, $cropHeight, $width, $height, $start_width, $start_height, $end_width, $end_height) {
-        $cropedImage = imagecreatetruecolor($cropWidth, $cropHeight);
+    public function resizeCropedImage($imagePath, $shootX, $shootY, $shootWidth, $shootHeight, $cropPath, $cropWidth, $cropHeight) {
+        $cropImage = imagecreatetruecolor($cropWidth, $cropHeight);
         $ext = strtolower(substr(basename($imagePath), strrpos(basename($imagePath), ".") + 1));
         if ($ext == "png") {
             $source = imagecreatefrompng($imagePath);
@@ -411,13 +404,13 @@ class UploadComponent extends AppController {
         } elseif ($ext == "gif") {
             $source = imagecreatefromgif($imagePath);
         }
-        imagecopyresampled($cropedImage, $source, 0, 0, $start_width, $start_height, $cropWidth, $cropHeight, $width, $height);
+        imagecopyresampled($cropImage, $source, 0, 0, $shootX, $shootY, $cropWidth, $cropHeight, $shootWidth, $shootHeight);
         if ($ext == "png") {
-            imagepng($cropedImage, $cropPath, 0);
+            imagepng($cropImage, $cropPath, 0);
         } elseif ($ext == "jpg" || $ext == "jpeg") {
-            imagejpeg($cropedImage, $cropPath, 90);
+            imagejpeg($cropImage, $cropPath, 90);
         } elseif ($ext == "gif") {
-            imagegif($cropedImage, $cropPath);
+            imagegif($cropImage, $cropPath);
         }
         chmod($cropPath, 0777);
         return $cropPath;
