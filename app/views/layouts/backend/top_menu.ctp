@@ -8,7 +8,9 @@
         <li class="heading"><a href="<?php echo $this->Session->read('Setting.url').'/products';?>">Products</a></li>
         <li class="heading"><a href="<?php echo $this->Session->read('Setting.url').'/members';?>">Members</a></li>
         <li class="heading"><a href="<?php echo $this->Session->read('Setting.url').'/orders';?>">Orders</a></li>
-        <li class="heading"><a href="<?php echo $this->Session->read('Setting.url').'/responses';?>">Responses</a></li>
+        <li class="heading"><a href="<?php echo $this->Session->read('Setting.url').'/grads';?>">Grades and classes</a></li>
+        
+<!--        <li class="heading"><a href="<?php echo $this->Session->read('Setting.url').'/responses';?>">Responses</a></li>-->
         <li class="heading">
         	<a href="<?php echo $this->Session->read('Setting.url').'/contents';?>">Contents</a>
         	<ul>

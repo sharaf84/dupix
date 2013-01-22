@@ -15,8 +15,7 @@
 	<h3><?php __('Actions'); ?></h3>
 	<ul>
 
-		<li><?php echo $this->Html->link(__('List Friends', true), array('action' => 'index'));?></li>
-		<li><?php echo $this->Html->link(__('List Grades', true), array('controller' => 'albums', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Grads&Classes', true), array('action' => 'index'));?></li>
 		<li><?php echo $this->Html->link(__('New Grade', true), array('controller' => 'albums', 'action' => 'add')); ?> </li>
 		
 </div>

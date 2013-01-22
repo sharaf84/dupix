@@ -22,7 +22,7 @@
 				<div class="content_footer2">
 
 					<div class="link_title_footer">
-						<a href="#">My Fotosoora</a>
+						<a href="#">My Dupix</a>
 					</div>
 					
 					<div class="link_details_footer">

@@ -4,8 +4,9 @@
 <?php echo $this->Form->create('Friend');?>
 <fieldset>
  		<legend><?php __('Add Friends'); ?></legend>
-	<?php
-		echo $this->Form->select('friends', $options = Configure::read('allMembers'), Configure::read('parent'), array(), array(), true); 
+	<?php //var_dump(Configure::read('currentFriends'));
+                echo $this->Form->input('id');
+		echo $this->Form->select('friends', Configure::read('allMembers'), Configure::read('currentFriends'), array('multiple'=> 'multiple'), array(), true); 
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit', true));?>
@@ -34,5 +35,5 @@
 	<h3><?php __('Actions'); ?></h3>
 	<ul>
 
-		<li><?php echo $this->Html->link(__('List Friends', true), array('action' => 'index'));?></li>
+		<li><?php echo $this->Html->link(__('List Grads&Classes', true), array('action' => 'index'));?></li>
 </div>

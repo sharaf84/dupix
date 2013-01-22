@@ -16,10 +16,10 @@
 <div class="actions">
 	<h3><?php __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('Edit Friend', true), array('action' => 'edit', $friend['Friend']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('Delete Friend', true), array('action' => 'delete', $friend['Friend']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $friend['Friend']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('List Friends', true), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Friend', true), array('action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('Edit', true), array('action' => 'edit', $friend['Friend']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('Delete', true), array('action' => 'delete', $friend['Friend']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $friend['Friend']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('List Grads&Classes', true), array('action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New', true), array('action' => 'add')); ?> </li>
 	</ul>
 </div>
 <!--<div class="related">

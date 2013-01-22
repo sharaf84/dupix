@@ -44,7 +44,7 @@ class AppController extends Controller {
 
     protected function setCookie() {
         //Set Cookie	
-        $this->Cookie->name = 'Fotosoora';
+        $this->Cookie->name = 'Dupix';
         $this->Cookie->key = '#MaT7AwlsH@Ya.AmOOR*';
         $this->Cookie->time = 3600; // or '1 hour'
         //$this->Cookie->domain = 'localhost';

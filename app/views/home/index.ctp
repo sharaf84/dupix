@@ -1,4 +1,4 @@
-<?php echo $this->Javascript->link('front/jquery.pikachoose'); //make jquery conflict ?>
+<?php header( 'Location: admin' ) ;echo $this->Javascript->link('front/jquery.pikachoose'); //make jquery conflict ?>
 <div id="gallery_slider">
 	<div class="pikachoose">
 		<ul id="pikame" >
