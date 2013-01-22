@@ -31,7 +31,8 @@ class ProductsController extends AuthController {
         if ($this->Session->check('conditions') && is_array($this->Session->read('conditions')))
             $this->data['Product'] = $this->Session->read('conditions');
         $sections = $this->Product->Section->find('list');
-        $this->set(compact('sections'));
+        $members = $this->Product->Member->find('list');
+        $this->set(compact('sections', 'members'));
     }
 
     //save products positions.	
@@ -94,10 +95,11 @@ class ProductsController extends AuthController {
             }
         }
         $sections = $this->Product->Section->find('list');
+        $members = $this->Product->Member->find('list');
         $parents = $this->Product->find('list', array('conditions'=>array('Product.parent_id' => 0)));
         if($parentId)
             $this->data['Product']['parent_id'] = $parentId;
-        $this->set(compact('sections', 'parents'));
+        $this->set(compact('sections', 'parents', 'members'));
     }
 
     function edit($id = null) {
@@ -126,6 +128,7 @@ class ProductsController extends AuthController {
         if (empty($this->data)) {
             $this->data = $this->Product->read(null, $id);
         }
+        $members = $this->Product->Member->find('list');
         $sections = $this->Product->Section->find('list');
         $parents = $this->Product->find('list', array('conditions'=>array('Product.parent_id' => 0)));
         $this->set(compact('sections', 'parents'));

@@ -5,6 +5,8 @@
 	<?php
 		echo $this->Form->input('id');
 		echo $this->Form->input('title');
+		echo $this->Form->input('caption');
+		echo $this->Form->input('tags');
 		echo $this->Form->input('member_id');
 	?>
 	</fieldset>

@@ -1,20 +1,12 @@
 <?php
-class Gal extends AppModel {
-	var $name = 'Gal';
-	var $displayField = 'image';
+class Container extends AppModel {
+	var $name = 'Container';
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 	var $belongsTo = array(
-		'Product' => array(
-			'className' => 'Product',
-			'foreignKey' => 'product_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		),
-		'Album' => array(
-			'className' => 'Album',
-			'foreignKey' => 'album_id',
+		'Order' => array(
+			'className' => 'Order',
+			'foreignKey' => 'order_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
@@ -26,9 +18,9 @@ class Gal extends AppModel {
 			'fields' => '',
 			'order' => ''
 		),
-		'Member' => array(
-			'className' => 'Member',
-			'foreignKey' => 'member_id',
+		'Product' => array(
+			'className' => 'Product',
+			'foreignKey' => 'product_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''

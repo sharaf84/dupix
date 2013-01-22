@@ -3,14 +3,9 @@
 	<table cellpadding="0" cellspacing="0">
 	<tr>
 			<th><?php echo $this->Paginator->sort('id');?></th>
-            <th><?php echo $this->Paginator->sort('status ','checked');?></th>
-			<th><?php echo $this->Paginator->sort('name');?></th>
-			<th><?php echo $this->Paginator->sort('email');?></th>
-			<th><?php echo $this->Paginator->sort('phone');?></th>
-			<th><?php echo $this->Paginator->sort('country');?></th>
-			<th><?php echo $this->Paginator->sort('city');?></th>
-			<th><?php echo $this->Paginator->sort('address');?></th>
-			<th><?php echo $this->Paginator->sort('created');?></th>
+			<th><?php echo $this->Paginator->sort('amount');?></th>
+			<th><?php echo $this->Paginator->sort('payment_method');?></th>
+			<th><?php echo $this->Paginator->sort('status');?></th>
 			<th class="actions"><?php __('Actions');?></th>
 	</tr>
 	<?php
@@ -23,22 +18,15 @@
 	?>
 	<tr<?php echo $class;?>>
 		<td><?php echo $order['Order']['id']; ?>&nbsp;</td>
-		<td><?php 
-		if ($order['Order']['checked']==0){
-		  ?><span style="color:#900; font-size:12px">New</span><? }else {?>
-          <span style=" font-size:12px; color:#999">Old</span><? }?>
-          &nbsp;</td>
-        <td><?php echo $order['Order']['name']; ?>&nbsp;</td>
-		<td><?php echo $order['Order']['email']; ?>&nbsp;</td>
-		<td><?php echo $order['Order']['phone']; ?>&nbsp;</td>
-		<td><?php echo $order['Order']['country']; ?>&nbsp;</td>
-		<td><?php echo $order['Order']['city']; ?>&nbsp;</td>
-		<td><?php echo $order['Order']['address']; ?>&nbsp;</td>
-		<td><?php echo $order['Order']['created']; ?>&nbsp;</td>
+		<td><?php echo $order['Order']['amount']; ?>&nbsp;</td>
+		<td><?php echo $order['Order']['payment_method']; ?>&nbsp;</td>
+		
+		<td><?php echo $order['Order']['status']; ?>&nbsp;</td>
+		
 		<td class="actions">
-			<?php echo $this->Html->link(__('View', true), array('action' => 'detail', $order['Order']['keyword'])); ?>
+			<?php echo $this->Html->link(__('View', true), array('action' => 'view', $order['Order']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit', true), array('action' => 'edit', $order['Order']['id'])); ?>
-			<?php echo $this->Html->link(__('Delete', true), array('action' => 'delete', $order['Order']['keyword']), null, sprintf(__('Are you sure you want to delete # %s?', true), $order['Order']['id'])); ?>
+			<?php echo $this->Html->link(__('Delete', true), array('action' => 'delete', $order['Order']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $order['Order']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
@@ -61,9 +49,5 @@
 	<h3><?php __('Actions'); ?></h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('New Order', true), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Projects', true), array('controller' => 'projects', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Project', true), array('controller' => 'projects', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Responses', true), array('controller' => 'responses', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Response', true), array('controller' => 'responses', 'action' => 'add')); ?> </li>
 	</ul>
 </div>

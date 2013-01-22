@@ -16,6 +16,28 @@
 			<?php echo $gal['Gal']['image']; ?>
 			&nbsp;
 		</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Created'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+			<?php echo $gal['Gal']['created']; ?>
+			&nbsp;
+		</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Location'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+			<?php echo $gal['Gal']['location']; ?>
+			&nbsp;
+		</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Tags'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+			<?php echo $gal['Gal']['tags']; ?>
+			&nbsp;
+		</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Crop Dimentions'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+			<?php echo $gal['Gal']['crop_info']; ?>
+			&nbsp;
+		</dd>
+                
+                
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Product'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $this->Html->link($gal['Product']['title'], array('controller' => 'products', 'action' => 'view', $gal['Product']['id'])); ?>
@@ -24,6 +46,12 @@
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Album'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $this->Html->link($gal['Album']['title'], array('controller' => 'albums', 'action' => 'view', $gal['Album']['id'])); ?>
+			&nbsp;
+		</dd>
+                
+                <dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Member'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+			<?php echo $this->Html->link($gal['Member']['name'], array('controller' => 'members', 'action' => 'view', $gal['Member']['id'])); ?>
 			&nbsp;
 		</dd>
 	</dl>

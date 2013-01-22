@@ -4,7 +4,6 @@
 	<tr>
 		<th><?php echo $this->Paginator->sort('id');?></th>
 		<th><?php echo $this->Paginator->sort('name');?></th>
-		<th><?php echo $this->Paginator->sort('phone');?></th>
 		<th><?php echo $this->Paginator->sort('email');?></th>
 		<th><?php echo $this->Paginator->sort('confirmed');?></th>
 		<th class="actions"><?php __('Actions');?></th>
@@ -20,7 +19,6 @@
 	<tr<?php echo $class;?>>
 		<td><?php echo $member['Member']['id']; ?>&nbsp;</td>
 		<td><?php echo $member['Member']['name']; ?>&nbsp;</td>
-		<td><?php echo $member['Member']['phone']; ?>&nbsp;</td>
 		<td><?php echo $member['Member']['email']; ?>&nbsp;</td>
 		<td><?php echo $member['Member']['confirmed']; ?>&nbsp;</td>
 		<td class="actions">
@@ -53,5 +51,7 @@
 		<li><?php echo $this->Html->link(__('New Album', true), array('controller' => 'albums', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Projects', true), array('controller' => 'projects', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Project', true), array('controller' => 'projects', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Products', true), array('controller' => 'products', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Product', true), array('controller' => 'products', 'action' => 'add')); ?> </li>
 	</ul>
 </div>

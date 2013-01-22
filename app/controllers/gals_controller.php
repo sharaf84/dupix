@@ -1,5 +1,6 @@
 <?php
-class GalsController extends AppController {
+require_once '../auth_controller.php';
+class GalsController extends AuthController {
 
 	var $name = 'Gals';
 
@@ -43,7 +44,8 @@ class GalsController extends AppController {
 		}
 		$products = $this->Gal->Product->find('list');
 		$albums = $this->Gal->Album->find('list');
-		$this->set(compact('products', 'albums'));
+		$members = $this->Gal->Member->find('list');
+		$this->set(compact('products', 'albums', 'members'));
 	}
 
 	function edit($id = null) {
@@ -64,7 +66,8 @@ class GalsController extends AppController {
 		}
 		$products = $this->Gal->Product->find('list');
 		$albums = $this->Gal->Album->find('list');
-		$this->set(compact('products', 'albums'));
+		$members = $this->Gal->Member->find('list');
+		$this->set(compact('products', 'albums', 'members'));
 	}
 
 	function delete($id = null) {

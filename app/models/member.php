@@ -70,10 +70,50 @@ class Member extends AppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
-            
+                'Gal' => array(
+                        'className' => 'Gal',
+                        'foreignKey' => 'member_id',
+                        'dependent' => true,
+                        'conditions' => '',
+                        'fields' => '',
+                        'order' => 'Gal.position ASC',
+                        'limit' => '',
+                        'offset' => '',
+                        'exclusive' => '',
+                        'finderQuery' => '',
+                        'counterQuery' => ''
+                    ),
                 
+		'Product' => array(
+			'className' => 'Product',
+			'foreignKey' => 'member_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+            
 		'Project' => array(
 			'className' => 'Project',
+			'foreignKey' => 'member_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+            
+		'Order' => array(
+			'className' => 'Order',
 			'foreignKey' => 'member_id',
 			'dependent' => false,
 			'conditions' => '',
