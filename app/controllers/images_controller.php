@@ -57,7 +57,7 @@ class ImagesController extends AuthController {
         if (!empty($this->data)) {
             $imagePath = $this->Upload->imageUploadDir . $this->data['Image']['imageName'];
             $cropPath = $this->Upload->imageUploadDir . $size . '_' . $this->data['Image']['imageName'];            
-            if ($this->Upload->resizeCropedImage($imagePath, $cropPath, $cropWidth, $cropHeight, $this->data['Image']['w'], $this->data['Image']['h'], $this->data['Image']['x1'], $this->data['Image']['y1'], $this->data['Image']['x2'], $this->data['Image']['y2']))
+            if ($this->Upload->resizeCropedImage($imagePath, $this->data['Image']['x1'], $this->data['Image']['y1'], $this->data['Image']['w'], $this->data['Image']['h'], $cropPath, $cropWidth, $cropHeight))
                 $this->Session->setFlash(__('Done.', true));
             else
                 $this->Session->setFlash(__('Faild! please try again', true));
