@@ -16,6 +16,7 @@ function removeImage (obj){
 			obj.parent().remove();	
 }
 </script>
+<?php //var_dump($member['Member']['type']);?>
 <div class="products form">
     <?php echo $this->Form->create('Product', array('type' => 'file')); ?>
     <fieldset>
@@ -47,8 +48,14 @@ function removeImage (obj){
                     echo $this->Form->input('crop_height', array('default'=>0));                    
                     echo $this->Form->input('home');
                     echo $this->Form->input('hot');
-                    echo $this->Form->input('section_id');
-                    echo $this->Form->input('parent_id', array('empty' => array(0 => 'Parent Product')));
+                    if(isset ($member['Member']['type']) && $member['Member']['type']){
+                       echo $this->Form->input('section_id', array('type' => 'hidden','value' => 0));
+                       echo $this->Form->input('parent_id', array('type' => 'hidden','value' => 0));
+                    }else{
+                       echo $this->Form->input('section_id');
+                       echo $this->Form->input('parent_id', array('empty' => array(0 => 'Parent Product')));
+                    }
+                    
                     ?>
                 </div>
                 <!--Images-->

@@ -7,19 +7,29 @@ class ProductsController extends AuthController {
     public $name = 'Products';
     public $components = array('Upload'); //use upload component.
 
-    function index() {
+    function index($parentId = null, $memberId = null) {
         //select position field to use in ordering and savePositions function
         $positionField = 'position';
         if ($this->Session->check('conditions.home'))
             $positionField = 'home_position';
 
         // set this paginate with data
-        $this->paginate = array(
+        if($memberId)
+            $this->paginate = array(
+                'conditions' => $this->arrKeyPrefix(array_merge(array('parent_id' => 0, 'member_id' => $memberId), (array)$this->Session->read('conditions')), 'Product'),
+                'order' => array('Product.' . $positionField => 'ASC'),
+                'limit' => isset($this->params['named']['limit']) ? $this->params['named']['limit'] : $this->paginate['limit'],
+                'page' => isset($this->params['named']['page']) ? $this->params['named']['page'] : $this->paginate['page'],
+            );
+        else
+            $this->paginate = array(
             'conditions' => $this->arrKeyPrefix(array_merge(array('parent_id' => 0), (array)$this->Session->read('conditions')), 'Product'),
             'order' => array('Product.' . $positionField => 'ASC'),
             'limit' => isset($this->params['named']['limit']) ? $this->params['named']['limit'] : $this->paginate['limit'],
             'page' => isset($this->params['named']['page']) ? $this->params['named']['page'] : $this->paginate['page'],
         );
+        
+            
 
         // save positions 
         $this->savePositions($positionField);
@@ -74,7 +84,17 @@ class ProductsController extends AuthController {
         $this->set('product', $this->Product->read(null, $id));
     }
 
-    function add($parentId = null) {
+    function add($parentId = null, $memberId = null) {
+        if($memberId){
+               $this->loadModel('Member');
+               $member = $this->Product->Member->read(null, $memberId);
+               
+               if(isset ($member) && $member){
+                  $this->set('member', $member); 
+               }
+                   
+        }
+       
         if (!empty($this->data)) {
             //upload images and then add it to Gal.
             $i = 0;

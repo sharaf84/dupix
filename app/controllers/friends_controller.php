@@ -84,6 +84,7 @@ class FriendsController extends AuthController {
 			$this->Session->setFlash(__('Invalid friend', true));
 			$this->redirect(array('action' => 'index'));
 		}
+                
 		if (!empty($this->data)) {//var_dump($this->data['Friend']['id']);die();
                         $deleteAll = "delete from friends_members where member_id=".$this->data['Friend']['id'];
                         $this->Friend->query($deleteAll);
@@ -91,7 +92,6 @@ class FriendsController extends AuthController {
                             for($i = 0 ; $i < sizeof($this->data["Friend"]["friends"]) ; $i++ ){
                                 $insertQuery = "INSERT INTO friends_members (member_id, friend_id) VALUES (".$this->data['Friend']['id'].", ".$this->data['Friend']['friends'][$i].")";
                                 $this->Friend->query($insertQuery);
-
                             }
                         
                         }
@@ -102,6 +102,7 @@ class FriendsController extends AuthController {
 				$this->Session->setFlash(__('The friend could not be saved. Please, try again.', true));
 			}
 		}
+                
 		if (empty($this->data)) {
                         $selectCurrentFriends = "select friend_id from friends_members where member_id=".$id;
                         $rows = $this->Friend->query($selectCurrentFriends);
