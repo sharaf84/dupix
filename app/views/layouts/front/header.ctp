@@ -1,188 +1,134 @@
-<?php if(empty($memberCookie)){?>
-<!-- This contains the hidden content for inline calls -->
-<div style='display:none'>
-	<!--log in form-->
-	<div id='loginForm' style='padding:10px; background:#fff;'>
-		<div class="members form">
-		<?php echo $this->Form->create('Member', array('url'=>$this->Session->read('Setting.url').'/profile/login'));?>
-			<fieldset>
-		 		<div class="title_blue"><?php __('Log In');?></div>
-				<div class="data_form_black">
-					<?php 
-					echo $this->Form->input('email');
-					echo $this->Form->input('password');
-					echo $this->Form->input('remember', array('type'=>'checkbox', 'label'=>'Remember me'));
-					?>
-					<div class="forgot"><a class="inline" href="#forgotForm">Forgot your password?</a></div>
-					<div class="join-us"><a class="inline" href="#joinForm">Not a member? Join us!</a></div>
-				</div>
-			</fieldset>
-		<?php echo $this->Form->end(__('Log In', true));?>
-		</div>
-	</div>
-	<!--forgot form-->
-	<div id='forgotForm' style='padding:10px; background:#fff;'>
-		<div class="members form">
-		<?php echo $this->Form->create('Member', array('url'=>$this->Session->read('Setting.url').'/profile/forgot'));?>
-			<fieldset>
-		 		<div class="title_blue"><?php __('Forgot your password?');?></div>
-				<div class="data_form_black">
-					<?php echo $this->Form->input('email');?>
-				</div>
-			</fieldset>
-		<?php echo $this->Form->end(__('Send', true));?>
-		</div>
-	</div>
-	<!--join us form-->
-	<div id='joinForm' style='padding:10px; background:#fff;'>
-		<div class="members form">
-			<?php echo $this->Form->create('Member', array('url'=>$this->Session->read('Setting.url').'/profile/register', 'id'=>'memeberRegister'));?>
-			<fieldset>
-		 		<div class="title_blue"><?php __('Join Us'); ?></div>
-			<div class="data_form_black">
-				<div class="note" style="margin-left:150px;">note that <span style="color:#BB0000;">*</span> denotes a  required field</div>
-			<?php
-				echo $this->Form->input('name');
-				echo $this->Form->input('email', array('label'=>'Email<span> *</span>'));
-				echo $this->Form->input('password', array('label'=>'Password<span> *</span>'));
-				echo $this->Form->input('confirm_password', array('type'=>'password', 'label'=>'Confirm Password<span> *</span>'));
-				//echo $this->Form->input('gender', array('type'=>'radio', 'options'=>array('Female', 'Male')));
-				echo $this->Form->input('birthdate', array('label'=>'Birthday', 'minYear' => (date('Y') - 90), 'maxYear' => date('Y'), 'empty'=>true));
-				echo $this->Form->input('phone');
-				echo $this->Lang->countrySelect('Member.country', array('default'=>''));
-				echo $this->Form->input('city');
-				echo $this->Form->input('area');
-				echo $this->Form->input('address');
-				//echo $this->Form->input('newsletter');												
-			?>
-			</div>
-			</fieldset>
-			<?php echo $this->Form->end(__('Join Us', true));?>
-			<div id="registerLoading" class="ajaxLoading"></div>
-			<div id="registerResult" class="ajaxResult"></div>
-		</div>
-	</div>
-	<!--end of join us-->
+<?php if (empty($memberCookie)) { ?>
+    <!-- This contains the hidden content for inline calls -->
+    <div style='display:none'>
+        <!--log in form-->
+        <div id='loginForm' style='padding:10px; background:#fff;'>
+            <div class="members form">
+                <?php echo $this->Form->create('Member', array('url' => $this->Session->read('Setting.url') . '/profile/login')); ?>
+                <fieldset>
+                    <div class="title_blue"><?php __('Log In'); ?></div>
+                    <div class="data_form_black">
+                        <?php
+                        echo $this->Form->input('email');
+                        echo $this->Form->input('password');
+                        echo $this->Form->input('remember', array('type' => 'checkbox', 'label' => 'Remember me'));
+                        ?>
+                        <div class="forgot"><a class="inline" href="#forgotForm">Forgot your password?</a></div>
+                        <div class="join-us"><a class="inline" href="#joinForm">Not a member? Join us!</a></div>
+                    </div>
+                </fieldset>
+                <?php echo $this->Form->end(__('Log In', true)); ?>
+            </div>
+        </div>
+        <!--forgot form-->
+        <div id='forgotForm' style='padding:10px; background:#fff;'>
+            <div class="members form">
+                <?php echo $this->Form->create('Member', array('url' => $this->Session->read('Setting.url') . '/profile/forgot')); ?>
+                <fieldset>
+                    <div class="title_blue"><?php __('Forgot your password?'); ?></div>
+                    <div class="data_form_black">
+                        <?php echo $this->Form->input('email'); ?>
+                    </div>
+                </fieldset>
+                <?php echo $this->Form->end(__('Send', true)); ?>
+            </div>
+        </div>
+        <!--join us form-->
+        <div id='joinForm' style='padding:10px; background:#fff;'>
+            <div class="members form">
+                <?php echo $this->Form->create('Member', array('url' => $this->Session->read('Setting.url') . '/profile/register', 'id' => 'memeberRegister')); ?>
+                <fieldset>
+                    <div class="title_blue"><?php __('Join Us'); ?></div>
+                    <div class="data_form_black">
+                        <div class="note" style="margin-left:150px;">note that <span style="color:#BB0000;">*</span> denotes a  required field</div>
+                        <?php
+                        echo $this->Form->input('name');
+                        echo $this->Form->input('email', array('label' => 'Email<span> *</span>'));
+                        echo $this->Form->input('password', array('label' => 'Password<span> *</span>'));
+                        echo $this->Form->input('confirm_password', array('type' => 'password', 'label' => 'Confirm Password<span> *</span>'));
+                        //echo $this->Form->input('gender', array('type'=>'radio', 'options'=>array('Female', 'Male')));
+                        echo $this->Form->input('birthdate', array('label' => 'Birthday', 'minYear' => (date('Y') - 90), 'maxYear' => date('Y'), 'empty' => true));
+                        echo $this->Form->input('phone');
+                        echo $this->Lang->countrySelect('Member.country', array('default' => ''));
+                        echo $this->Form->input('city');
+                        echo $this->Form->input('area');
+                        echo $this->Form->input('address');
+                        //echo $this->Form->input('newsletter');												
+                        ?>
+                    </div>
+                </fieldset>
+                <?php echo $this->Form->end(__('Join Us', true)); ?>
+                <div id="registerLoading" class="ajaxLoading"></div>
+                <div id="registerResult" class="ajaxResult"></div>
+            </div>
+        </div>
+        <!--end of join us-->
+    </div>
+<? } ?>
+<div class="header-container">
+    <div class="header">
+        <div class="header-left">
+            <div class="header-left-top">
+                <div class="logo"><a href="index.php" target="_self"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>logo.png" border="0" /></a></div>
+                <div class="header-left-top-menu"><a href="#" target="_self">CONTACT US </a> |   <a href="#" target="_self">MY DUPIX</a> |   <a href="#" target="_self">SHOP</a></div>
+            </div>
+
+            <div class="header-left-pull"><a href="javascript:animatedcollapse.toggle('menu')"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>pull.png" class="pull-click" border="0" /></a>
+                <div class="menu-left" id="menu">
+                    <div class="discoount"><a href="#"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>discount.jpg" width="205" height="134" border="0" /></a></div>
+                    <div class="menu">
+                        <a href="index.php" class="current">Home</a>
+                        <a href="products.php">Products</a>
+                        <a href="#">My DuPix</a>
+                        <a href="#">Schools</a>
+                        <a href="#">Photographers</a>
+                        <a href="#">E-Store</a>
+                        <a href="#">About Us</a>
+                    </div>
+                    <div class="photo-album">
+                        <div class="photo-album-gallery"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>left-ad.jpg" width="125" height="125" border="0" /></div>
+                        <div class="photo-album-tit">PHOTO ALBUMS</div>
+                    </div>
+                    <div class="left-ad"><a href="#"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>left-ad.jpg" width="125" height="125" border="0" /></a></div>
+                    <div class="pull-back"><a href="javascript:animatedcollapse.toggle('menu')"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>pull-back.png" width="205" height="47" border="0" class="pull-back-click" /></a></div>
+                </div>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="header-right-top">
+                <div class="buttons">
+                    <a href="#"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>singin.jpg" width="34" height="37" border="0" /></a>
+                    <a href="#"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>singup.jpg" width="38" height="38" border="0" /></a>
+                    <a href="#"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>share.jpg" width="31" height="39" border="0" /></a>
+                </div>
+                <div class="slogan"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>slogan.jpg" width="178" height="17" border="0" /></div>
+                <div class="facebook"><a href="#"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>face.jpg" width="84" height="25" border="0" /></a></div>
+                <div class="sponser"><a href="#"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>samsung.jpg" width="191" height="66" border="0" /></a></div>
+            </div>
+            <div class="header-right-bottom">
+                <div class="main-buttons">
+                    <a href="javascript:animatedcollapse.toggle('menu-stores')"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>stores.png" border="0" /></a>
+                    <div class="menu-stores" id="menu-stores">
+                        <div class="menu-stores-arw"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>are.png" width="111" height="36" border="0" /></div>
+                        <div class="menu-stores-links">
+                            <a href="#">Emaar</a>
+                            <a href="#">UpTown Stars</a>
+                            <a href="#">Samsung</a>
+                        </div>
+                    </div>
+                    <img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>schools.png" border="0" />
+                </div>
+                <div class="basket">
+                    <div class="basket-user-name">Hello,  Ahmed Mostafa</div>
+                    <div class="basket-details">
+                        <div class="basket-details-left">
+                            <div class="basket-view"><a href="#">View Basket (0)</a></div>
+                            <div class="basket-signout"><a href="#">SIGN OUT</a></div>
+                        </div>
+                        <div class="basket-details-right"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>basket.jpg" width="35" height="30" border="0" /></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<? }?>
-<div id="top">
-
-	<div class="top">
-
-		<div class="hovermenu">
-			<ul>
-				<li>
-					<a href="<?php echo $this->Session->read('Setting.url');?>">Home</a>
-				</li>
-				<li>
-					<a href="#">Sitemap</a>
-				</li>
-				<li>
-					<a href="<?php echo $this->Session->read('Setting.url').'/texts/display/2/contact-us';?>">Contact Us</a>
-				</li>
-				<li>
-					<a href="#">Help</a>
-				</li>
-				<?php if(empty($memberCookie)){?>
-				<li>
-					<a class="inline" href="#loginForm">Log In</a>
-				</li>
-				<li>
-					<a class="inline" href="#joinForm">Join Us</a>
-				</li>
-				<?php }else{?>
-				<li>
-					<a href="#">Hi, <?php if(!empty($memberCookie['name'])) {echo $memberCookie['name'];}else{echo $memberCookie['email'];}?></a>
-				</li>
-				<li>
-					<a href="<?php echo $this->Session->read('Setting.url').'/profile/logout';?>">Logout</a>
-				</li>
-				<?php }?>
-			</ul>
-		</div>
-
-		<div id="search">
-
-			<div class="search_bg">
-
-				<input name="textfield" type="text" class="textfield" id="textfield" value="Search" onfocus="if (this.value == 'Search') this.value = '';" onblur="if (this.value == '') this.value = 'Search';"/>
-			</div>
-
-			<div class="search_button">
-				<a href="#"><img src="<?php echo $this->Session->read('Setting.url').'/app/webroot/img/front/';?>search_button.jpg" width="37" height="35" /></a>
-			</div>
-			
-			<div id="phone">
-			
-				<div class="phone_img">
-				
-					<img src="<?php echo $this->Session->read('Setting.url').'/app/webroot/img/front/';?>phone.jpg" width="30" height="30" />
-				</div>
-			
-			<div class="phone_text">
-				
-					0100 34 84 022
-				</div>
-			
-			</div>
-			
-			
-		</div>
-	</div>
-
-</div>
-
-<div id="container">
-
-	<div id="header">
-
-		<div class="logo">
-			<a href="<?php echo $this->Session->read('Setting.url');?>"><img src="<?php echo $this->Session->read('Setting.url').'/app/webroot/img/front/';?>logo.jpg" width="314" height="76" /></a>
-		</div>
-
-		<div class="menu">
-			<ul>
-				<li>
-					<a href="<?php echo $this->Session->read('Setting.url').'/categories';?>" class="<?php if($this->name == 'Categories') echo 'selected';?>">Products</a>
-				</li>
-				<li>
-					<?php
-						$url = '#loginForm';
-						$class = 'inline';
-						if(!empty($memberCookie)){
-							$url = $this->Session->read('Setting.url').'/profile/albums';
-							$class = ($this->name == 'Profile')?'selected':null;
-						}
-					?>
-					<a href="<?php echo $url;?>" class="<?php echo $class;?>">My Fotosoora</a>
-				</li>
-				<li>
-					<a href="<?php echo $this->Session->read('Setting.url').'/texts/display/3/Services';?>" class="<?php if($this->params['url']['url'] == 'texts/display/3/Services') echo 'selected';?>">Services</a>
-				</li>
-				<li>
-					<a href="<?php echo $this->Session->read('Setting.url').'/texts/display/2/contact-us';?>" class="<?php if($this->params['url']['url']  == 'texts/display/2/contact-us') echo 'selected';?>">Contact Us</a>
-				</li>
-			</ul>
-		</div>
-
-		<div id="Items">
-
-			<div class="item">
-				<a href="#"><img src="<?php echo $this->Session->read('Setting.url').'/app/webroot/img/front/';?>item.jpg" width="54" height="49" /></a>
-			</div>
-
-			<div class="item_link">
-				<a href="<?php echo $this->Session->read('Setting.url').'/profile/cart';?>">
-					<span class="cartCount">
-					<?php
-					if(!empty($memberCookie))
-						echo intval($this->requestAction('profile/getCartCount'));
-					else
-						echo 0;
-					?>
-					</span>
-					<span>Item(s) View Cart</span> 
-				</a>
-			</div>
-		</div>
-	</div>
