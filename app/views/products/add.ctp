@@ -33,7 +33,7 @@ function removeImage (obj){
                 <div style="display: block;">
                     <?php
                     echo $this->Form->input('title');                    
-                    echo '<lable>Body</lable>';
+                    echo '<label>Body</label>';
                     echo $this->Fck->fckeditor(array('Product', 'body'), $this->Html->base);
                     ?>
                 </div>
@@ -60,6 +60,15 @@ function removeImage (obj){
                 </div>
                 <!--Images-->
                 <div>
+                    
+                    <?php 
+                    echo $this->Form->input('project_image', array('type'=>'file', 'label'=>'Project Image 700px × 350px'));
+                    echo $this->Form->input('hot_image', array('type'=>'file', 'label'=>'Hot Image (205px × 134px)'));
+                    echo $this->Form->input('top_image', array('type'=>'file', 'label'=>'Top Image (712px × 230px)'));
+                    echo $this->Form->input('middle_image', array('type'=>'file', 'label'=>'Middle Image (402px × 230px).'));
+                    echo $this->Form->input('bottom_image', array('type'=>'file', 'label'=>'Bottom Image (220px × 137px)'));
+                    echo $this->Form->input('slide_image', array('type'=>'file', 'label'=>'Slide Image (700px × 350px)'));
+                    /*
                     <div class="images">
 		            	<div class="image">	
 	                        <div style="width:15px; position:absolute; margin-top:15px; margin-left:700px; color:#F00; font-size:large; cursor:pointer;" title="Remove" onclick="removeImage($(this));">X</div>
@@ -73,6 +82,7 @@ function removeImage (obj){
 		                </div>
                 	</div>
                 	<input type="button" id="addImage" value="Add New Image" style="width: 150px; margin-left: 300px;">
+                     */?>
                 </div>
                 <!--Meat-->
                 <div>

@@ -97,15 +97,45 @@ class ProductsController extends AuthController {
        
         if (!empty($this->data)) {
             //upload images and then add it to Gal.
-            $i = 0;
-            foreach ($this->data['Gal'] as $key => $val) {
-                $this->data['Gal'][$i]['image'] = $this->Upload->uploadImage($val['image']);
-                if (empty($this->data['Gal'][$i]['image']))
-                    unset($this->data['Gal'][$i]);
-                $i++;
-            }
-            if (empty($this->data['Gal']))
-                unset($this->data['Gal']);
+//            $i = 0;
+//            foreach ($this->data['Gal'] as $key => $val) {
+//                $this->data['Gal'][$i]['image'] = $this->Upload->uploadImage($val['image']);
+//                if (empty($this->data['Gal'][$i]['image']))
+//                    unset($this->data['Gal'][$i]);
+//                $i++;
+//            }
+//            if (empty($this->data['Gal']))
+//                unset($this->data['Gal']);
+            $this->Upload->masterImageWidth = 700;
+            $this->Upload->masterImageHeight = 350;
+            $this->Upload->resize = 1;
+            $this->data['Product']['project_image']=$this->Upload->uploadImage($this->data['Product']['project_image']);
+            
+            $this->Upload->masterImageWidth = 205;
+            $this->Upload->masterImageHeight = 134;
+            $this->Upload->resize = 1;
+            $this->data['Product']['hot_image']=$this->Upload->uploadImage($this->data['Product']['hot_image']);
+            
+            $this->Upload->masterImageWidth = 721;
+            $this->Upload->masterImageHeight = 230;
+            $this->Upload->resize = 1;
+            $this->data['Product']['top_image']=$this->Upload->uploadImage($this->data['Product']['top_image']);
+            
+            $this->Upload->masterImageWidth = 400;
+            $this->Upload->masterImageHeight = 230;
+            $this->Upload->resize = 1;
+            $this->data['Product']['middle_image']=$this->Upload->uploadImage($this->data['Product']['middle_image']);
+            
+            $this->Upload->masterImageWidth = 220;
+            $this->Upload->masterImageHeight = 137;
+            $this->Upload->resize = 1;
+            $this->data['Product']['bottom_image']=$this->Upload->uploadImage($this->data['Product']['bottom_image']);
+            
+            $this->Upload->masterImageWidth = 700;
+            $this->Upload->masterImageHeight = 350;
+            $this->Upload->resize = 1;
+            $this->data['Product']['slide_image']=$this->Upload->uploadImage($this->data['Product']['slide_image']);
+           
             $this->Product->create();
             if ($this->Product->saveAll($this->data, array('validate' => 'first'))) {
                 $this->Session->setFlash(__('The product has been saved', true));
@@ -129,16 +159,74 @@ class ProductsController extends AuthController {
         }
         if (!empty($this->data)) {
             //upload images and then add it to Gal.
-            $i = 0;
-            foreach ($this->data['Gal'] as $key => $val) {
-                $this->data['Gal'][$i]['image'] = $this->Upload->uploadImage($val['image']);
-                if (empty($this->data['Gal'][$i]['image']))
-                    unset($this->data['Gal'][$i]);
-                $i++;
-            }
-            if (empty($this->data['Gal']))
-                unset($this->data['Gal']);
+//            $i = 0;
+//            foreach ($this->data['Gal'] as $key => $val) {
+//                $this->data['Gal'][$i]['image'] = $this->Upload->uploadImage($val['image']);
+//                if (empty($this->data['Gal'][$i]['image']))
+//                    unset($this->data['Gal'][$i]);
+//                $i++;
+//            }
+//            if (empty($this->data['Gal']))
+//                unset($this->data['Gal']);
+            
+            $this->Product->id = $id;
+            
+            if ($this->data['Product']['project_image']['name']) {
+                $this->Upload->masterImageWidth = 700;
+                $this->Upload->masterImageHeight = 350;
+                $this->Upload->resize = 1;
+                $this->Upload->filesToDelete = array($this->Product->field('project_image'));
+                $this->data['Product']['project_image'] = $this->Upload->uploadImage($this->data['Product']['project_image'] );
+            }else
+                unset($this->data['Product']['project_image'] );
+            
+            if ($this->data['Product']['hot_image']['name']) {
+                $this->Upload->masterImageWidth = 205;
+                $this->Upload->masterImageHeight = 134;
+                $this->Upload->resize = 1;
+                array_push($this->Upload->filesToDelete, $this->Product->field('hot_image'));
+                $this->data['Product']['hot_image'] = $this->Upload->uploadImage($this->data['Product']['hot_image'] );
+            }else
+                unset($this->data['Product']['hot_image'] );
+            
+            if ($this->data['Product']['top_image']['name']) {
+                $this->Upload->masterImageWidth = 712;
+                $this->Upload->masterImageHeight = 230;
+                $this->Upload->resize = 1;
+                array_push($this->Upload->filesToDelete, $this->Product->field('top_image'));
+                $this->data['Product']['top_image'] = $this->Upload->uploadImage($this->data['Product']['top_image'] );
+            }else
+                unset($this->data['Product']['top_image'] );
+            
+            if ($this->data['Product']['middle_image']['name']) {
+                $this->Upload->masterImageWidth = 402;
+                $this->Upload->masterImageHeight = 230;
+                $this->Upload->resize = 1;
+                array_push($this->Upload->filesToDelete, $this->Product->field('middle_image'));
+                $this->data['Product']['middle_image'] = $this->Upload->uploadImage($this->data['Product']['middle_image'] );
+            }else
+                unset($this->data['Product']['hot_image'] );
+            
+            if ($this->data['Product']['bottom_image']['name']) {
+                $this->Upload->masterImageWidth = 220;
+                $this->Upload->masterImageHeight = 137;
+                $this->Upload->resize = 1;
+                array_push($this->Upload->filesToDelete, $this->Product->field('bottom_image'));
+                $this->data['Product']['bottom_image'] = $this->Upload->uploadImage($this->data['Product']['bottom_image'] );
+            }else
+                unset($this->data['Product']['bottom_image'] );
+            
+            if ($this->data['Product']['slide_image']['name']) {
+                $this->Upload->masterImageWidth = 700;
+                $this->Upload->masterImageHeight = 350;
+                $this->Upload->resize = 1;
+                array_push($this->Upload->filesToDelete, $this->Product->field('bottom_image'));
+                $this->data['Product']['slide_image'] = $this->Upload->uploadImage($this->data['Product']['slide_image'] );
+            }else
+                unset($this->data['Product']['slide_image'] );
+                        
             if ($this->Product->saveAll($this->data, array('validate' => 'first'))) {
+                $this->Upload->deleteFiles(); //delete old files
                 $this->Session->setFlash(__('The product has been saved', true));
                 $this->redirect(array('action' => 'index'));
             } else {
@@ -160,7 +248,15 @@ class ProductsController extends AuthController {
             $this->redirect(array('action' => 'index'));
         }
         //set the component var filesToDelete with an array of files should be deleted.
-        $this->Upload->filesToDelete = $this->Product->Gal->find('list', array('fields' => 'Gal.image', 'conditions' => array('product_id' => $id)));
+        $this->Product->id = $id;
+	$this->Upload->filesToDelete = array(
+            $this->Product->field('project_image'), 
+            $this->Product->field('hot_image'), 
+            $this->Product->field('top_image'), 
+            $this->Product->field('middle_image'), 
+            $this->Product->field('bottom_image'), 
+            $this->Product->field('slide_image') 
+        );
         if ($this->Product->delete($id)) {
             $this->Upload->deleteFiles();
             $this->Session->setFlash(__('Product deleted', true));
