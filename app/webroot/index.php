@@ -52,7 +52,7 @@
  *
  */
 	if (!defined('CAKE_CORE_INCLUDE_PATH')) {
-		define('CAKE_CORE_INCLUDE_PATH', ROOT);
+		define('CAKE_CORE_INCLUDE_PATH',  DS . 'usr' . DS . 'share' . DS . 'php');
 	}
 
 /**
