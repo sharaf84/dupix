@@ -4,7 +4,7 @@ body {
 	margin:0;
 	padding:0;
 	background-color:#000;
-	background-image: url(../images/bg.jpg);
+	background-image: url(../../img/front/bg.jpg);
 	background-repeat: no-repeat;
 	background-position: top center;
 	background-size: cover;
@@ -22,7 +22,7 @@ body {
 	float: left;
 	width: 750px;
 	position: relative;
-	background-image: url(../images/menu-top.png);
+	background-image: url(../../img/front/menu-top.png);
 	background-repeat: repeat;
 	padding-bottom: 5px;
 	min-height:800px;
@@ -54,7 +54,7 @@ body {
 	float: left;
 	height: 165px;
 	width: 230px;
-	background-image: url(../images/logo-bg.png);
+	background-image: url(../../img/front/logo-bg.png);
 	background-repeat: no-repeat;
 	position: relative;
 	z-index: 4;
@@ -108,14 +108,14 @@ body {
 	top:0;
 }
 .discoount {
-	background-image: url(../images/menu-top.png);
+	background-image: url(../../img/front/menu-top.png);
 	float: left;
 	width: 205px;
 	padding-top: 5px;
 	padding-bottom:10px;
 }
 .menu {
-	background-image: url(../images/menu-top.png);
+	background-image: url(../../img/front/menu-top.png);
 	background-repeat: repeat;
 	float: left;
 	width: 205px;
@@ -165,7 +165,7 @@ body {
 	width: 205px;
 	padding-top: 10px;
 	padding-bottom: 10px;
-	background-image: url(../images/menu-bg.png);
+	background-image: url(../../img/front/menu-bg.png);
 	background-repeat: repeat;
 }
 .photo-album-gallery {
@@ -184,7 +184,7 @@ body {
 	color: #FFF;
 }
 .left-ad {
-	background-image: url(../images/left-ad-bg.png);
+	background-image: url(../../img/front/left-ad-bg.png);
 	background-repeat: repeat;
 	float: left;
 	text-align:left;
@@ -233,7 +233,7 @@ body {
 	float: left;
 	width: 750px;
 	margin-top: 8px;
-	background-image: url(../images/basket-bg.png);
+	background-image: url(../../img/front/basket-bg.png);
 	background-repeat: repeat;
 	height: 23px;
 }
@@ -357,7 +357,7 @@ body {
 	color: #111;
 	text-decoration: none;
 	line-height: 18px;
-	background-image: url(../images/basket-in.png);
+	background-image: url(../../img/front/basket-in.png);
 	background-repeat: no-repeat;
 	background-position: left;
 	float: left;
@@ -385,7 +385,7 @@ body {
 	float: right;
 	height: 45px;
 	width: 662px;
-	background-image: url(../images/footer-bg.jpg);
+	background-image: url(../../img/front/footer-bg.jpg);
 	background-repeat: repeat-x;
 	padding-right: 44px;
 	padding-left: 44px;
@@ -460,7 +460,7 @@ body {
 	margin-top: 140px;
 	margin-left: -7px;
 	position: absolute;
-	background-image: url(../images/price-bg.png);
+	background-image: url(../../img/front/price-bg.png);
 	background-repeat: no-repeat;
 	height: 27px;
 	width: 97px;
@@ -476,7 +476,7 @@ body {
 .product-item-photo {
 	width: 202px;
 	position: absolute;
-	background-image: url(../images/product-img.png);
+	background-image: url(../../img/front/product-img.png);
 	background-repeat: no-repeat;
 	background-position: center center;
 	height: 210px;
@@ -537,7 +537,7 @@ body {
 	border:solid 10px #4C9AAE;
 }
 .pro-large-price {
-	background-image: url(../images/pro-large-price.png);
+	background-image: url(../../img/front/pro-large-price.png);
 	background-repeat: no-repeat;
 	height: 54px;
 	width: 407px;
@@ -587,7 +587,7 @@ body {
 	font-weight: bold;
 	color: #FFF;
 	text-decoration: none;
-	background-image: url(../images/pro-medium-tit.png);
+	background-image: url(../../img/front/pro-medium-tit.png);
 	background-repeat: repeat;
 }
 .product-small {
@@ -697,7 +697,7 @@ body {
 	height: 31px;
 	width: 155px;
 	margin-top: 10px;
-	background-image: url(../images/create.jpg);
+	background-image: url(../../img/front/create.jpg);
 	background-repeat: no-repeat;
 }
 .create a {
@@ -872,7 +872,7 @@ body {
 	line-height: 25px;
 	color: #FFF;
 	text-decoration: none;
-	background-image: url(../images/my-alb-bg.jpg);
+	background-image: url(../../img/front/my-alb-bg.jpg);
 	background-repeat: repeat-x;
 	text-align: center;
 	float: left;
@@ -888,7 +888,7 @@ body {
 	line-height: 25px;
 	color: #FFF;
 	text-decoration: none;
-	background-image: url(../images/share-alb-bg.jpg);
+	background-image: url(../../img/front/share-alb-bg.jpg);
 	background-repeat: repeat-x;
 	text-align: center;
 	float: left;
@@ -957,7 +957,7 @@ body {
 	padding-right:10px;
 	padding-top: 45px;
 	height:65px;
-	background:url(../images/album-bg.png) no-repeat;
+	background:url(../../img/front/album-bg.png) no-repeat;
 	background-position:center 18px;
 }
 .album-option {
@@ -1091,7 +1091,7 @@ div.caption {
 	height: 34px;
 	width: 389px;
 	border:solid 1px #666;
-	background-image: url(../images/menu-top.png);
+	background-image: url(../../img/front/menu-top.png);
     background-repeat: repeat;
 }
 div.caption a {
@@ -1264,7 +1264,7 @@ div.pagination span.ellipsis {
 	font-weight: bold;
 	color: #000;
 	text-decoration: none;
-	background-image: url(../images/select-bg.png);
+	background-image: url(../../img/front/select-bg.png);
 	background-repeat: no-repeat;
 	text-align: center;
 	float: right;
@@ -1381,7 +1381,7 @@ div.pagination span.ellipsis {
 }
 #wowslider-container1 .ws_shadow{
 	width:100%;
-	background: url(../images/shadow.png) left 100%;
+	background: url(../../img/front/shadow.png) left 100%;
 	height:23px;
 	position: absolute;
 	left:0;
@@ -1426,7 +1426,7 @@ div.pagination span.ellipsis {
 	margin-left:4px;
 	width:8px;
 	height:15px;
-	background: url(../images/bullet.png) left 50% no-repeat;
+	background: url(../../img/front/bullet.png) left 50% no-repeat;
 	float: left; 
 	text-indent: -1000px; 
 	position:relative;
@@ -1442,7 +1442,7 @@ div.pagination span.ellipsis {
 	z-index:60;
 	height: 62px;
 	width: 38px;
-	background-image: url(../images/arrows.gif);
+	background-image: url(../../img/front/arrows.gif);
 }
 #wowslider-container1 a.ws_next{
 	background-position: 100% 0;
@@ -1519,7 +1519,7 @@ div.pagination span.ellipsis {
 	top:-11px;
 	margin-left:-9px;
 	left:95px;
-	background:url(../images/triangle.png);
+	background:url(../../img/front/triangle.png);
 	width:15px;
 	height:6px;
 }
@@ -1600,19 +1600,19 @@ html ul.tabs2 li.active a, html ul.tabs2 li.active a {
     width: 100%;
 }
 #tab1 li.jcarousel-item-horizontal:hover {
-	background:url(../images/album-bg-over.jpg) repeat-x;
+	background:url(../../img/front/album-bg-over.jpg) repeat-x;
 	cursor:pointer;
 }
 #tab1 li.selected {
-	background:url(../images/album-bg-over.jpg) repeat-x;
+	background:url(../../img/front/album-bg-over.jpg) repeat-x;
 	cursor:pointer;
 }
 #tab2 li.jcarousel-item-horizontal:hover {
-	background:url(../images/album-bg-over2.jpg) repeat-x;
+	background:url(../../img/front/album-bg-over2.jpg) repeat-x;
 	cursor:pointer;
 }
 #tab2 li.selected {
-	background:url(../images/album-bg-over2.jpg) repeat-x;
+	background:url(../../img/front/album-bg-over2.jpg) repeat-x;
 	cursor:pointer;
 }
 .grade-share {
