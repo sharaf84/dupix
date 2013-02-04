@@ -10,7 +10,7 @@ echo $this->Javascript->link(array('colorpicker/colorpicker', 'colorpicker/eye',
 	<?php
 		echo $this->Form->input('title');
 		echo $this->Form->input('color', array('id'=>'colorpickerField1', 'value'=>'E1088B'));
-		echo $this->Form->input('image', array('type'=>'file', 'label'=>'Image (343px * 250px)'));
+		echo $this->Form->input('image', array('type'=>'file', 'label'=>'Image (220px * 210px)'));
 		echo $this->Form->input('photo_print');
 		echo $this->Form->input('meta_title');
 		echo $this->Form->input('meta_keywords');

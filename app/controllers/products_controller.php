@@ -139,7 +139,7 @@ class ProductsController extends AuthController {
             $this->Product->create();
             if ($this->Product->saveAll($this->data, array('validate' => 'first'))) {
                 $this->Session->setFlash(__('The product has been saved', true));
-                $this->redirect(array('action' => 'index'));
+                //$this->redirect(array('action' => 'index'));
             } else {
                 $this->Session->setFlash(__('The product could not be saved. Please, try again.', true));
             }
@@ -205,7 +205,7 @@ class ProductsController extends AuthController {
                 array_push($this->Upload->filesToDelete, $this->Product->field('middle_image'));
                 $this->data['Product']['middle_image'] = $this->Upload->uploadImage($this->data['Product']['middle_image'] );
             }else
-                unset($this->data['Product']['hot_image'] );
+                unset($this->data['Product']['middle_image'] );
             
             if ($this->data['Product']['bottom_image']['name']) {
                 $this->Upload->masterImageWidth = 220;

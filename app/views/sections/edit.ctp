@@ -24,7 +24,7 @@ echo $this->Javascript->link(array('colorpicker/colorpicker', 'colorpicker/eye',
             ),
             'crop' => true
         ));
-        echo $this->Form->input('image', array('type' => 'file', 'label'=>'Image (343px * 250px)'));
+        echo $this->Form->input('image', array('type' => 'file', 'label'=>'Image (220px * 210px)'));
 		echo $this->Form->input('photo_print');
         echo $this->Form->input('meta_title');
         echo $this->Form->input('meta_keywords');

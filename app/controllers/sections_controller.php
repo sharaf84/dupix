@@ -37,8 +37,8 @@ class SectionsController extends AuthController {
 
     function add() {
         if (!empty($this->data)) {
-            $this->Upload->masterImageWidth = 343;
-            $this->Upload->masterImageHeight = 250;
+            $this->Upload->masterImageWidth = 220;
+            $this->Upload->masterImageHeight = 210;
             $this->Upload->resize = 1;
             $this->data['Section']['image'] = $this->Upload->uploadImage($this->data['Section']['image']);
             $this->Section->create();
@@ -60,8 +60,8 @@ class SectionsController extends AuthController {
             $this->Section->id = $id;
             //upload logo if exists
             if ($this->data['Section']['image']['name']) {
-                $this->Upload->masterImageWidth = 343;
-                $this->Upload->masterImageHeight = 250;
+                $this->Upload->masterImageWidth = 220;
+                $this->Upload->masterImageHeight = 210;
                 $this->Upload->resize = 1;
                 $this->Upload->filesToDelete = array($this->Section->field('image'));
                 $this->data['Section']['image'] = $this->Upload->uploadImage($this->data['Section']['image']);
