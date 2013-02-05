@@ -1,53 +1,41 @@
-<div id="content">
-
-	<div id="content_left">
-
-		<div class="menu_category">
-
-			<div class="link_title_category">
-				<a href="#">Categories</a>
-			</div>
-
-			<div class="link_details_category">
-				<?php foreach($sections as $section){?>
-				<a href="<?php echo $this->Session->read('Setting.url').'/categories/products/'.$section['Section']['id'];?>"><?php echo $section['Section']['title'];?></a>
-				<br />
-				<?php }?>
-			</div>
-
-		</div>
-
-	</div>
-
-	<div id="content_right">
-		
-		<div class="cats">
-			<?php 
-			$size = '';
-			$width = "343";
-			$height = "250";
-			foreach($sections as $section){
-				$color = (!empty($section['Section']['color']))?$section['Section']['color']:'E1088B';
-				if($section['Section']['position'] > 2){
-					$size = 'thumb_';
-					$width = "220";
-					$height = "160";
-				}
-			?>
-			<div class="cat">
-				<div class="cat_image">
-					<a href="<?php echo $this->Session->read('Setting.url').'/categories/products/'.$section['Section']['id'];?>">
-						<img src="<?php echo $this->Session->read('Setting.url').'/app/webroot/img/upload/'.$size.$section['Section']['image'];?>" width="<?php echo $width;?>" height="<?php echo $height;?>" />
-					</a>
-				</div>
-				<div class="cat_title" style="background-color: #<?php echo $color;?>; width: <?php echo $width;?>px">
-					<a href="<?php echo $this->Session->read('Setting.url').'/categories/products/'.$section['Section']['id'];?>">
-						<?php echo $section['Section']['title'];?>
-					</a>
-				</div>
-			</div>
-			<?php }?>			
-		</div>
-
-	</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        //Section view controll
+        $('.product-prev').insertAfter('.proSection:eq(1)');
+        $('.product-ad').insertAfter('.proSection:eq(1)');
+        if($('.proSection').length > 8){
+            $(('.proSection:gt(7)')).hide();
+            $('.product-more').show();
+        }
+        $('.product-more').click(function(){
+            $('.proSection:gt(1):lt(8)').hide();
+            $('.proSection:gt(7)').show();
+            $('.product-more').hide();
+            $('.product-prev').show();
+        });
+        $('.product-prev').click(function(){
+            $('.proSection:gt(1):lt(8)').show();
+            $('.proSection:gt(7)').hide();
+            $('.product-more').show();
+            $('.product-prev').hide();
+        });
+    });
+</script>
+<div id="contain">
+    <div id="container">
+        <?php 
+        foreach ($sections as $section) {
+        ?>
+        <a class="proSection" href="<?php echo $this->Session->read('Setting.url') . '/categories/products/' . $section['Section']['id']; ?>">
+            <div class="product-item" style="background-color: <?php echo '#'.$section['Section']['color'];?>;">
+                <div class="product-item-tit"><?php echo $section['Section']['title']; ?></div>
+                <div class="product-item-photo" style="background-image: <?php echo 'url('.$this->Session->read('Setting.url') .'/img/upload/'.$section['Section']['image'].')';?>;"></div>
+                <div class="product-item-price">100 LE</div>
+            </div>
+        </a>
+        <?php }?>        
+        <div class="product-ad"><a href="#"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/' ; ?>pro-ad.jpg" width="300" height="250" border="0" /></a></div>
+        <div class="product-prev" style="display: none;"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/' ; ?>prev.png" border="0" /></div>
+        <div class="product-more" style="display: none;"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/' ; ?>more.png" width="43" height="62" border="0" /></div>
+    </div>
 </div>

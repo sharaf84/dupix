@@ -155,9 +155,9 @@ class AppController extends Controller {
     }
 
     public function setFooterData() {
-        $this->loadModel('Section');
-        $this->Section->recursive = -1;
-        $this->set('sections', $this->Section->find('all'));
+//        $this->loadModel('Section');
+//        $this->Section->recursive = -1;
+//        $this->set('sections', $this->Section->find('all'));
     }
 
 }

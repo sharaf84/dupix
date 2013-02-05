@@ -5,9 +5,8 @@ class CategoriesController extends AppController {
 	public $uses = array('Section', 'Product');
 
 	function index(){
-		/*Sections sets at appController setFooterData() function.
 		$this->Section->recursive = -1;
-		$this->set('sections', $this->Section->find('all'));*/			
+		$this->set('sections', $this->Section->find('all'));			
 	}
 	
 	function products($sectionId = null, $redirect = true){		
