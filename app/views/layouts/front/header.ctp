@@ -77,8 +77,8 @@
                 <div class="menu-left" id="menu">
                     <div class="discoount"><a href="#"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>discount.jpg" width="205" height="134" border="0" /></a></div>
                     <div class="menu">
-                        <a href="index.php" class="current">Home</a>
-                        <a href="products.php">Products</a>
+                        <a href="<?php echo $this->Session->read('Setting.url'); ?>" class="current">Home</a>
+                        <a href="<?php echo $this->Session->read('Setting.url') . '/categories'; ?>">Products</a>
                         <a href="#">My DuPix</a>
                         <a href="#">Schools</a>
                         <a href="#">Photographers</a>

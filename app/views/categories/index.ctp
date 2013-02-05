@@ -25,12 +25,13 @@
     <div id="container">
         <?php 
         foreach ($sections as $section) {
+            $minPrice = !empty($minPrices[$section['Section']['id']])?$minPrices[$section['Section']['id']]:0;
         ?>
         <a class="proSection" href="<?php echo $this->Session->read('Setting.url') . '/categories/products/' . $section['Section']['id']; ?>">
             <div class="product-item" style="background-color: <?php echo '#'.$section['Section']['color'];?>;">
                 <div class="product-item-tit"><?php echo $section['Section']['title']; ?></div>
                 <div class="product-item-photo" style="background-image: <?php echo 'url('.$this->Session->read('Setting.url') .'/img/upload/'.$section['Section']['image'].')';?>;"></div>
-                <div class="product-item-price">100 LE</div>
+                <div class="product-item-price"><?php echo $minPrice;?> LE</div>
             </div>
         </a>
         <?php }?>        

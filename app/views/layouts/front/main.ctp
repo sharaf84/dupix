@@ -19,7 +19,7 @@
             echo $this->Html->meta('description', $metaDescription);
         echo $this->Html->meta('description', $this->Session->read('Setting.meta_description'));
         //CSS
-        echo $this->Html->css(array('front/style', 'colorbox/colorbox_ex3'));
+        echo $this->Html->css(array('front/style', 'front/style1', 'colorbox/colorbox_ex3'));
         //SCRIPTS
         echo $this->Html->scriptBlock("var siteUrl ='" . $this->Session->read('Setting.url') . "';"); //Define global var siteUrl
         echo $this->Javascript->link(array('front/jquery', 'colorbox/jquery.colorbox', 'front/ajax/members', 'front/animatedcollapse', 'front/jquery.jcarousel.min', 'front/all'));

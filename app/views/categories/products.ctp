@@ -1,55 +1,56 @@
-<?php if(!empty($products)){?>
-<div id="content">
-
-	<div id="content_left">
-
-		<div class="menu_category">
-
-			<div class="link_title_category">
-				<a href="#"><?php echo $products[0]['Section']['title'];?></a>
-			</div>
-
-			<div class="link_details_category">
-				<?php foreach($products as $product){?>
-				<a href="<?php echo $this->Session->read('Setting.url').'/categories/product/'.$product['Product']['id'];?>"><?php echo $product['Product']['title'];?></a>
-				<br />
-				<?php }?>
-			</div>
-
-		</div>
-
-	</div>
-
-	<div id="content_right">
-		
-		<div class="cats">			
-			<?php 
-			$size = 'medium_';
-			$width = $this->Session->read('Setting.medium_image_width');
-			$height = $this->Session->read('Setting.medium_image_height');
-			$color = (!empty($products[0]['Section']['color']))?$products[0]['Section']['color']:'E1088B';
-			foreach($products as $product){
-				if($product['Product']['position'] > 1){
-					$size = 'thumb_';
-					$width = $this->Session->read('Setting.thumb_width');
-					$height = $this->Session->read('Setting.thumb_height');
-				}
-			?>
-			<div class="cat">
-				<div class="cat_image">
-					<a href="<?php echo $this->Session->read('Setting.url').'/categories/product/'.$product['Product']['id'];?>">
-						<img src="<?php echo $this->Session->read('Setting.url').'/app/webroot/img/upload/'.$size.$product['Gal'][1]['image'];?>" width="<?php echo $width;?>" height="<?php echo $height;?>"/>
-					</a>
-				</div>
-				<div class="cat_title" style="background-color: #<?php echo $color;?>; width: <?php echo $width;?>px">
-					<a href="<?php echo $this->Session->read('Setting.url').'/categories/product/'.$product['Product']['id'];?>">
-						<?php echo $product['Product']['title'];?>
-					</a>
-				</div>
-			</div>
-			<?php }?>			
-		</div>
-
-	</div>
+<?php 
+if (!empty($products)) { 
+    $section = $products[0]['Section']['title'];
+    $color = '#'.$products[0]['Section']['color'];
+?>
+<style>
+    .img-border {
+        border: solid 10px <?php echo $color;?>;
+    }
+</style>
+<div id="contain">
+    <div id="container">
+        
+        <div class="product-menu"><a href="<?php echo $this->Session->read('Setting.url'); ?>">Home</a> &gt; <a href="<?php echo $this->Session->read('Setting.url') . '/categories'; ?>">Products</a> &gt; <a href="#"><?php echo $section;?></a></div>
+        
+        <div class="product-large">
+            <a href="<?php echo $this->Session->read('Setting.url') . '/categories/product/' . $products[0]['Product']['id']; ?>">
+                <div class="pro-large-price">
+                    <div class="price-value"><?php echo $products[0]['Product']['price'];?> LE</div>
+                    <div class="price-tit"><?php echo $products[0]['Product']['title'];?></div>
+                </div>
+                <img src="<?php echo $this->Session->read('Setting.url') . '/img/upload/' . $products[0]['Product']['top_image']; ?>" class="img-border" width="712" height="230" border="0" />
+            </a>
+        </div>
+        <?php 
+        array_shift($products);
+        if(!empty($products)){
+        ?>
+        <div class="product-medium">
+            <a href="<?php echo $this->Session->read('Setting.url') . '/categories/product/' . $products[0]['Product']['id']; ?>">
+                <div class="product-medium-desc"><?php echo $products[0]['Product']['title'];?> <?php echo $products[0]['Product']['price'];?> LE</div>
+                <img src="<?php echo $this->Session->read('Setting.url') . '/img/upload/' . $products[0]['Product']['middle_image']; ?>" class="img-border" width="402" height="230" border="0" />
+            </a>
+        </div>
+        <?php array_shift($products);}?>
+        
+        <div class="product-view-ad">
+            <a href="#"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/' ; ?>pro-ad.jpg" width="300" height="250" border="0" /></a>
+        </div>
+        
+        <?php foreach($products as $product){?>
+        <div class="product-small img-border">
+            <div class="product-small-photo"><img src="<?php echo $this->Session->read('Setting.url') . '/img/upload/' . $product['Product']['bottom_image']; ?>" width="220" height="137" border="0" /></div>
+            <div class="product-small-dtails">
+                <div class="product-small-tit"><?php echo $product['Product']['title'];?></div>
+                <div class="product-small-price">
+                    <div class="small-price-left">From <?php echo $product['Product']['price'];?> LE</div>
+                    <div class="small-price-right"><a href="product-details.php">> More</a></div>
+                </div>
+            </div>
+        </div>
+        <?php }?>
+        
+    </div>
 </div>
-<?php }else echo 'No dat found!';?>
+<?php }else echo '<div class="no_data">No dat found!</div>'; ?>

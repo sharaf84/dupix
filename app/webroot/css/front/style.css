@@ -651,7 +651,7 @@ body {
 	float: left;
 	width: 720px;
 	margin-top: 15px;
-	margin-left: 15px;
+	margin-right:10px;
 }
 .product-info-top {
 	float: left;
@@ -664,6 +664,7 @@ body {
 .product-info-top-right {
 	float: right;
 	width: 155px;
+	margin-right:10px;
 }
 .product-info-tit {
 	font-family: Arial, Helvetica, sans-serif;
@@ -1646,6 +1647,11 @@ html ul.tabs2 li.active a, html ul.tabs2 li.active a {
 .grade-items {
 	float: left;
 	margin-left: 20px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	line-height: 32px;
+	font-weight: bold;
+	color: #FFF;
 }
 .grade-items a {
 	font-family: Arial, Helvetica, sans-serif;
@@ -1654,4 +1660,35 @@ html ul.tabs2 li.active a, html ul.tabs2 li.active a {
 	font-weight: bold;
 	color: #FFF;
 	text-decoration: none;
+	padding:6px 4px 5px;
+}
+.grade-items a:hover {
+	background:#D7D81A;
+	color:#000;
+}
+.grade-items a.selected {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	line-height: 32px;
+	font-weight: bold;
+	background:#D7D81A;
+	color:#000;
+	text-decoration: none;
+	padding:6px 4px 5px;
+}
+.school-in-gallery-left {
+	float: left;
+	height: 510px;
+	width: 120px;
+	margin-bottom:5px;
+}
+.school-in-gallery {
+	float: left;
+	width: 735px;
+	margin-top: 10px;
+	margin-left: 9px;
+}
+.school-in-gallery-right {
+	float: left;
+	margin-left: 9px;
 }

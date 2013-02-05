@@ -2,7 +2,7 @@
 class HomeController extends AppController {	
 	
 	public $name = 'Home';
-	//public $uses = array('Gal', 'Video');
+	public $uses = null;
 
 	function index(){
 		//Set home gallery.
