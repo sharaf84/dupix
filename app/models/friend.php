@@ -18,7 +18,19 @@ class Friend extends AppModel {
     );
     
     var $hasMany = array(
-        
+//        'Album' => array(
+//            'className' => 'Album',
+//            'foreignKey' => 'friend_id',
+//            'dependent' => false,
+//            'conditions' => '',
+//            'fields' => '',
+//            'order' => '',
+//            'limit' => '',
+//            'offset' => '',
+//            'exclusive' => '',
+//            'finderQuery' => '',
+//            'counterQuery' => ''
+//    ),
         'Child' => array(
             'className' => 'Friend',
             'foreignKey' => 'parent_id',
@@ -32,6 +44,8 @@ class Friend extends AppModel {
             'finderQuery' => '',
             'counterQuery' => ''
         )
+        
+        
     );
 
 }
