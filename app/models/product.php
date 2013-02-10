@@ -23,7 +23,7 @@ class Product extends AppModel {
             'fields' => '',
             'order' => ''
         ),
-        'Parent' => array(
+        'Product_Parent' => array(
             'className' => 'Product',
             'foreignKey' => 'parent_id',
             'conditions' => '',
@@ -59,7 +59,7 @@ class Product extends AppModel {
             'finderQuery' => '',
             'counterQuery' => ''
         ),
-        'Child' => array(
+        'Product_Child' => array(
             'className' => 'Product',
             'foreignKey' => 'parent_id',
             'dependent' => false,

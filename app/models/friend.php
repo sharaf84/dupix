@@ -8,7 +8,7 @@ class Friend extends AppModel {
 
     var $belongsTo = array(
    
-        'Parent' => array(
+        'Friend_Parent' => array(
             'className' => 'Friend',
             'foreignKey' => 'parent_id',
             'conditions' => '',
@@ -17,9 +17,8 @@ class Friend extends AppModel {
         )
     );
     
-    var $hasMany = array(
-        
-        'Child' => array(
+    var $hasMany = array(        
+        'Friend_Child' => array(
             'className' => 'Friend',
             'foreignKey' => 'parent_id',
             'dependent' => false,

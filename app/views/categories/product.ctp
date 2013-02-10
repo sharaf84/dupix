@@ -21,7 +21,7 @@ if(!empty($product)){
                 <!-- MAIN CONTENT --> 
                 <div class="main-slider-content" style="width:720px; height:800px;">
                     <ul class="sliders-wrap-inner">
-                        <!-- Parent Product -->
+                        <!-- Product Parent -->
                         <li>
                             <img src="<?php echo $this->Session->read('Setting.url') . '/img/upload/'.$product['Product']['slide_image'] ; ?>" class="img-border" title="Newsflash 2" >           
                             <div class="slider-description">
@@ -39,8 +39,8 @@ if(!empty($product)){
                                 </div>
                             </div>
                         </li>
-                        <!-- Child Products -->
-                        <?php foreach($product['Child'] as $child){?>
+                        <!-- Products Childs -->
+                        <?php foreach($product['Product_Child'] as $child){?>
                         <li>
                             <img src="<?php echo $this->Session->read('Setting.url') . '/img/upload/'.$child['slide_image'] ; ?>" class="img-border" title="Newsflash 2" >           
                             <div class="slider-description">
@@ -68,7 +68,7 @@ if(!empty($product)){
                     <div class="navigator-wrapper">
                         <ul class="navigator-wrap-inner">
                             <li><img src="<?php echo $this->Session->read('Setting.url') . '/img/upload/'.$product['Product']['slide_image'] ; ?>" class="img-border" /></li>
-                            <?php foreach($product['Child'] as $child){?>
+                            <?php foreach($product['Product_Child'] as $child){?>
                             <li><img src="<?php echo $this->Session->read('Setting.url') . '/img/upload/'.$child['slide_image'] ; ?>" class="img-border" /></li>
                             <?php }?>
                         </ul>

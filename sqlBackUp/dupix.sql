@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 05, 2013 at 07:11 PM
+-- Generation Time: Feb 10, 2013 at 07:44 PM
 -- Server version: 5.5.28
 -- PHP Version: 5.3.10-1ubuntu3.4
 
@@ -55,14 +55,23 @@ CREATE TABLE IF NOT EXISTS `albums` (
   `member_id` int(10) unsigned NOT NULL DEFAULT '0',
   `friend_id` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `albums`
 --
 
 INSERT INTO `albums` (`id`, `title`, `tags`, `caption`, `access`, `share_type`, `password`, `owner_id`, `member_id`, `friend_id`) VALUES
-(1, 'Default', '', '', 0, 0, '', 0, 1, 0);
+(1, 'Default', '', '', 0, 0, '', 0, 1, 0),
+(3, 'Default', '', '', 0, 0, '', 0, 3, 0),
+(4, 'Default', '', '', 0, 0, '', 0, 4, 0),
+(5, 'Default', '', '', 0, 0, '', 0, 5, 0),
+(6, 'Default', '', '', 0, 0, '', 0, 6, 0),
+(7, 'Default', '', '', 0, 0, '', 0, 7, 0),
+(8, 'Default', '', '', 0, 0, '', 0, 8, 0),
+(9, 'Default', '', '', 0, 0, '', 0, 9, 0),
+(10, 'Default', '', '', 0, 0, '', 0, 10, 0),
+(11, 'Default', '', '', 0, 0, '', 0, 11, 0);
 
 -- --------------------------------------------------------
 
@@ -127,9 +136,10 @@ INSERT INTO `contents` (`id`, `title`, `link`, `body`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `friends` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
-  `parent_id` int(11) NOT NULL,
+  `parent_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `member_id` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
@@ -137,10 +147,10 @@ CREATE TABLE IF NOT EXISTS `friends` (
 -- Dumping data for table `friends`
 --
 
-INSERT INTO `friends` (`id`, `title`, `parent_id`) VALUES
-(1, 'f1', 0),
-(2, 'c1', 1),
-(3, 'c2', 1);
+INSERT INTO `friends` (`id`, `title`, `parent_id`, `member_id`) VALUES
+(1, 'f1', 0, 0),
+(2, 'c1', 1, 0),
+(3, 'c2', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -220,14 +230,16 @@ CREATE TABLE IF NOT EXISTS `members` (
   `last_login` datetime NOT NULL,
   `parent_id` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `members`
 --
 
 INSERT INTO `members` (`id`, `name`, `birthdate`, `gender`, `email`, `password`, `confirm_code`, `confirmed`, `confirmed_date`, `newsletter`, `type`, `last_login`, `parent_id`) VALUES
-(1, 'm1', '2013-01-15', 1, 'a.sharaf@shift.com.eg', '123', '50f59247-01a4-44d0-a971-13faa343de85', 1, '0000-00-00 00:00:00', 1, 1, '0000-00-00 00:00:00', 0);
+(3, 'Ahmed Sharaf', '0000-00-00', 1, 'a.sharaf@shift.com.eg', '123', '5112b119-cc0c-4ce7-ac4b-0ddf10737dc0', 1, '0000-00-00 00:00:00', 1, 0, '0000-00-00 00:00:00', 0),
+(10, 'Ahmed Sharaf', '0000-00-00', 1, 'sharaf.developer@gmail.com', '123', '5112d59a-fe40-421e-9dd0-172f10737dc0', 1, '0000-00-00 00:00:00', 1, 0, '0000-00-00 00:00:00', 0),
+(11, 'sharaf', '0000-00-00', 1, 'a.sharaf7@sthift.com.eg', '123', '5117d9c8-8ea0-4c02-8543-0db110737dc0', 0, '0000-00-00 00:00:00', 1, 0, '0000-00-00 00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -305,9 +317,9 @@ INSERT INTO `products` (`id`, `title`, `body`, `price`, `hits`, `project_image`,
 (15, 'Calendar Parent', '<p>any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;</p>', 500, 0, 'c9b45_gallery.jpg', 'ab926_pro_large.jpg', '86130_pro_medium.jpg', '987db_pro_medium.jpg', '9d3fb_gallery.jpg', '97bc4_discount.jpg', 1, 1, 100, 100, 1, 0, 0, 'Meta Title', 'Meta Keywords', 'Meta Description', 0, 0, 2, 0, 0),
 (16, 'Calendar Child', '<p>any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;</p>', 500, 0, '5179f_gallery.jpg', '64b34_pro_large.jpg', 'c288d_pro_medium.jpg', '6435e_pro_medium.jpg', '1b27b_gallery.jpg', '474ac_discount.jpg', 1, 1, 100, 100, 1, 0, 0, 'Meta Title', 'Meta Keywords', 'Meta Description', 0, 0, 2, 15, 0),
 (17, 'Photoprint Parent', '<p>any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;</p>', 400, 0, 'e6955_gallery.jpg', '84d27_pro_large.jpg', '05145_pro_medium.jpg', '3c74f_pro_medium.jpg', 'e508e_gallery.jpg', 'ec535_discount.jpg', 1, 20, 100, 100, 1, 0, 0, 'Meta Title', 'Meta Keywords', 'Meta Description', 0, 0, 3, 0, 0),
-(18, 'Mug Parent', '<p>any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;</p>', 100, 0, '91dfb_gallery.jpg', 'a8fa1_pro_large.jpg', 'a1956_pro_medium.jpg', '707b9_pro_medium.jpg', '63d90_gallery.jpg', 'e10f5_discount.jpg', 1, 1, 100, 100, 1, 0, 0, 'Meta Title', 'Meta Keywords', 'Meta Description', 0, 0, 1, 0, 0),
-(19, 'Mug Parent', '<p>any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;</p>', 100, 0, '070b3_gallery.jpg', '625d3_pro_large.jpg', '933fc_pro_medium.jpg', 'f3cf5_pro_medium.jpg', '0c4f9_gallery.jpg', 'e299e_discount.jpg', 1, 1, 100, 100, 1, 0, 0, 'Meta Title', 'Meta Keywords', 'Meta Description', 0, 0, 1, 0, 0),
-(20, 'Mug Parent', '<p>any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;</p>', 100, 0, '9b36c_gallery.jpg', '31618_pro_large.jpg', '337b6_pro_medium.jpg', '986ce_pro_medium.jpg', '63db2_gallery.jpg', '30f93_discount.jpg', 1, 1, 100, 100, 1, 0, 0, 'Meta Title', 'Meta Keywords', 'Meta Description', 0, 0, 1, 0, 0),
+(18, 'T-shirt1 Parent', '<p>any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;</p>', 100, 0, '91dfb_gallery.jpg', 'a8fa1_pro_large.jpg', 'a1956_pro_medium.jpg', '707b9_pro_medium.jpg', '63d90_gallery.jpg', 'e10f5_discount.jpg', 1, 1, 100, 100, 1, 0, 0, 'Meta Title', 'Meta Keywords', 'Meta Description', 0, 0, 4, 0, 0),
+(19, 'T-shirt2 Parent', '<p>any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;</p>', 100, 0, '070b3_gallery.jpg', '625d3_pro_large.jpg', '933fc_pro_medium.jpg', 'f3cf5_pro_medium.jpg', '0c4f9_gallery.jpg', 'e299e_discount.jpg', 1, 1, 100, 100, 1, 0, 0, 'Meta Title', 'Meta Keywords', 'Meta Description', 0, 0, 4, 0, 0),
+(20, 'Clothing Parent ', '<p>any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;</p>', 100, 0, '9b36c_gallery.jpg', '31618_pro_large.jpg', '337b6_pro_medium.jpg', '986ce_pro_medium.jpg', '63db2_gallery.jpg', '30f93_discount.jpg', 1, 1, 100, 100, 1, 0, 0, 'Meta Title', 'Meta Keywords', 'Meta Description', 0, 0, 9, 0, 0),
 (21, 'Mug Parent', '<p>any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;</p>', 100, 0, '387b5_gallery.jpg', 'cb04f_pro_large.jpg', '6e889_pro_medium.jpg', 'edb34_pro_medium.jpg', '9002f_gallery.jpg', '4018c_discount.jpg', 1, 1, 100, 100, 1, 0, 0, 'Meta Title', 'Meta Keywords', 'Meta Description', 0, 0, 1, 0, 0),
 (22, 'Mug Parent', '<p>any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;any description here,&nbsp;</p>', 100, 0, 'c803f_gallery.jpg', '0f8af_pro_large.jpg', '349ed_pro_medium.jpg', 'b6306_pro_medium.jpg', 'a7433_gallery.jpg', '82b80_discount.jpg', 1, 1, 100, 100, 1, 0, 0, 'Meta Title', 'Meta Keywords', 'Meta Description', 0, 0, 1, 0, 0);
 
@@ -452,7 +464,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
 --
 
 INSERT INTO `settings` (`id`, `url`, `email`, `title`, `footer`, `meta_keywords`, `meta_description`, `info`, `file_types`, `image_types`, `max_upload_size`, `resize`, `max_image_width`, `master_image_width`, `master_image_height`, `large_image_width`, `large_image_height`, `medium_image_width`, `medium_image_height`, `thumb_width`, `thumb_height`, `video_width`, `video_height`, `limit`) VALUES
-(1, 'http://dupix.local', 'sharaf@localhost', 'Dupix', '&copy; sh1ft.net', 'Subscription', 'Our company details', 'Our company info', 'zip,rar,pdf,doc,flv', 'jpeg,jpg,gif,png', 20, 3, 1000, 800, 500, 883, 402, 710, 380, 220, 160, 420, 222, 20);
+(1, 'http://dupix.local', 'sharaf@localhost.com', 'Dupix', '&copy; sh1ft.net', 'Subscription', 'Our company details', 'Our company info', 'zip,rar,pdf,doc,flv', 'jpeg,jpg,gif,png', 20, 3, 1000, 800, 500, 883, 402, 710, 380, 220, 160, 420, 222, 20);
 
 -- --------------------------------------------------------
 
@@ -478,7 +490,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `gender`, `email`, `image`, `username`, `password`, `group_id`) VALUES
-(1, 'ahmed sharaf', 1, 'a.sharaf@be-capital.com', '', 'admin', '88326122b923be10c6b1dbfe118867c886b15c49', 0);
+(1, 'ahmed sharaf', 1, 'a.sharaf@be-capital.com', '', 'admin', '0f7d73bf447d0404bfc31659790718b9642fd1d2', 0);
 
 -- --------------------------------------------------------
 
