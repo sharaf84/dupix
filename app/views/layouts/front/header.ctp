@@ -80,7 +80,7 @@
                         <a href="<?php echo $this->Session->read('Setting.url'); ?>" class="current">Home</a>
                         <a href="<?php echo $this->Session->read('Setting.url') . '/categories'; ?>">Products</a>
                         <a href="#">My DuPix</a>
-                        <a href="#">Schools</a>
+                        <a href="<?php echo $this->Session->read('Setting.url') . '/schools'; ?>">Schools</a>
                         <a href="#">Photographers</a>
                         <a href="#">E-Store</a>
                         <a href="#">About Us</a>

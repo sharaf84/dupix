@@ -49,16 +49,46 @@ class Member extends AppModel {
 	}
 	
 	
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
-//        var $belongsTo = array(
-//                        'Parentmem' => array(
-//                                'className' => 'Member',
-//                                'foreignKey' => 'parent_id',
-//                        )
-//                );
+     var $belongsTo = array(
+
+            'Parent' => array(
+                'className' => 'Member',
+                'foreignKey' => 'parent_id',
+                'conditions' => '',
+                'fields' => '',
+                'order' => ''
+            ),
+            
+        );
 	var $hasMany = array(
 		'Album' => array(
 			'className' => 'Album',
+			'foreignKey' => 'member_id',
+			'dependent' => true,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+		'Event' => array(
+			'className' => 'Event',
+			'foreignKey' => 'member_id',
+			'dependent' => true,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+		'Friend' => array(
+			'className' => 'Friend',
 			'foreignKey' => 'member_id',
 			'dependent' => true,
 			'conditions' => '',
@@ -125,6 +155,19 @@ class Member extends AppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
+            'Child' => array(
+                'className' => 'Member',
+                'foreignKey' => 'parent_id',
+                'dependent' => false,
+                'conditions' => '',
+                'fields' => '',
+                'order' => '',
+                'limit' => '',
+                'offset' => '',
+                'exclusive' => '',
+                'finderQuery' => '',
+                'counterQuery' => ''
+            )
             
 //               'Childmem' => array(
 //                            'className' => 'Member',

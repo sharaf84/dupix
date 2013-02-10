@@ -14,23 +14,46 @@ class Friend extends AppModel {
             'conditions' => '',
             'fields' => '',
             'order' => ''
-        )
+        ),
+        'Member' => array(
+			'className' => 'Member',
+			'foreignKey' => 'member_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		)
     );
     
     var $hasMany = array(
-//        'Album' => array(
-//            'className' => 'Album',
-//            'foreignKey' => 'friend_id',
-//            'dependent' => false,
-//            'conditions' => '',
-//            'fields' => '',
-//            'order' => '',
-//            'limit' => '',
-//            'offset' => '',
-//            'exclusive' => '',
-//            'finderQuery' => '',
-//            'counterQuery' => ''
-//    ),
+//            'Album' => array(
+//                'className' => 'Album',
+//                'foreignKey' => 'friend_id',
+//                'dependent' => false,
+//                'conditions' => '',
+//                'fields' => '',
+//                'order' => '',
+//                'limit' => '',
+//                'offset' => '',
+//                'exclusive' => '',
+//                'finderQuery' => '',
+//                'counterQuery' => ''
+//        ),
+//            'Owner' => array(
+//                'className' => 'Album',
+//                'foreignKey' => 'owner_id',
+//                'dependent' => false,
+//                'conditions' => '',
+//                'fields' => '',
+//                'order' => '',
+//                'limit' => '',
+//                'offset' => '',
+//                'exclusive' => '',
+//                'finderQuery' => '',
+//                'counterQuery' => ''
+//        ),
+//        
+        
+        
         'Child' => array(
             'className' => 'Friend',
             'foreignKey' => 'parent_id',

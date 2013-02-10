@@ -19,6 +19,13 @@ class Album extends AppModel {
 //			'conditions' => '',
 //			'fields' => '',
 //			'order' => ''
+//		),
+//		'Owner' => array(
+//			'className' => 'Friend',
+//			'foreignKey' => 'owner_id',
+//			'conditions' => '',
+//			'fields' => '',
+//			'order' => ''
 //		)
 	);
 

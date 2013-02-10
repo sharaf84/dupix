@@ -11,22 +11,22 @@
 	echo $this->Html->css('backend/style');
 	echo $this->Html->css('backend/dropdown');
 	echo $this->Html->css('backend/prettify');
-	echo $this->Html->css('backend/jquery.multiselect');
-	echo $this->Html->css('backend/jquery.multiselect.filter');
+	//echo $this->Html->css('backend/jquery.multiselect');
+	//echo $this->Html->css('backend/jquery.multiselect.filter');
 	//SCRIPTS
 	echo $this->Html->scriptBlock("var siteUrl ='".$this->Session->read('Setting.url')."';");//Define global var siteUrl
-	echo $this->Javascript->link('libs/jquery');
+//	echo $this->Javascript->link('libs/jquery');
 	echo $scripts_for_layout;
 	
         ?>
         <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css" />
         
-<!--        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>-->
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
         <?php
         echo $this->Javascript->link('backend/all');
-	echo $this->Javascript->link('backend/jquery.multiselect');
-	echo $this->Javascript->link('backend/jquery.multiselect.filter');
+//	echo $this->Javascript->link('backend/jquery.multiselect');
+//	echo $this->Javascript->link('backend/jquery.multiselect.filter');
 	echo $this->Javascript->link('backend/prettify');
 	?>
 </head>

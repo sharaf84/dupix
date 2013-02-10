@@ -5,6 +5,7 @@
 	<?php
 		echo $this->Form->input('id');
 		echo $this->Form->input('name');
+                echo $this->Form->input('description');
 		echo $this->Form->input('birthdate');
 		echo $this->Form->input('gender', array('type'=>'radio', 'options'=>array('Female', 'Male')));
 		echo $this->Form->input('email');
