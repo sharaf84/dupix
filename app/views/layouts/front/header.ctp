@@ -1,3 +1,11 @@
+<script>
+    $(document).ready(function(){
+//        $.colorbox({
+//            html: "<p>Hsdgahdfskg jsliaghls dflsiud ghaldig</p>",
+//            width: '50%'
+//        });
+    });
+</script>
 <?php if (empty($memberCookie)) { ?>
     <!-- This contains the hidden content for inline calls -->
     <div style='display:none'>
@@ -14,7 +22,7 @@
                         echo $this->Form->input('remember', array('type' => 'checkbox', 'label' => 'Remember me'));
                         ?>
                         <div class="forgot"><a class="inline" href="#forgotForm">Forgot your password?</a></div>
-                        <div class="join-us"><a class="inline" href="#joinForm">Not a member? Join us!</a></div>
+                        <div class="join-us"><a class="inlineJoin" href="#joinForm">Not a member? Join us!</a></div>
                     </div>
                 </fieldset>
                 <?php echo $this->Form->end(__('Log In', true)); ?>
@@ -47,12 +55,12 @@
                         echo $this->Form->input('password', array('label' => 'Password<span> *</span>'));
                         echo $this->Form->input('confirm_password', array('type' => 'password', 'label' => 'Confirm Password<span> *</span>'));
                         //echo $this->Form->input('gender', array('type'=>'radio', 'options'=>array('Female', 'Male')));
-                        echo $this->Form->input('birthdate', array('label' => 'Birthday', 'minYear' => (date('Y') - 90), 'maxYear' => date('Y'), 'empty' => true));
-                        echo $this->Form->input('phone');
-                        echo $this->Lang->countrySelect('Member.country', array('default' => ''));
-                        echo $this->Form->input('city');
-                        echo $this->Form->input('area');
-                        echo $this->Form->input('address');
+                        //echo $this->Form->input('birthdate', array('label' => 'Birthday', 'minYear' => (date('Y') - 90), 'maxYear' => date('Y'), 'empty' => true));
+                        //echo $this->Form->input('phone');
+                        //echo $this->Lang->countrySelect('Member.country', array('default' => ''));
+                        //echo $this->Form->input('city');
+                        //echo $this->Form->input('area');
+                        //echo $this->Form->input('address');
                         //echo $this->Form->input('newsletter');												
                         ?>
                     </div>
@@ -97,14 +105,17 @@
         <div class="header-right">
             <div class="header-right-top">
                 <div class="buttons">
-                    <a href="#"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>singin.jpg" width="34" height="37" border="0" /></a>
-                    <a href="#"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>singup.jpg" width="38" height="38" border="0" /></a>
+                    <?php if(empty($memberCookie)){?>
+                    <a href="#loginForm" class="inline"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>singin.jpg" width="34" height="37" border="0" /></a>
+                    <a href="#joinForm" class="inlineJoin"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>singup.jpg" width="38" height="38" border="0" /></a>
+                    <?php }?>
                     <a href="#"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>share.jpg" width="31" height="39" border="0" /></a>
                 </div>
                 <div class="slogan"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>slogan.jpg" width="178" height="17" border="0" /></div>
                 <div class="facebook"><a href="#"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>face.jpg" width="84" height="25" border="0" /></a></div>
                 <div class="sponser"><a href="#"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>samsung.jpg" width="191" height="66" border="0" /></a></div>
             </div>
+            <?php if($this->name == 'Home'){?>
             <div class="header-right-bottom">
                 <div class="main-buttons">
                     <a href="javascript:animatedcollapse.toggle('menu-stores')"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>stores.png" border="0" /></a>
@@ -118,17 +129,28 @@
                     </div>
                     <img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>schools.png" border="0" />
                 </div>
+                <?php if(!empty($memberCookie)){?>
                 <div class="basket">
-                    <div class="basket-user-name">Hello,  Ahmed Mostafa</div>
+                    <div class="basket-user-name">Hello, <?php echo $memberCookie['name'];?></div>
                     <div class="basket-details">
                         <div class="basket-details-left">
                             <div class="basket-view"><a href="#">View Basket (0)</a></div>
-                            <div class="basket-signout"><a href="#">SIGN OUT</a></div>
+                            <div class="basket-signout"><a href="<?php echo $this->Session->read('Setting.url') . '/profile/logout'; ?>">SIGN OUT</a></div>
                         </div>
                         <div class="basket-details-right"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>basket.jpg" width="35" height="30" border="0" /></div>
                     </div>
                 </div>
+                <?php }?>
             </div>
+            <?php }else{?>
+            <?php if(!empty($memberCookie)){?>
+            <div class="header-right-bottom-in">
+                <div class="basket-user-name-in">Hello,  <?php echo $memberCookie['name'];?></div>
+                <div class="basket-view-in"><a href="#">View Basket (0)</a></div>
+                <div class="basket-signout-in"><a href="<?php echo $this->Session->read('Setting.url') . '/profile/logout'; ?>">SIGN OUT</a></div>
+            </div>
+            <?php }?>
+            <?php }?>
         </div>
     </div>
 </div>

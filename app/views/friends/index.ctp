@@ -52,7 +52,7 @@ echo $this->Javascript->link('dragdrop/main', false);
                                     </td>
                                 </tr>
                             </table>
-                            <?php foreach($friend['Child'] as $child){?>
+                            <?php foreach($friend['Friend_Child'] as $child){?>
                                 <table class="<?php echo 'child_'.$friend['Friend']['id']?>" cellpadding="0" cellspacing="0" style="width: 850px; margin-bottom:0px; float: right; display: none;">
                                     <tr<?php echo $class; ?>>
                                         <td style="width: 30px;"><?php echo $child['id']; ?>&nbsp;</td>

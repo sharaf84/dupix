@@ -7,8 +7,7 @@ class Friend extends AppModel {
     //The Associations below have been created with all possible keys, those that are not needed can be removed
 
     var $belongsTo = array(
-   
-        'Parent' => array(
+        'Friend_Parent' => array(
             'className' => 'Friend',
             'foreignKey' => 'parent_id',
             'conditions' => '',
@@ -16,31 +15,28 @@ class Friend extends AppModel {
             'order' => ''
         ),
         'Member' => array(
-			'className' => 'Member',
-			'foreignKey' => 'member_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		)
+            'className' => 'Member',
+            'foreignKey' => 'member_id',
+            'conditions' => '',
+            'fields' => '',
+            'order' => ''
+        )
     );
-    
     var $hasMany = array(
-            'Album' => array(
-                'className' => 'Album',
-                'foreignKey' => 'friend_id',
-                'dependent' => false,
-                'conditions' => '',
-                'fields' => '',
-                'order' => '',
-                'limit' => '',
-                'offset' => '',
-                'exclusive' => '',
-                'finderQuery' => '',
-                'counterQuery' => ''
+        'Album' => array(
+            'className' => 'Album',
+            'foreignKey' => 'friend_id',
+            'dependent' => false,
+            'conditions' => '',
+            'fields' => '',
+            'order' => '',
+            'limit' => '',
+            'offset' => '',
+            'exclusive' => '',
+            'finderQuery' => '',
+            'counterQuery' => ''
         ),
-
-        
-        'Child' => array(
+        'Friend_Child' => array(
             'className' => 'Friend',
             'foreignKey' => 'parent_id',
             'dependent' => false,
@@ -53,8 +49,6 @@ class Friend extends AppModel {
             'finderQuery' => '',
             'counterQuery' => ''
         )
-        
-        
     );
 
 }

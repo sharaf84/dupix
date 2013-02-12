@@ -25,8 +25,6 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
         <?php
         echo $this->Javascript->link('backend/all');
-//	echo $this->Javascript->link('backend/jquery.multiselect');
-//	echo $this->Javascript->link('backend/jquery.multiselect.filter');
 	echo $this->Javascript->link('backend/prettify');
 	?>
 </head>

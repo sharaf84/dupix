@@ -16,7 +16,7 @@ class FriendsController extends AuthController {
         );
 
         //set products to view
-        $this->Friend->recursive = -1;
+        $this->Friend->recursive = 1;
         $this->set('friends', $this->paginate());
         //get sections and set $this->data to use in filtering form.
         if ($this->Session->check('conditions') && is_array($this->Session->read('conditions')))
@@ -47,9 +47,8 @@ class FriendsController extends AuthController {
         
         if($parentId)
             $this->data['Friend']['parent_id'] = $parentId;
-        
-        $this->set('members', $this->Member->find('all'));
-        $this->set(compact('parents'));
+        $members = $this->Friend->Member->find('list');
+        $this->set(compact('parents', 'members'));
     }
 
     function edit($id = null) {
@@ -72,8 +71,8 @@ class FriendsController extends AuthController {
             $this->data = $this->Friend->read(null, $id);
         }
         $parents = $this->Friend->find('list', array('conditions'=>array('Friend.parent_id' => 0)));
-        $this->set('members', $this->Member->find('all'));
-        $this->set(compact('parents'));
+        $members = $this->Friend->Member->find('list');
+        $this->set(compact('parents', 'members'));
     }
 
     function delete($id = null) {

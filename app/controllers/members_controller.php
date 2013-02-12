@@ -5,7 +5,7 @@ class MembersController extends AuthController {
 	var $name = 'Members';
 
 	function index() {
-		$this->Member->recursive = 0;
+		$this->Member->recursive = 1;
 		$this->set('members', $this->paginate());
 	}
 

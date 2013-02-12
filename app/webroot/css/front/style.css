@@ -1692,3 +1692,8 @@ html ul.tabs2 li.active a, html ul.tabs2 li.active a {
 	float: left;
 	margin-left: 9px;
 }
+
+/*Sharaf*/
+#flashMessage{
+    color: #ffffff;
+}
