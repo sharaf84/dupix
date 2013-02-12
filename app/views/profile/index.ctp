@@ -1,80 +1,61 @@
+<!--<div id="content">
+    <div id="content_left">
+<?php //include_once ('left_albums.ctp'); ?>
+    </div>
+    <div id="content_right">
+<?php
+//        include_once ('album_imgs.ctp');
+//        if (($this->action == 'createProject') || ($this->action == 'editProject'))
+//            include_once ('create_project.ctp');
+?>
+    </div>
+</div>-->
+<?php
+echo $this->Javascript->link(
+        array(
+    'front/jquery.jcarousel.min',
+    'front/jquery.history',
+    'front/jquery.galleriffic',
+    'front/jquery.galleriffic.custom',
+    'front/jquery.opacityrollover',
+    'ajaxupload/jquery.html5.upload',
+    'ajaxupload/jquery.html5.upload.custom'
+        )
+        , false
+);
+?>
 <script type="text/javascript">
-	$(document).ready(function(){
-		//$("#albumsLinks a:first").addClass('current')
-	});
-	
+    document.write('<style>.noscript { display: none; }</style>');
+    $(document).ready(function(){
+        //any code
+    });
+    
+    
 </script>
 
-<!-- This contains the hidden content for inline calls -->
-<div style='display:none'>
-	
-	<div id='addAlbum' style='padding:10px; background:#fff; height: 100px;'>
-		<div class="albums form">
-			<?php echo $this->Form->create('Album', array('url'=>$this->Session->read('Setting.url').'/profile/addAlbum', 'id'=>'addAlbumForm'));?>
-			<fieldset>
-		 		<legend><?php __('Add New Album');?></legend>
-			<?php echo $this->Form->input('title');?>
-			</fieldset>
-			<?php echo $this->Form->end(__('Add', true));?>
-			<div id="albumLoading" class="ajaxLoading"></div>
-			<div id="albumResult" class="ajaxResult"></div>
-		</div>
-	</div>
-	<?php 
-	if($albumId){
-	?>
-	<div id='uploadImages' style='padding: 10px; background: #fff;'>
-		<fieldset>
-	 		<legend><?php __('Upload Images'); ?></legend>
-			<?php echo $this->element('backend/multiple_img_upload', array('albumId'=>$albumId));?>
-		</fieldset>
-	</div>
-	<?php }?>
-</div>
-<div id="content">
-	<div id="content_left">
 
-		<div class="menu_category">
 
-			<div class="link_title_category">
-				<a href="#">My Albums</a>
-			</div>
-			
-			<div class="link_details_category">
-				<div class="albumsLinks">
-					<?php 
-					foreach($member['Album'] as $album){
-					?>
-					<div class="albumLink" id="album<?php echo $album['id'];?>">
-						<a href="<?php echo $this->Session->read('Setting.url').'/profile/index/album_id:'.$album['id'];?>" class="<?php echo ($albumId == $album['id'])?'current':'';?>">
-							<?php echo $album['title'];?>
-						</a>
-						<input type="text" value="<?php echo $album['title'];?>">
-						<div class="actionsIcons">
-							<div class="editIcon" title="Edit" onclick="editAlbum('<?php echo $album['id'];?>', $(this));"></div>
-							<div class="deleteIcon" title="Delete" onclick="deleteAlbum('<?php echo $album['id'];?>', $(this));"></div>
-						</div>
-					</div>
-					<?php }?>
-				</div>
-				<div class="albumsActions">
-					<br />
-					<a href="#" class='showIcons' onclick="$('.actionsIcons').slideToggle();">Edit/Delete</a>
-					<br />
-					<a href="#addAlbum" class='inline' ><strong>Add New Album</strong></a>
-					<br />
-					<a href="#uploadImages" class="inline"><strong>Upload Images</strong></a>
-					<br />
-				</div>
-			</div>
+<div id="contain">
+    <div id="container">
 
-		</div>
+        <div class="profile-photos">
+            <div class="profile-photos-left">
+                <div class="profile-pesonal-img"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>personal.jpg" width="180" height="180" border="0" /></div>
+                <div class="profile-pesonal-name"><?php echo $member['Member']['name']; ?></div>
+            </div>
+            <div class="profile-photos-right">
+                <div class="profile-cover-img"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>cover.jpg" width="505" height="180" border="0" /></div>
+                <div class="profile-menu"><a href="#">Create new Album</a> |  <input type="file" multiple="multiple" id="upload_field"/> | <a href="#addImage" id="addImageLink2">Upload a Photo</a> |   <a href="#removeImageByIndex" id="removeImageByIndexLink">Delete Photo(s)</a> </div>
+            </div>
+        </div>
 
-	</div>
-	<div id="content_right">
-		<div id="albumImgs">
-			<?php include_once ('album_imgs.ctp');?>
-		</div>
-	</div>
-	
+        <?php include_once ('albums.ctp'); ?>
+
+        <?php
+        include_once ('album_imgs.ctp');
+        if (($this->action == 'createProject') || ($this->action == 'editProject'))
+            include_once ('create_project.ctp');
+        ?>
+
+    </div>
 </div>
