@@ -44,11 +44,11 @@
 </div>
 <div id="front_logo">
 	<a href="<?php echo $this->Session->read('Setting.url');?>" target="_blank">
-		<?php echo '<span style="font-size: 40px;font-weight: bold;">Dupix</span>';//$this->Html->image('backend/logo.jpg', array('title'=> __('The Home Page', true), 'border' => '0'));?>
+		<?php echo $this->Html->image('front/logo.png', array('title'=> __('The Home Page', true), 'border' => '0'));?>
     </a>
 </div>
 <?php if(($this->action != 'login')){?>
-<div id="title"><?php echo 'Welcome to Dupix CMS';//.$this->Session->read('Setting.title').' CMS';?>
+<div id="title"><?php echo 'Welcome to '.$this->Session->read('Setting.title').' CMS';?>
 	<div style=" float:right; margin-right:15px; width:200px; font:Arial, Helvetica, sans-serif; font-size:14px; font-weight:bold; margin-top:20px;">
     <?php
 	echo 'Hello, '. $this->Session->read('userInfo.User.username').': ';

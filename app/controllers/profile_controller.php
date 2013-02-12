@@ -6,24 +6,22 @@ class ProfileController extends AppController {
     public $uses = array('Member');
     public $components = array('Email');
     public $currentMember = null;
+    
+    function beforeFilter() {
+        parent::beforeFilter();
+        $this->setCurrentMember();
+    }
 
-    function setCurrentMember() {
+    protected function setCurrentMember() {
         $this->Member->recursive = 1;
         $this->currentMember = $this->Member->read(null, $this->Cookie->read('Member.id'));
     }
 
-    function display() {
-        $this->setCurrentMember();
+    function index() {
         $this->set('member', $this->currentMember);
-        $this->render('display');
     }
 
     /* Albums Functions */
-
-    //view albums
-    function albums() {
-        $this->display();
-    }
 
     function albumImgs($albumId = null) {
         $this->Member->Album->recursive = 1;

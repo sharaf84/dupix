@@ -148,7 +148,7 @@ class AppController extends Controller {
         return $arr;
     }
 
-    public function multipleImgUpload($albumId = null) {
+    public function flashImgUpload($albumId = null) {
         $this->autoRender = false;
         if ($albumId && $this->relatedToMember('Album', $albumId)) {
             set_time_limit(240);
@@ -171,6 +171,21 @@ class AppController extends Controller {
             return "status=1";
         }
         return "status=0";
+    }
+    
+    public function ajaxImgUpload($albumId = null) {
+        $this->autoRender = false;
+        if ($albumId && $this->relatedToMember('Album', $albumId)) {
+            set_time_limit(240);
+            $this->loadModel('Gal');
+            $gal = array('album_id' => $albumId);
+            $this->Upload->resize = 3;
+            $gal['image'] = $this->Upload->uploadImage( $_FILES['uploaded_file']);
+            $this->Gal->create();
+            $this->Gal->save($gal);
+            echo $gal['image'];
+        }
+        echo false;
     }
 
     //cheks if (Album, Cart, ...or any other belongsTo relation) reletd to current member.  
