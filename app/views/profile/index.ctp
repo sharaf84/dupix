@@ -1,27 +1,15 @@
-<!--<div id="content">
-    <div id="content_left">
-<?php //include_once ('left_albums.ctp'); ?>
-    </div>
-    <div id="content_right">
-<?php
-//        include_once ('album_imgs.ctp');
-//        if (($this->action == 'createProject') || ($this->action == 'editProject'))
-//            include_once ('create_project.ctp');
-?>
-    </div>
-</div>-->
 <?php
 echo $this->Javascript->link(
-        array(
-    'front/jquery.jcarousel.min',
-    'front/jquery.history',
-    'front/jquery.galleriffic',
-    'front/jquery.galleriffic.custom',
-    'front/jquery.opacityrollover',
-    'ajaxupload/jquery.html5.upload',
-    'ajaxupload/jquery.html5.upload.custom'
-        )
-        , false
+    array(
+        'ajaxupload/jquery.html5.upload',
+        //'ajaxupload/jquery.html5.upload.custom' //all code added to => 'front/jquery.galleriffic.custom'
+        'front/jquery.jcarousel.min',
+        'front/jquery.history',
+        'front/jquery.galleriffic',
+        'front/jquery.galleriffic.custom',
+        'front/jquery.opacityrollover',
+    )
+    , false
 );
 ?>
 <script type="text/javascript">
@@ -29,12 +17,7 @@ echo $this->Javascript->link(
     $(document).ready(function(){
         //any code
     });
-    
-    
 </script>
-
-
-
 <div id="contain">
     <div id="container">
 

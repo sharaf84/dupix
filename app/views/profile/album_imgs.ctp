@@ -1,53 +1,13 @@
-<?php if ($this->action == 'albums'){?>
-	
 <script type="text/javascript">
-	$(document).ready(function(){
-		//get first album imgs
-		//getAlbumImgs(getFirstAlbumId());
-	});
-	
-	function showImg(obj){
-		if(obj.length == 0){
-			$('#inAlbums').hide();
-		}else{
-			$('#inAlbums').show();
-			$('.panel img').removeClass('current');
-			obj.addClass('current');
-			var currentSrc = obj.attr('src').replace("upload/thumb_", "upload/medium_");
-			$('#imgView').fadeOut('1000', function(){
-				$(this).attr({src: currentSrc, name: obj.attr('name')}).fadeIn('1000');
-			});
-		}
-	}
+    $(document).ready(function(){
+        getAlbumImgs(getFirstAlbumId());
+    });
 </script>
-
-<!--<div id="inAlbums" class="product_image">
-	<img id="imgView" src="#" />		
-</div>
-
-
-<div id="innerRightPart_1">
-	<div id="innerSlidshow">
-		<div id="galleryb" class="stepcarousel">
-			<div class="belt">
-				<div style="width: 710px; text-align: center;">
-					<div id="galLoading" class="ajaxLoading" style="width: 400px; margin-left: 310px;"></div>
-					<div id="galResult" class="ajaxResult">No image found!</div>
-				</div>
-				<?php //for($i=0; $i<40; $i++){ //Make stepcarousel build fake start ?>
-				<div class="panel"><img src="#" width="100"></div>
-				<?php //}?>
-			</div>
-		</div>
-		<div id="left-arrw">
-			<a href="javascript:stepcarousel.stepBy('galleryb',%20-1)"><img src="<?php //echo $this->Session->read('Setting.url').'/app/webroot/img/front/';?>leftArrow.png" width="23" height="23" border="0" /></a>
-		</div>
-		<div id="right-arrw">
-			<a href="javascript:stepcarousel.stepBy('galleryb',%201)"><img src="<?php //echo $this->Session->read('Setting.url').'/app/webroot/img/front/';?>rightArrow.png" width="23" height="23" border="0" /></a>
-		</div>
-	</div>
-</div>-->
-<?php }?>
+<style>
+    #progress_report{width: 100%; float: left; margin-top: 10px;}
+    #progress_report_bar_container{width: 100%; height: 10px; font-size: 9px; text-align: right;}
+    #progress_report_bar{background-color: greenyellow; width: 0; height: 100%;}
+</style>
 <div class="profile-gallery">
     <div id="gallery" class="content">
         <div class="slideshow-container">
@@ -70,14 +30,16 @@
                 <div class="album-share-tit">Share Album</div>
                 <div class="album-share-items"><a href="#"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>album-share.jpg" width="124" height="21" border="0" /></a></div>
             </div>
+            
             <div id="progress_report">
                 <div id="progress_report_name"></div>
                 <div id="progress_report_status" style="font-style: italic;"></div>
-                <div id="progress_report_bar_container" style="width: 90%; height: 5px;">
-                    <div id="progress_report_bar" style="background-color: greenyellow; width: 0; height: 100%;"></div>
+                <div id="progress_report_bar_container">
+                    <div id="progress_report_bar"></div>
                 </div>
             </div>
         </div>
+        
         <ul class="thumbs noscript">
             <li>
                 <a class="thumb" name="leaf" href="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>album-img.jpg" title="Title #0">

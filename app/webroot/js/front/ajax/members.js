@@ -1,5 +1,4 @@
 $(document).ready(function(){
-	
     $('#memeberRegister').submit(function(){
         $.ajax({
             type: 'POST',
@@ -58,8 +57,8 @@ $(document).ready(function(){
 /* Album Functions */
 
 function getAlbumImgs(id){
-    $('.albumLink a').removeClass('current');
-    $('#album'+id+' a').addClass('current');
+    $('li.albumLink').removeClass('current');
+    $('li#album'+id).addClass('current');
     $.ajax({
         type: "POST",
         data: 'album_id='+id,
@@ -72,7 +71,7 @@ function getAlbumImgs(id){
         },
         success:function(result){
             $('#galLoading').hide();
-            $('#flashHolder param[name="flashvars"]').val('path='+siteUrl+'/profile/multipleImgUpload/'+id);//set path to multiple upload flash object.
+            //$('#flashHolder param[name="flashvars"]').val('path='+siteUrl+'/profile/multipleImgUpload/'+id);//set path to multiple upload flash object.
             if(result){
                 var count = 0;
                 //append album imgs
@@ -194,14 +193,14 @@ function deleteAlbumImg(id, obj){
 };
 
 function getCurrentAlbumId(){
-    var obj = $('.albumLink a.current');
+    var obj = $('li.current');
     if(obj.length == 1)
-        return obj.parent().attr('id').substr(5);
+        return obj.attr('id').substr(5);
     return false;
 }
 
 function getFirstAlbumId(){
-    var obj = $('.albumLink:first');
+    var obj = $('li.albumLink:first');
     if(obj.length == 1)
         return obj.attr('id').substr(5);
     return false;

@@ -20,13 +20,12 @@ class ProfileController extends AppController {
     function index() {
         $this->set('member', $this->currentMember);
     }
+    
+    function mydupix(){
+        $this->set('member', $this->currentMember);
+    }
 
     /* Albums Functions */
-
-    function albumImgs($albumId = null) {
-        $this->Member->Album->recursive = 1;
-        return $this->Member->Album->find('first', array('conditions' => array('Album.id' => $albumId, 'Album.member_id' => $this->Cookie->read('Member.id'))));
-    }
 
     //call by ajax
     function getAlbumImgs() {
@@ -34,7 +33,13 @@ class ProfileController extends AppController {
         $albumId = isset($this->params['form']['album_id']) ? $this->params['form']['album_id'] : null;
         if ($albumId) {
             $galley = array();
-            $albumImgs = $this->albumImgs($albumId);
+            $albumImgs = $this->Member->Album->find('first', array(
+                'conditions' => array(
+                    'Album.id' => $albumId, 
+                    'Album.member_id' => $this->Cookie->read('Member.id')
+                ),
+                'recursive' => 1
+            ));
             if (!empty($albumImgs['Gal'])) {
                 foreach ($albumImgs['Gal'] as $albumImg) {
                     $gallery[$albumImg['id']] = $albumImg['image'];
@@ -45,7 +50,7 @@ class ProfileController extends AppController {
             }
         }
         $this->autoRender = false;
-        return $json;
+        echo $json;
     }
 
     // add Album (call by ajax)

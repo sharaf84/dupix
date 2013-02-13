@@ -1604,15 +1604,16 @@ html ul.tabs2 li.active a, html ul.tabs2 li.active a {
 	background:url(../../img/front/album-bg-over.jpg) repeat-x;
 	cursor:pointer;
 }
-#tab1 li.selected {
+#tab1 li.selected, #tab1 li.current{
 	background:url(../../img/front/album-bg-over.jpg) repeat-x;
 	cursor:pointer;
 }
+
 #tab2 li.jcarousel-item-horizontal:hover {
 	background:url(../../img/front/album-bg-over2.jpg) repeat-x;
 	cursor:pointer;
 }
-#tab2 li.selected {
+#tab2 li.selected, #tab2 li.current{
 	background:url(../../img/front/album-bg-over2.jpg) repeat-x;
 	cursor:pointer;
 }

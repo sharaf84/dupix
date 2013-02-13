@@ -1,6 +1,6 @@
 <script type="text/javascript">
     $(document).ready(function(){
-	//any code
+        //$('#tab1 .albumLink:first').addClass('current');
     });
 </script>
 
@@ -26,45 +26,6 @@
         </fieldset>
     </div>
 </div>
-<!--
-<div class="menu_category">
-
-        <div class="link_title_category">
-                <a href="#">My Albums</a>
-        </div>
-        
-        <div class="link_details_category">
-                <div class="albumsLinks">
-<?php
-//$uploadImagesLinkStyle = 'display: none;';
-//			if(!empty($member['Album'])){
-//				$uploadImagesLinkStyle = 'display: block;';
-//				foreach($member['Album'] as $album){
-?>
-                        <div class="albumLink" id="album<?php //echo $album['id'];   ?>">
-                                <a href="#" onclick="getAlbumImgs(<?php //echo $album['id'];   ?>); return false;">
-<?php //echo $album['title'];?>
-                                </a>
-                                <input type="text" value="<?php //echo $album['title'];   ?>">
-                                <div class="actionsIcons">
-                                        <div class="editIcon" title="Edit" onclick="editAlbum('<?php echo $album['id']; ?>', $(this));"></div>
-                                        <div class="deleteIcon" title="Delete" onclick="deleteAlbum('<?php echo $album['id']; ?>', $(this));"></div>
-                                </div>
-                        </div>
-<?php //}} ?>
-                </div>
-                <div class="albumsActions">
-                        <br />
-                        <span class="link_edit_delete"><a href="#" class="showIcons"><strong>Edit/Delete</strong></a></span>
-                        <br />
-                        <a href="#addAlbum" class="inline link_add"><strong>Add New Album</strong></a>
-                        <br />
-                        <a href="#uploadImages" class="inline link_upload" id="uploadImagesLink" style="<?php echo $uploadImagesLinkStyle; ?>"><strong>Upload Images</strong></a>
-                        <br />
-                </div>
-        </div>
-
-</div>-->
 
 <div class="profile-albums">
     <div id="tab" class="secTabs">

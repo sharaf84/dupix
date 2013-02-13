@@ -87,7 +87,7 @@ jQuery(document).ready(function($) {
     $.historyInit(pageload, "advanced.html");
 
     // set onlick event for buttons using the jQuery 1.3 live method
-    $("a[rel='history']").live('click', function() {
+    $("a[rel='history']").live('click', function(e) {
         if (e.button != 0) return true;
 
         var hash = this.href;
@@ -140,5 +140,51 @@ jQuery(document).ready(function($) {
         e.preventDefault();
     });
 				
-/****************************************************************************************/
+    /****************************************************************************************/
+
+        
+    // html5_upload initiail and custom
+    var perc = 0;
+    $("#upload_field").html5_upload({
+        url: function(number) {
+            return siteUrl+"/profile/ajaxImgUpload/3";
+        },
+        sendBoundary: window.FormData || $.browser.mozilla,
+        onStart: function(event, total) {
+            return true;
+            return confirm("You are trying to upload " + total + " files. Are you sure?");
+        },
+        onProgress: function(event, progress, name, number, total) {
+            //console.log(progress, number);
+        },
+        setName: function(text) {
+        //  $("#progress_report_name").text(text);
+        },
+        setStatus: function(text) {
+        //$("#progress_report_status").text(text);
+        },
+        setProgress: function(val) {
+            perc = Math.ceil(val*100)+"%";
+            $("#progress_report_bar").css('width', perc).text(perc);
+        },
+        onFinishOne: function(event, response, name, number, total) {
+            //console.log(response);
+            perc = 0;
+            $("#progress_report_bar").css('width', perc).text();
+            gallery.insertImage('<li>\
+                                        <a class="thumb" href="'+siteUrl+'/img/upload/'+response+'" >\
+                                                <img src="'+siteUrl+'/img/upload/thumb_'+response+'" />\
+                                        </a>\
+                                </li>', 0);
+        },
+        onError: function(event, name, error) {
+            alert('error while uploading file ' + name);
+        }
+    });
+    
+    
+    /*************************************************************************/
+    
+    
+    
 });

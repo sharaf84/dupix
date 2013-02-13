@@ -78,16 +78,16 @@
         <div class="header-left">
             <div class="header-left-top">
                 <div class="logo"><a href="index.php" target="_self"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>logo.png" border="0" /></a></div>
-                <div class="header-left-top-menu"><a href="#" target="_self">CONTACT US </a> |   <a href="#" target="_self">MY DUPIX</a> |   <a href="#" target="_self">SHOP</a></div>
+                <div class="header-left-top-menu"><a href="#" target="_self">CONTACT US </a> |   <a href="<?php echo $this->Session->read('Setting.url') . '/profile'; ?>" target="_self">MY DUPIX</a> |   <a href="#" target="_self">SHOP</a></div>
             </div>
 
             <div class="header-left-pull"><a href="javascript:animatedcollapse.toggle('menu')"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>pull.png" class="pull-click" border="0" /></a>
-                <div class="menu-left" id="menu">
+                <div class="menu-left" id="menu" style="display: <?php if($this->name != 'Home') echo 'block';?>">
                     <div class="discoount"><a href="#"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>discount.jpg" width="205" height="134" border="0" /></a></div>
                     <div class="menu">
                         <a href="<?php echo $this->Session->read('Setting.url'); ?>" class="current">Home</a>
                         <a href="<?php echo $this->Session->read('Setting.url') . '/categories'; ?>">Products</a>
-                        <a href="#">My DuPix</a>
+                        <a href="<?php echo $this->Session->read('Setting.url') . '/profile'; ?>">My DuPix</a>
                         <a href="#">Schools</a>
                         <a href="#">Photographers</a>
                         <a href="#">E-Store</a>
