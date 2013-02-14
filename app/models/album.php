@@ -38,23 +38,23 @@ class Album extends AppModel {
 	);
 
 
-	var $hasAndBelongsToMany = array(
-		'Member' => array(
-			'className' => 'Member',
-			'joinTable' => 'albums_members',
-			'foreignKey' => 'album_id',
-			'associationForeignKey' => 'member_id',
-			'unique' => true,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'finderQuery' => '',
-			'deleteQuery' => '',
-			'insertQuery' => ''
-		)
-	);
+//	var $hasAndBelongsToMany = array(
+//		'Member' => array(
+//			'className' => 'Member',
+//			'joinTable' => 'albums_members',
+//			'foreignKey' => 'album_id',
+//			'associationForeignKey' => 'member_id',
+//			'unique' => true,
+//			'conditions' => '',
+//			'fields' => '',
+//			'order' => '',
+//			'limit' => '',
+//			'offset' => '',
+//			'finderQuery' => '',
+//			'deleteQuery' => '',
+//			'insertQuery' => ''
+//		)
+//	);
 
 }
 ?>

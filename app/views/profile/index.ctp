@@ -3,7 +3,8 @@ echo $this->Javascript->link(
     array(
         'ajaxupload/jquery.html5.upload',
         //'ajaxupload/jquery.html5.upload.custom' //all code added to => 'front/jquery.galleriffic.custom'
-        'front/jquery.jcarousel.min',
+        'front/jquery.jcarousel',
+        'front/jquery.jcarousel.custom',
         'front/jquery.history',
         'front/jquery.galleriffic',
         'front/jquery.galleriffic.custom',
@@ -28,7 +29,7 @@ echo $this->Javascript->link(
             </div>
             <div class="profile-photos-right">
                 <div class="profile-cover-img"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>cover.jpg" width="505" height="180" border="0" /></div>
-                <div class="profile-menu"><a href="#">Create new Album</a> |  <input type="file" multiple="multiple" id="upload_field"/> | <a href="#addImage" id="addImageLink2">Upload a Photo</a> |   <a href="#removeImageByIndex" id="removeImageByIndexLink">Delete Photo(s)</a> </div>
+                <div class="profile-menu"><a  href="#addAlbum" class="inline">Create new Album</a> |  <input type="file" multiple="multiple" id="upload_field"/> | <a href="#addImage" id="addImageLink2">Upload a Photo</a> |   <a href="#removeImageByIndex" id="removeImageByIndexLink">Delete Photo(s)</a> </div>
             </div>
         </div>
 

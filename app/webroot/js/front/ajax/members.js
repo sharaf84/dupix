@@ -39,8 +39,8 @@ $(document).ready(function(){
             success:function(result){
                 $('#albumLoading').hide();
                 if(result.id && result.title){
-                    appendAlbum(result.id, result.title);
-                    getAlbumImgs(result.id);
+                    var index = $('#mycarousel li').length + 1;
+                    $('#mycarousel').jcarousel('add', index, createAlbumElm(result.id, result.title));
                     $.fn.colorbox.close();//close color box.
                 }else
                     $('#albumResult').html(result.msg).show();
@@ -56,38 +56,10 @@ $(document).ready(function(){
 
 /* Album Functions */
 
-function getAlbumImgs(id){
-    $('li.albumLink').removeClass('current');
-    $('li#album'+id).addClass('current');
-    $.ajax({
-        type: "POST",
-        data: 'album_id='+id,
-        url: siteUrl+'/profile/getAlbumImgs',
-        dataType: "json",
-        beforeSend: function(){
-            $('#galleryb .panel').remove();
-            $('#galLoading').show();
-            $('#galResult').hide();
-        },
-        success:function(result){
-            $('#galLoading').hide();
-            //$('#flashHolder param[name="flashvars"]').val('path='+siteUrl+'/profile/multipleImgUpload/'+id);//set path to multiple upload flash object.
-            if(result){
-                var count = 0;
-                //append album imgs
-                $.each(result, function(imgId, imgName){
-                    appendAlbumImg(imgId, imgName);
-                    count++;
-                });
-            //$('#galleryb .belt').css('width', count*100);//set belt width (imgs count * img width)
-            }else
-                $('#galResult').show();
-            //show fisrt img if #inAlbums exist (in albums view).
-            if($('#inAlbums').length == 1)
-                showImg($('.panel:first img'));
-        }
-    });
-    return false;
+function createAlbumElm(id, title){
+    return '<li class="albumLink" id="album'+id+'">\
+                <div class="album-name">'+title+'</div>\
+            </li>';
 }
 
 function appendAlbum(id, title){
@@ -99,75 +71,63 @@ function appendAlbumImg(id, image){
     $('#galleryb .belt').append('<div class="panel"><div class="actionsIcons"><div class="deleteIcon" style="position: absolute;" title="Delete" onclick="deleteAlbumImg('+id+', $(this));"></div></div><img src="'+siteUrl+'/app/webroot/img/upload/thumb_'+image+'" name="'+image+'" height="60" onclick="showImg($(this))" /></div>');
 }
 
-function editAlbum(id, obj){
-    $('#album'+id+' a').toggle();
-    $('#album'+id+' input').toggle().focus();
-    $('#album'+id+' input').keypress(function(key) {
-        // 13 = Enter 
-        if(key.which == 13){
-            $.ajax({
-                type: 'POST',
-                data: {
-                    album_id:id, 
-                    album_title:$(this).val()
-                    },
-                url: siteUrl+'/profile/editAlbum',
-                beforeSend: function(){
-                    obj.addClass('loading');
-                },
-                success:function(result){
-                    if(result != false){
-                        $('#album'+id+' a').text(result);
-                    }
-                    obj.removeClass('loading');
-                    $('#album'+id+' input').hide();
-                    $('#album'+id+' a').show();	
-                }
-            });
-        }
-        else if(key.which == 0){
-            $('#album'+id+' input').hide();
-            $('#album'+id+' a').show();
+
+function toggleRename(){
+    var title = $.trim($('#albumTitle').text());
+    $('#albumInput').val(title);
+    $('.album-title').toggle();
+    return false;
+}
+
+function renameAlbum(){
+    var id = getCurrentAlbumId();
+    $.ajax({
+        type: 'POST',
+        data: {
+            album_id:id, 
+            album_title:$('#albumInput').val()
+        },
+        url: siteUrl+'/profile/renameAlbum',
+        beforeSend: function(){
+        //obj.addClass('loading');
+        },
+        success:function(result){
+            if(result != false){
+                $('#albumTitle').text(result);
+                $('#album'+id+' > div.album-name').text(result);
+            }
+            $('.album-title').toggle();	
         }
     });
+    return false;
 	
-};
+}
 
-function deleteAlbum(id, obj){
+function deleteAlbum(){
+    var id = getCurrentAlbumId();
+    if(id == getFirstAlbumId())
+        return alert("Sorry can't delete Default album.");
+        
     if(confirm('Confirm Deleting Album')){
         $.ajax({
             type: 'POST',
             data: 'album_id='+id,
             url: siteUrl+'/profile/deleteAlbum',
             beforeSend: function(){
-                obj.addClass('loading');
+            //obj.addClass('loading');
             },
             success:function(result){
                 if(result == true){
-                    $('#album'+id).fadeOut('slow', function(){ 
-                        //if deleting current album => getAlbumImgs of first album;
-                        if(getCurrentAlbumId() == id){
-                            if(getFirstAlbumId() == id){
-                                $(this).remove();
-                                getAlbumImgs(getFirstAlbumId());
-                            }else{
-                                getAlbumImgs(getFirstAlbumId());
-                                $(this).remove();
-                            }
-                        }else
-                            $(this).remove();
-                        //if last albumLink deleted hide uploadImagesLink
-                        if($(".albumLink").length == 0)
-                            $('#uploadImagesLink').hide();
-                    });
+                    $('#album'+id).remove();
+                //$('#mycarousel').jcarousel('delete', index);
                 }
                 else
-                    obj.removeClass('loading');
+                    alert("Error! Please try again.");
             }
         });
     }
     return false;	
-};
+}
 
 function deleteAlbumImg(id, obj){
     if(confirm('Confirm Deleting Image')){
@@ -190,17 +150,17 @@ function deleteAlbumImg(id, obj){
         });
     }
     return false;	
-};
+}
 
 function getCurrentAlbumId(){
-    var obj = $('li.current');
+    var obj = $('#myAlbums .current');
     if(obj.length == 1)
         return obj.attr('id').substr(5);
     return false;
 }
 
 function getFirstAlbumId(){
-    var obj = $('li.albumLink:first');
+    var obj = $('#myAlbums .albumLink:first');
     if(obj.length == 1)
         return obj.attr('id').substr(5);
     return false;
@@ -243,7 +203,7 @@ function updateCart(projectId){
         data: {
             'project_id':projectId, 
             'quantity':$('#quantity_'+projectId).val()
-            },	
+        },	
         dataType: "json",
         beforeSend: function(){
             $('#cartResult_'+projectId).hide();

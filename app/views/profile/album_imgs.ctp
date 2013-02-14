@@ -1,19 +1,31 @@
 <script type="text/javascript">
     $(document).ready(function(){
-        getAlbumImgs(getFirstAlbumId());
+        $('#myAlbums .albumLink:first').trigger('click');
+
     });
 </script>
+
 <style>
     #progress_report{width: 100%; float: left; margin-top: 10px;}
     #progress_report_bar_container{width: 100%; height: 10px; font-size: 9px; text-align: right;}
     #progress_report_bar{background-color: greenyellow; width: 0; height: 100%;}
 </style>
+
 <div class="profile-gallery">
     <div id="gallery" class="content">
         <div class="slideshow-container">
             <div id="loading" class="loader"></div>
             <div id="slideshow" class="slideshow"></div>
             <div id="caption" class="caption-container"></div>
+        </div>
+        <div class="caption" style="display: block;">
+            <div class="image-title">
+                <a href="#">MOVE</a>
+                <a href="#">COPY</a>
+                <a href="#" id="deleteImg">DELETE</a>
+                <a href="#">SHARE</a>
+            </div>
+            <div class="image-desc"><a href="#"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>album-share.jpg" width="124" height="21" border="0" /></a></div>
         </div>
         <div class="vote-select">
             <div class="img-vote">
@@ -22,13 +34,20 @@
             </div>
             <a href=""><div class="img-select">SELECT THIS PICTURE</div></a>
         </div>
+        
     </div>
     <div id="thumbs" class="navigation">
         <div class="album-tit-share">
-            <div class="album-title">Personal Pics</div>
+            <div class="album-title" id="albumTitle">Personal Pics</div>
+            <div class="album-title" style="display: none;">
+                <input type="text" id="albumInput" value="" style="width: 100px; text-align: left;">
+                <a href="javascript: renameAlbum();">save</a>
+            </div>
             <div class="album-share">
-                <div class="album-share-tit">Share Album</div>
-                <div class="album-share-items"><a href="#"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>album-share.jpg" width="124" height="21" border="0" /></a></div>
+                <div class="actions">
+                    <a href="javascript: toggleRename();">RENAME | </a> 
+                    <a href="javascript: deleteAlbum();">DELETE</a>
+                </div>
             </div>
             
             <div id="progress_report">
@@ -45,107 +64,9 @@
                 <a class="thumb" name="leaf" href="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>album-img.jpg" title="Title #0">
                     <img width="101" height="63" src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>album-img.jpg" alt="Title #0" />
                 </a>
-                <div class="caption">
-                    <div class="image-title">
-                        <a href="#">MOVE</a>
-                        <a href="#">COPY</a>
-                        <a href="#">DELETE</a>
-                        <a href="#">SHARE</a>
-                    </div>
-                    <div class="image-desc"><a href="#"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>album-share.jpg" width="124" height="21" border="0" /></a></div>
-                </div>
-            </li>
-            <li>
-                <a class="thumb" name="leaf" href="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>album-img.jpg" title="Title #0">
-                    <img width="101" height="63" src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>album-img.jpg" alt="Title #0" />
-                </a>
-                <div class="caption">
-                    <div class="image-title">Title #0</div>
-                    <div class="image-desc">Description</div>
-                </div>
-            </li>
-            <li>
-                <a class="thumb" name="leaf" href="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>album-img.jpg" title="Title #0">
-                    <img width="101" height="63" src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>album-img.jpg" alt="Title #0" />
-                </a>
-                <div class="caption">
-                    <div class="image-title">Title #0</div>
-                    <div class="image-desc">Description</div>
-                </div>
-            </li>
-            <li>
-                <a class="thumb" name="leaf" href="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>album-img.jpg" title="Title #0">
-                    <img width="101" height="63" src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>album-img.jpg" alt="Title #0" />
-                </a>
-                <div class="caption">
-                    <div class="image-title">Title #0</div>
-                    <div class="image-desc">Description</div>
-                </div>
-            </li>
-            <li>
-                <a class="thumb" name="leaf" href="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>album-img.jpg" title="Title #0">
-                    <img width="101" height="63" src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>album-img.jpg" alt="Title #0" />
-                </a>
-                <div class="caption">
-                    <div class="image-title">Title #0</div>
-                    <div class="image-desc">Description</div>
-                </div>
-            </li>
-            <li>
-                <a class="thumb" name="leaf" href="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>album-img.jpg" title="Title #0">
-                    <img width="101" height="63" src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>album-img.jpg" alt="Title #0" />
-                </a>
-                <div class="caption">
-                    <div class="image-title">Title #0</div>
-                    <div class="image-desc">Description</div>
-                </div>
-            </li>
-            <li>
-                <a class="thumb" name="leaf" href="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>album-img.jpg" title="Title #0">
-                    <img width="101" height="63" src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>album-img.jpg" alt="Title #0" />
-                </a>
-                <div class="caption">
-                    <div class="image-title">Title #0</div>
-                    <div class="image-desc">Description</div>
-                </div>
-            </li>
-            <li>
-                <a class="thumb" name="leaf" href="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>album-img.jpg" title="Title #0">
-                    <img width="101" height="63" src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>album-img.jpg" alt="Title #0" />
-                </a>
-                <div class="caption">
-                    <div class="image-title">Title #0</div>
-                    <div class="image-desc">Description</div>
-                </div>
-            </li>
-            <li>
-                <a class="thumb" name="leaf" href="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>album-img.jpg" title="Title #0">
-                    <img width="101" height="63" src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>album-img.jpg" alt="Title #0" />
-                </a>
-                <div class="caption">
-                    <div class="image-title">Title #0</div>
-                    <div class="image-desc">Description</div>
-                </div>
-            </li>
-            <li>
-                <a class="thumb" name="leaf" href="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>album-img.jpg" title="Title #0">
-                    <img width="101" height="63" src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>album-img.jpg" alt="Title #0" />
-                </a>
-                <div class="caption">
-                    <div class="image-title">Title #0</div>
-                    <div class="image-desc">Description</div>
-                </div>
-            </li>
-            <li>
-                <a class="thumb" name="leaf" href="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>album-img.jpg" title="Title #0">
-                    <img width="101" height="63" src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>album-img.jpg" alt="Title #0" />
-                </a>
-                <div class="caption">
-                    <div class="image-title">Title #0</div>
-                    <div class="image-desc">Description</div>
-                </div>
             </li>
         </ul>
+        
     </div>
         
 </div>

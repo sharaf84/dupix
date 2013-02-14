@@ -66,9 +66,10 @@ class ProfileController extends AppController {
                 $title = $this->data['Album']['title'];
             }
         }
-        echo '{"msg":"' . $msg . '", "title":"' . $title . '", "id":"' . $id . '"}';
         $this->data = null;
         $this->autoRender = false;
+        echo '{"msg":"' . $msg . '", "title":"' . $title . '", "id":"' . $id . '"}';
+        
     }
 
     // deleteAlbum(call by ajax)
@@ -77,32 +78,38 @@ class ProfileController extends AppController {
         $id = isset($this->params['form']['album_id']) ? $this->params['form']['album_id'] : null;
         if ($id != null) {
             //get album imgs to be deleted from server.
-            $this->Upload->filesToDelete = $this->Member->Album->Gal->find('list', array('fields' => 'Gal.image', 'conditions' => array('album_id' => $id)));
-            $this->Member->Album->recursive = -1;
+            $this->Upload->filesToDelete = $this->Member->Album->Gal->find(
+                'list',
+                array(
+                    'fields' => 'Gal.image', 
+                    'conditions' => array('Gal.album_id' => $id),
+                    'recursive' => -1
+                )
+            );
             if ($this->Member->Album->deleteAll(array(
                         'Album.id' => $id,
                         'Album.member_id' => $this->Cookie->read('Member.id')
                     ))) {
                 $this->Upload->deleteFiles();
-                return true;
+                echo true;
             }
         }
-        return false;
+        echo false;
     }
 
     // editAlbum (call by ajax)
-    function editAlbum() {
+    function renameAlbum() {
         $this->autoRender = false;
         $id = isset($this->params['form']['album_id']) ? $this->params['form']['album_id'] : null;
         $title = isset($this->params['form']['album_title']) ? $this->params['form']['album_title'] : null;
-        if ($id != null) {
+        if ($id) {
             $this->Member->Album->recursive = -1;
             if ($this->Member->Album->updateAll(
-                            array('Album.title' => "'$title'"), array('Album.id' => $id, 'Album.member_id' => $this->Cookie->read('Member.id')
-                    )))
-                return $title;
+                array('Album.title' => "'$title'"), array('Album.id' => $id, 'Album.member_id' => $this->Cookie->read('Member.id')
+            )))
+                echo $title;
         }else
-            return false;
+            echo false;
     }
 
     // deleteAlbumImg(call by ajax)

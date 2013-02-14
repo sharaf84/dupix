@@ -142,12 +142,12 @@ jQuery(document).ready(function($) {
 				
     /****************************************************************************************/
 
-        
     // html5_upload initiail and custom
+    
     var perc = 0;
     $("#upload_field").html5_upload({
         url: function(number) {
-            return siteUrl+"/profile/ajaxImgUpload/3";
+            return siteUrl+"/profile/ajaxImgUpload/"+getCurrentAlbumId();
         },
         sendBoundary: window.FormData || $.browser.mozilla,
         onStart: function(event, total) {
@@ -171,11 +171,8 @@ jQuery(document).ready(function($) {
             //console.log(response);
             perc = 0;
             $("#progress_report_bar").css('width', perc).text();
-            gallery.insertImage('<li>\
-                                        <a class="thumb" href="'+siteUrl+'/img/upload/'+response+'" >\
-                                                <img src="'+siteUrl+'/img/upload/thumb_'+response+'" />\
-                                        </a>\
-                                </li>', 0);
+            gallery.insertImage(createGalElm('id', response), 0);
+            gallery.gotoIndex(0);
         },
         onError: function(event, name, error) {
             alert('error while uploading file ' + name);
@@ -185,6 +182,91 @@ jQuery(document).ready(function($) {
     
     /*************************************************************************/
     
+    // Album functions 
+    
+    $('#myAlbums').on('click', '.albumLink', function(e){
+        var count = 0;
+        var albumId = $(this).attr('id').substr(5);
+        $('.albumLink').removeClass('current');
+        $(this).addClass('current');
+        var title = $.trim($(this).text());
+        $('.album-title').hide();
+        $('#albumTitle').text(title).show();
+        $('#albumInput').val(title);
+        
+        $.ajax({
+            type: "POST",
+            data: 'album_id='+albumId,
+            url: siteUrl+'/profile/getAlbumImgs',
+            dataType: "json",
+            beforeSend: function(){
+                //delete all old album imgs except index 0 one
+                count = 0;
+                var oldImgsNo = $('#thumbs .thumb').length;
+                for(var index = oldImgsNo-1; index > 0; index--){
+                    gallery.removeImageByIndex(index);
+                    count++;
+                }
+                console.debug(oldImgsNo, ':' ,count);
+            },
+            success:function(result){
+                if(result){
+                    //insert new album imgs
+                    count = 0;
+                    $.each(result, function(imgId, imgName){
+                        gallery.insertImage(createGalElm(imgId, imgName, false), 0);
+                        count++;
+                    });
+                    gallery.removeImageByIndex(count);//delete the old index 0 img
+                    gallery.gotoIndex(0);
+                    console.debug(count);
+                }else
+                    alert('No Image Found');
+            }
+        });
+        e.preventDefault();
+    });
+    
+    
+    $('#deleteImg').click(function (e){
+        if($('#thumbs li').length == 1)
+            return alert("Sorry! Can't delete last img");
+        var $thumb = $('#thumbs li.selected a.thumb');
+        var id = $thumb.attr('id').substr(3);
+        var hash = $thumb.attr('href').substr(1);
+        console.log(id+' '+hash);
+        if(confirm('Confirm Deleting Image')){
+            $.ajax({
+                type: 'POST',
+                data: 'img_id='+id,
+                url: siteUrl+'/profile/deleteAlbumImg',
+                beforeSend: function(){
+                    //obj.show();
+                    //obj.addClass('loading');
+                },
+                success:function(result){
+                    if(result == true){
+                        gallery.removeImageByHash(hash);
+                        gallery.gotoIndex(0);
+                    }else
+                        alert("Error! Please try again.");
+                }
+            });
+        }
+        e.preventDefault();
+        return false;	
+    });
     
     
 });
+
+function createGalElm(imgId, imgName, caption){
+    var elm = '<a class="thumb" id="img'+imgId+'" href="'+siteUrl+'/img/upload/'+imgName+'" >\
+                    <img src="'+siteUrl+'/img/upload/thumb_'+imgName+'" />\
+               </a>';
+    if(caption)
+        elm += '<div class="caption">\
+                    <div class="image-title">'+caption+'</div>\
+                </div>';
+    return '<li>'+elm+'</li>';
+}
