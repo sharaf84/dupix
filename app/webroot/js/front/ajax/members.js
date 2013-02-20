@@ -88,14 +88,14 @@ function getAlbums(carousel, position){
         },
         success:function(result){
             if(result){
-                carousel.reset();
+                carousel.reset();//Remove all carousel elements
                 var count = 0;
                 $.each(result, function(id, title){
-                    carousel.add(++count, createAlbumElm(id, title));
+                    carousel.add(++count, createAlbumElm(id, title));//Add element to carousel.
                 });
-                carousel.size(count);
+                carousel.size(count);//Resize carousel 
                 if(position == 'first'){
-                    carousel.scroll(1, true);
+                    carousel.scroll(1, true);//Scroll carousel to element index. 
                     $('#myAlbums .albumLink:first').trigger('click');
                 }
                 else if(position == 'last'){

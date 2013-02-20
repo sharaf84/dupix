@@ -30,9 +30,14 @@ echo $this->Javascript->link(
             <div class="profile-photos-right">
                 <div class="profile-cover-img"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>cover.jpg" width="505" height="180" border="0" /></div>
                 <div class="profile-menu">
-                    <a href="#addAlbum" class="inline cboxElement">Create new Album</a> | 
-                    <a href="JavaScript:void(0);" id="addImageLink2" style="position:relative;"><input type="file" multiple="multiple" id="upload_field">Upload Photo(s)</a> | 
-                    <a href="#" id="removeImageByIndexLink" style="position:relative; z-index:500;">Delete Photo(s)</a> 
+                    <a href="#addAlbum" class="inline cboxElement">Create Album</a> |
+                    <input type="file" multiple="multiple" id="multiUpload" style="display: none">
+                    <a href="javascript:void(0);" onclick="$('#multiUpload').trigger('click');">Upload Photo(s)</a> | 
+                    <a href="javascript:void(0);" id="deleteAlbum">Delete Album</a> |
+                    <a href="javascript:void(0);" onclick="toggleRename();">Rename Album</a> |
+                    <a href="javascript:void(0);" id="shareAlbum">Share Album</a>
+                    
+                    
                 </div>
             </div>
         </div>

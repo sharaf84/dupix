@@ -1863,13 +1863,7 @@ div.message {
     width: 310px;
     z-index: 500;
 }
-#upload_field {
-	opacity:0;
-	filter:alpha(opacity=0);
-	position:absolute;
-	height:18px;
-	cursor:pointer; /* For IE8 and earlier */
-}
+
 #right-ad {
 	position:fixed;
 	right:0;

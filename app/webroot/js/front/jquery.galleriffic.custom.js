@@ -145,7 +145,7 @@ jQuery(document).ready(function($) {
     // html5_upload initiail and custom
     
     var perc = 0;
-    $("#upload_field").html5_upload({
+    $("#multiUpload").html5_upload({
         url: function(number) {
             return siteUrl+"/profile/ajaxImgUpload/"+getCurrentAlbumId();
         },
@@ -173,6 +173,9 @@ jQuery(document).ready(function($) {
             $("#progress_report_bar").css('width', perc).text();
             gallery.insertImage(createGalElm('id', response), 0);
             gallery.gotoIndex(0);
+            if($('#placeHolder').length == 1)
+                gallery.removeImageByHash($('#placeHolder').attr('href').substr(1));
+            
         },
         onError: function(event, name, error) {
             alert('error while uploading file ' + name);
@@ -185,7 +188,7 @@ jQuery(document).ready(function($) {
     // Album functions 
     
     $('#myAlbums').on('click', '.albumLink', function(e){
-        var count = 0;
+        
         var albumId = $(this).attr('id').substr(5);
         $('.albumLink').removeClass('current');
         $(this).addClass('current');
@@ -200,28 +203,26 @@ jQuery(document).ready(function($) {
             url: siteUrl+'/profile/getAlbumImgs',
             dataType: "json",
             beforeSend: function(){
-                //delete all old album imgs except index 0 one
-                count = 0;
-                var oldImgsNo = $('#thumbs .thumb').length;
-                for(var index = oldImgsNo-1; index > 0; index--){
-                    gallery.removeImageByIndex(index);
-                    count++;
-                }
-                console.debug(oldImgsNo, ':' ,count);
+                //any code.
             },
             success:function(result){
+                var count = 0;
+                gallery.insertImage(placeHolderElm(), 0);//Add placeholder element.
+                var oldImgsNo = $('#thumbs .thumb').length;
+                //delete all old elements except placeholder (index 0) 3shan el gallery matedrabsh fe weshak.
+                for(var index = oldImgsNo-1; index > 0; index--){
+                    gallery.removeImageByIndex(index); 
+                }
                 if(result){
                     //insert new album imgs
                     count = 0;
                     $.each(result, function(imgId, imgName){
-                        gallery.insertImage(createGalElm(imgId, imgName, false), 0);
+                        gallery.insertImage(createGalElm(imgId, imgName, false), 0);//insert new element
                         count++;
                     });
-                    gallery.removeImageByIndex(count);//delete the old index 0 img
-                    gallery.gotoIndex(0);
-                    console.debug(count);
-                }else
-                    alert('No Image Found');
+                    gallery.removeImageByIndex(count);//delete the placeholder element
+                }
+                gallery.gotoIndex(0);
             }
         });
         e.preventDefault();
@@ -229,23 +230,25 @@ jQuery(document).ready(function($) {
     
     
     $('#deleteImg').click(function (e){
-        if($('#thumbs li').length == 1)
-            return alert("Sorry! Can't delete last img");
+        e.preventDefault();
         var $thumb = $('#thumbs li.selected a.thumb');
-        var id = $thumb.attr('id').substr(3);
+        var id = $thumb.attr('id');
+        if(id == 'placeHolder')
+            return alert("Sorry! Can't delete this img");
+        var imgId = id.substr(3);
         var hash = $thumb.attr('href').substr(1);
-        console.log(id+' '+hash);
         if(confirm('Confirm Deleting Image')){
             $.ajax({
                 type: 'POST',
-                data: 'img_id='+id,
+                data: 'img_id='+imgId,
                 url: siteUrl+'/profile/deleteAlbumImg',
                 beforeSend: function(){
-                    //obj.show();
-                    //obj.addClass('loading');
+                    //any code.
                 },
                 success:function(result){
                     if(result == true){
+                        if($('#thumbs li').length == 1)
+                            gallery.insertImage(placeHolderElm(), 0);//Add placeholder element before delete last image.
                         gallery.removeImageByHash(hash);
                         gallery.gotoIndex(0);
                     }else
@@ -253,7 +256,6 @@ jQuery(document).ready(function($) {
                 }
             });
         }
-        e.preventDefault();
         return false;	
     });
     
@@ -264,9 +266,18 @@ function createGalElm(imgId, imgName, caption){
     var elm = '<a class="thumb" id="img'+imgId+'" href="'+siteUrl+'/img/upload/'+imgName+'" >\
                     <img src="'+siteUrl+'/img/upload/thumb_'+imgName+'" />\
                </a>';
-    if(caption)
-        elm += '<div class="caption">\
+    if(caption){
+       elm += '<div class="caption">\
                     <div class="image-title">'+caption+'</div>\
-                </div>';
+                </div>'; 
+    }
     return '<li>'+elm+'</li>';
+}
+
+function placeHolderElm(){
+    return '<li>\
+                <a class="thumb" id="placeHolder" href="'+siteUrl+'/img/front/placeholder.jpg" >\
+                    <img src="'+siteUrl+'/img/front/thumb_placeholder.jpg" />\
+               </a>\
+            </li>';
 }
