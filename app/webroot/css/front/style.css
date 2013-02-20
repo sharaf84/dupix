@@ -33,6 +33,8 @@ body {
 	z-index:2;
 	height:935px;
 	position:relative;
+	background-image: url(../../img/front/header-bg.jpg);
+	background-repeat:repeat-x;
 }
 .header {
 	float: left;
@@ -73,7 +75,7 @@ body {
 	font-weight: bold;
 	color: #000;
 	text-align:center;
-	margin-top:27px;
+	margin-top:6px;
 }
 .header-left-top-menu a {
 	font-family: Arial, Helvetica, sans-serif;
@@ -206,6 +208,7 @@ body {
 .buttons {
 	float: left;
 	margin-top: 18px;
+	width:135px;
 }
 .facebook {
 	float: left;
@@ -1253,6 +1256,7 @@ div.pagination span.ellipsis {
 	width: 389px;
 	margin-top: 5px;
 	position: relative;
+	display:none;
 }
 .img-vote {
 	float: left;
@@ -1694,8 +1698,254 @@ html ul.tabs2 li.active a, html ul.tabs2 li.active a {
 	float: left;
 	margin-left: 9px;
 }
-
+.vert-album {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #000;
+	text-decoration: none;
+	background-image: url(../../img/front/sc-inner-folder.png);
+	background-repeat: no-repeat;
+	float: left;
+	height: 46px;
+	width: 83px;
+	padding-right: 10px;
+	padding-left: 10px;
+	text-align: center;
+	padding-top: 35px;
+}
 /*Sharaf*/
 #flashMessage{
     color: #ffffff;
+}
+.title_blue {
+    border-bottom: 1px solid #CCCCCC;
+    color: #222222;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 20px;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    text-transform: uppercase;
+}
+#cboxLoadedContent legend {
+    color: #222222;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 17px;
+    text-transform: uppercase;
+}
+#cboxLoadedContent fieldset {
+    border: medium none;
+    margin: 0;
+    padding: 0;
+}
+.users .input {
+    margin-bottom: 7px;
+}
+.data_form_black .input {
+    margin-bottom: 7px;
+}
+#cboxLoadedContent label {
+    color: #333333;
+    float: left;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    height: 25px;
+    line-height: 25px;
+    margin-right: 10px;
+    text-align: right;
+    width: 140px;
+}
+#cboxLoadedContent input[type="text"], #cboxLoadedContent input[type="password"] {
+    border: 1px solid #CCCCCC;
+    color: #333333;
+    float: left;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    height: 25px;
+    line-height: 25px;
+    margin-bottom: 8px;
+    margin-left: 10px;
+    padding: 0 7px;
+    text-align: left;
+    width: 290px;
+}
+#cboxLoadedContent label span {
+    color: #BB0000;
+}
+.submit input {
+    background-image: url("../../img/front/button.jpg");
+    background-repeat: no-repeat;
+    border: medium none;
+    color: #fff;
+    cursor: pointer;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    height: 46px;
+    margin: 0 0 0 225px;
+    padding: 0;
+    text-align: center;
+    text-transform: uppercase;
+    width: 120px;
+}
+.data_form_black {
+    color: #000000;
+    font-family: Arial;
+    font-size: 12px;
+}
+.forgot, .forgot a {
+    color: #216288;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-left: 22px;
+    text-align: left;
+    text-decoration: none;
+}
+.join-us, .join-us a {
+    color: #216288;
+    font-size: 13px;
+    font-weight: bold;
+    margin-left: 22px;
+    text-align: left;
+    text-decoration: none;
+}
+.dont-have {
+    border-top: 1px solid #CCCCCC;
+    color: #000000;
+    float: left;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    margin-left: 15px;
+    margin-top: 10px;
+    padding-top: 15px;
+    text-align: center;
+    width: 550px;
+}
+.creat-acc {
+    float: left;
+    margin-left: 15px;
+    margin-top: 5px;
+    width: 550px;
+}
+.creat-acc a {
+    background: none repeat scroll 0 0 #222222;
+    border-radius: 4px 4px 4px 4px;
+    color: #FFFFFF;
+    float: left;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    height: 30px;
+    line-height: 30px;
+    margin-left: 175px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    width: 200px;
+}
+div.message {
+    clear: both;
+    color: #FFFFFF;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    left: 50%;
+    margin-left: -124px;
+    margin-top: 38px;
+    padding: 9px;
+    position: absolute;
+    text-align: center;
+    width: 310px;
+    z-index: 500;
+}
+#upload_field {
+	opacity:0;
+	filter:alpha(opacity=0);
+	position:absolute;
+	height:18px;
+	cursor:pointer; /* For IE8 and earlier */
+}
+#right-ad {
+	position:fixed;
+	right:0;
+	top:50%;
+	margin-top:-300px;
+	width:150px;
+	height:600px;
+	background:#222;
+	z-index:1000;
+}
+.right-ad-close {
+	position:absolute;
+	left:-12px;
+	top:-10px;
+	width:29px;
+	height:30px;
+	background-image: url("../../img/front/ad-close.png");
+	background-repeat:no-repeat;
+	cursor:pointer;
+	z-index:200;
+}
+.profile-gallery legend {
+    border-bottom: 1px solid #CCCCCC;
+    color: #222222;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 20px;
+	width:685px;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    text-transform: uppercase;
+}
+.profile-gallery fieldset {
+    border: medium none;
+    margin: 0;
+    padding: 0;
+}
+.profile-gallery .input {
+    margin-bottom: 7px;
+	float:left;
+	width:700px;
+}
+.profile-gallery .input {
+    margin-bottom: 7px;
+}
+.profile-gallery label {
+    color: #333333;
+    float: left;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    height: 25px;
+    line-height: 25px;
+    margin-right: 10px;
+    text-align: right;
+    width: 140px;
+}
+.profile-gallery input[type="text"], .profile-gallery input[type="password"] {
+    border: 1px solid #CCCCCC;
+    color: #333333;
+    float: left;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    height: 25px;
+    line-height: 25px;
+    margin-bottom: 8px;
+    margin-left: 10px;
+    padding: 0 7px;
+    text-align: left;
+    width: 290px;
+}
+#cboxContent p {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:18px;
+	color:#000;
+	margin-left:15px;
+	height:100px;
 }

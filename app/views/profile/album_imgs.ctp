@@ -41,12 +41,12 @@
             <div class="album-title" id="albumTitle">Personal Pics</div>
             <div class="album-title" style="display: none;">
                 <input type="text" id="albumInput" value="" style="width: 100px; text-align: left;">
-                <a href="#" onclick="renameAlbum();">save</a>
+                <a href="#" onclick="renameAlbum(); return false;">save</a>
             </div>
             <div class="album-share">
                 <div class="actions">
-                    <a href="#" onclick="toggleRename();">RENAME | </a> 
-                    <a href="#" onclick="deleteAlbum();">DELETE</a>
+                    <a href="#" onclick="toggleRename(); return false;">RENAME | </a> 
+                    <a href="#" id="deleteAlbum">DELETE</a>
                 </div>
             </div>
             

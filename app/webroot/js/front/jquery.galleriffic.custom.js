@@ -192,7 +192,7 @@ jQuery(document).ready(function($) {
         var title = $.trim($(this).text());
         $('.album-title').hide();
         $('#albumTitle').text(title).show();
-        $('#albumInput').val(title);
+        //$('#albumInput').val(title);
         
         $.ajax({
             type: "POST",

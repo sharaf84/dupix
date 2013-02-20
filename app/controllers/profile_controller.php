@@ -26,7 +26,21 @@ class ProfileController extends AppController {
     }
 
     /* Albums Functions */
-
+    
+        //call by ajax
+    function getAlbums() {
+        $this->autoRender = false;
+        $json = false;
+        $albums = $this->Member->Album->find('list', array(
+            'conditions' => array(
+                'Album.member_id' => $this->Cookie->read('Member.id')
+            ),
+            'recursive' => -1
+        ));
+        $albums and $json = json_encode($albums);
+        echo $json;
+    }
+    
     //call by ajax
     function getAlbumImgs() {
         $json = false;
@@ -111,7 +125,7 @@ class ProfileController extends AppController {
         }else
             echo false;
     }
-
+    
     // deleteAlbumImg(call by ajax)
     function deleteAlbumImg() {
         $this->autoRender = false;

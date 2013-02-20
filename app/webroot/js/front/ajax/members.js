@@ -26,29 +26,6 @@ $(document).ready(function(){
         return false;	
     });
 	
-    $('#addAlbumForm').submit(function(){
-        $.ajax({
-            type: "POST",
-            data: $(this).serialize(),	
-            url: siteUrl+'/profile/addAlbum',
-            dataType: "json",
-            beforeSend: function(){
-                $('#albumResult').hide();
-                $('#albumLoading').show();
-            },
-            success:function(result){
-                $('#albumLoading').hide();
-                if(result.id && result.title){
-                    var index = $('#mycarousel li').length + 1;
-                    $('#mycarousel').jcarousel('add', index, createAlbumElm(result.id, result.title));
-                    $.fn.colorbox.close();//close color box.
-                }else
-                    $('#albumResult').html(result.msg).show();
-            }
-        });
-        return false;	
-    });
-	
     //set cart count;
     $('.cartCount:gt(0)').text(parseInt($('.cartCount:eq(0)').text()));
 						
@@ -56,19 +33,18 @@ $(document).ready(function(){
 
 /* Album Functions */
 
-function createAlbumElm(id, title){
-    return '<li class="albumLink" id="album'+id+'">\
-                <div class="album-name">'+title+'</div>\
-            </li>';
+function getCurrentAlbumId(){
+    var obj = $('#myAlbums .current');
+    if(obj.length == 1)
+        return obj.attr('id').substr(5);
+    return false;
 }
 
-function appendAlbum(id, title){
-    $('.albumsLinks').append('<div class="albumLink" id="album'+id+'"><a href="#" onclick="getAlbumImgs('+id+'); return false;">'+title+'</a><input type="text" value="'+title+'"><div class="actionsIcons"><div class="editIcon" title="Edit" onclick="editAlbum('+id+', $(this));"></div><div class="deleteIcon" title="Delete" onclick="deleteAlbum('+id+', $(this));"></div></div></div>');
-    $('#uploadImagesLink').show();
-}
-
-function appendAlbumImg(id, image){
-    $('#galleryb .belt').append('<div class="panel"><div class="actionsIcons"><div class="deleteIcon" style="position: absolute;" title="Delete" onclick="deleteAlbumImg('+id+', $(this));"></div></div><img src="'+siteUrl+'/app/webroot/img/upload/thumb_'+image+'" name="'+image+'" height="60" onclick="showImg($(this))" /></div>');
+function getFirstAlbumId(){
+    var obj = $('#myAlbums .albumLink:first');
+    if(obj.length == 1)
+        return obj.attr('id').substr(5);
+    return false;
 }
 
 
@@ -103,67 +79,41 @@ function renameAlbum(){
 	
 }
 
-function deleteAlbum(){
-    var id = getCurrentAlbumId();
-    if(id == getFirstAlbumId())
-        return alert("Sorry can't delete Default album.");
-        
-    if(confirm('Confirm Deleting Album')){
-        $.ajax({
-            type: 'POST',
-            data: 'album_id='+id,
-            url: siteUrl+'/profile/deleteAlbum',
-            beforeSend: function(){
-            //obj.addClass('loading');
-            },
-            success:function(result){
-                if(result == true){
-                    $('#album'+id).remove();
-                //$('#mycarousel').jcarousel('delete', index);
+function getAlbums(carousel, position){
+    $.ajax({
+        url: siteUrl+'/profile/getAlbums',
+        dataType: 'json',
+        beforeSend: function(){
+            //any code.
+        },
+        success:function(result){
+            if(result){
+                carousel.reset();
+                var count = 0;
+                $.each(result, function(id, title){
+                    carousel.add(++count, createAlbumElm(id, title));
+                });
+                carousel.size(count);
+                if(position == 'first'){
+                    carousel.scroll(1, true);
+                    $('#myAlbums .albumLink:first').trigger('click');
                 }
-                else
-                    alert("Error! Please try again.");
+                else if(position == 'last'){
+                    carousel.scroll(count, true);
+                    $('#myAlbums .albumLink:last').trigger('click');
+                }else{
+                    carousel.scroll(position, true);
+                    $('#myAlbums .albumLink:eq('+position+')').trigger('click');
+                }
+            }else{
+                alert('No album found');
             }
-        });
-    }
-    return false;	
+        }
+    });
 }
 
-function deleteAlbumImg(id, obj){
-    if(confirm('Confirm Deleting Image')){
-        $.ajax({
-            type: 'POST',
-            data: 'img_id='+id,
-            url: siteUrl+'/profile/deleteAlbumImg',
-            beforeSend: function(){
-                //obj.show();
-                obj.addClass('loading');
-            },
-            success:function(result){
-                if(result == true)
-                    obj.parent().parent().fadeOut('slow', function(){
-                        obj.parent().parent().remove();
-                    });
-                else
-                    obj.removeClass('loading');
-            }
-        });
-    }
-    return false;	
-}
-
-function getCurrentAlbumId(){
-    var obj = $('#myAlbums .current');
-    if(obj.length == 1)
-        return obj.attr('id').substr(5);
-    return false;
-}
-
-function getFirstAlbumId(){
-    var obj = $('#myAlbums .albumLink:first');
-    if(obj.length == 1)
-        return obj.attr('id').substr(5);
-    return false;
+function createAlbumElm(id, title){
+    return '<li class="albumLink" id="album'+id+'"><div class="album-name">'+title+'</div></li>';
 }
 
 /* Projects Functions */

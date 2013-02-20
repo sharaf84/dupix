@@ -126,9 +126,9 @@ ul.sliders-wrap-inner li img{	padding:0px;	}
 	right:0px;
 	background-image: url(../../img/front/gallery-bg.jpg);
 	background-repeat: repeat-x;
-	height: 109px;
-	width: 720px;
-	padding-top: 16px;
+	height: 70px;
+	width: 600px;
+	padding-top: 6px;
 	padding-right: 0px;
 	padding-bottom: 0px;
 	padding-left: 0px;
@@ -152,13 +152,9 @@ ul.sliders-wrap-inner li img{	padding:0px;	}
 .lof-slidecontent2 .slider-description{
 	z-index:100px;
 	position:absolute;
-	bottom:50px;
-	left:0px;
-	width:350px;
-	background:url(../../img/front/bg_trans.png);
-	height:100px;
-	padding:10px;
-	color:#FFF;
+	bottom:10px;
+	left:50%;
+	margin-left:-95px;
 }
 .lof-slidecontent2 .slider-description h4 {    font-size: 14px;    margin: 10px 0;    padding: 0; }
 .lof-slidecontent2 .slider-description .slider-meta a{	
@@ -177,14 +173,13 @@ ul.sliders-wrap-inner li img{	padding:0px;	}
 
 .lof-slidecontent2 ul.navigator-wrap-inner li img{
 	border: none;
-	width:125px;
-	height:100px;
-	padding:3px;
+	width:102px;
+	height:63px;
+	border:solid 1px #FFF;
 }
-.lof-slidecontent2 ul.navigator-wrap-inner li.active img, 
-.lof-slidecontent2 ul.navigator-wrap-inner li:hover img {
-	border: solid 3px #4C9AAE;
-	padding:0;
+.lof-slidecontent2 ul.navigator-wrap-inner li.active , 
+.lof-slidecontent2 ul.navigator-wrap-inner li:hover {
+	border: solid 1px #E20109;
 }
 .lof-slidecontent2 .navigator-content .button-next, 
 .lof-slidecontent2 .navigator-content .button-previous{
@@ -199,8 +194,8 @@ ul.sliders-wrap-inner li img{	padding:0px;	}
 	float:left;
 	text-indent:-999px;
 	margin-right:5px;
-	margin-top:35px;
-	background-image: url(../../img/front/right-page.png);
+	margin-top:20px;
+	background-image: url(../../img/front/arw-right.png);
 	background-repeat: no-repeat;
 	background-position: right center;
 }
@@ -208,10 +203,10 @@ ul.sliders-wrap-inner li img{	padding:0px;	}
 	float:left;
 	text-indent:-999px;
 	margin-left:5px;
-	background-image: url(../../img/front/left-page.png);
+	background-image: url(../../img/front/arw-left.png);
 	background-repeat: no-repeat;
 	background-position: left center;
-	margin-top:35px;
+	margin-top:20px;
 }
 
 .lof-slidecontent2 .button-control {
