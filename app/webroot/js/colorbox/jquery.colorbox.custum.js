@@ -58,14 +58,6 @@ $(document).ready(function(){
     
     $(".inline").colorbox({
         onClosed:function(){ 
-            //after close multiple upload => getAlbumImgs of current album
-            if($("#cboxContent #uploadImages").length == 1){
-                getAlbumImgs(getCurrentAlbumId());
-            }
-            //after close jmu iframe => getAlbumImgs of current album
-            if($("#cboxContent iframe[src^="+siteUrl+"/iframe/viewJmu/]").length == 1){
-                getAlbumImgs(getCurrentAlbumId());
-            }
             //after close cropping iframe => show croped image && setNumberName
             if($("#cboxContent iframe[src^="+siteUrl+"/iframe/viewImg/]").length == 1){
                 showCropedImg();
@@ -80,6 +72,15 @@ $(document).ready(function(){
             $('#registerResult').hide();
         }
     });
+    
+    $(".inlineAddAlbum").colorbox({
+        inline:true, 
+        width:"50%",
+        onClosed:function(){ 
+            $('#albumResult').hide();
+        }
+    });
+    
 
 			
 });

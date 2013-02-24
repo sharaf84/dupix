@@ -183,23 +183,26 @@ jQuery(document).ready(function($) {
     });
     
     
-    /*************************************************************************/
+    /*Album imgs functions*/
     
-    // Album functions 
-    
+    //get all album imgs  
     $('#myAlbums').on('click', '.albumLink', function(e){
-        
         var albumId = $(this).attr('id').substr(5);
         $('.albumLink').removeClass('current');
         $(this).addClass('current');
         var title = $.trim($(this).text());
         $('.album-title').hide();
         $('#albumTitle').text(title).show();
-        //$('#albumInput').val(title);
-        
+        //to copy or move img to selected album befor get imgs
+        var imgAction = null, imgId = null;
+        if(typeof $.data($("#imgCarrier")[0], "data") !== 'undefined'){
+            imgAction = $.data($("#imgCarrier")[0], "data").action;
+            imgId = $.data($("#imgCarrier")[0], "data").id;
+            $.removeData($("#imgCarrier")[0], "data");
+        }
         $.ajax({
             type: "POST",
-            data: 'album_id='+albumId,
+            data: {"album_id":albumId, "img_action":imgAction, "img_id":imgId},
             url: siteUrl+'/profile/getAlbumImgs',
             dataType: "json",
             beforeSend: function(){
@@ -228,31 +231,35 @@ jQuery(document).ready(function($) {
         e.preventDefault();
     });
     
-    
+    //delete img
     $('#deleteImg').click(function (e){
         e.preventDefault();
-        var $thumb = $('#thumbs li.selected a.thumb');
-        var id = $thumb.attr('id');
-        if(id == 'placeHolder')
-            return alert("Sorry! Can't delete this img");
-        var imgId = id.substr(3);
-        var hash = $thumb.attr('href').substr(1);
+        var selectedImg = getSelectedImg();
+        if(selectedImg.id == 'placeHolder'){
+            return $.colorbox({
+                html: "<p>Sorry! can't delete this img.</p>"
+            });
+        }
         if(confirm('Confirm Deleting Image')){
             $.ajax({
                 type: 'POST',
-                data: 'img_id='+imgId,
+                data: 'img_id='+selectedImg.imgId,
                 url: siteUrl+'/profile/deleteAlbumImg',
                 beforeSend: function(){
                     //any code.
                 },
                 success:function(result){
                     if(result == true){
-                        if($('#thumbs li').length == 1)
+                        if($('#thumbs li').length == 1){
                             gallery.insertImage(placeHolderElm(), 0);//Add placeholder element before delete last image.
-                        gallery.removeImageByHash(hash);
+                        }
+                        gallery.removeImageByHash(selectedImg.hash);
                         gallery.gotoIndex(0);
-                    }else
-                        alert("Error! Please try again.");
+                    }else{
+                        return $.colorbox({
+                            html: "<p>Error! please try again.</p>"
+                        });
+                    }
                 }
             });
         }
@@ -280,4 +287,22 @@ function placeHolderElm(){
                     <img src="'+siteUrl+'/img/front/thumb_placeholder.jpg" />\
                </a>\
             </li>';
+}
+
+function getSelectedImg(){
+    var $elm = $('#thumbs li.selected a.thumb');
+    return {"elm":$elm, "id":$elm.attr('id'), "imgId":$elm.attr('id').substr(3), "hash":$elm.attr('href').substr(1)};
+}
+
+function carryImg($action){
+    var selectedImg = getSelectedImg();
+    if(selectedImg.id == 'placeHolder'){
+        return $.colorbox({
+            html: "<p>Sorry! can't "+$action+" this img.</p>"
+        });
+    }
+    $.data($("#imgCarrier")[0], "data", {"action":$action, "id":selectedImg.imgId});
+    return $.colorbox({
+        html: "<p>Please click the album you want to "+$action+" img to.</p>"
+    });
 }

@@ -20,8 +20,9 @@
         </div>
         <div class="caption" style="display: block;">
             <div class="image-title">
-                <a href="javascript:void(0);">MOVE</a>
-                <a href="javascript:void(0);">COPY</a>
+                <input type="hidden" id="imgCarrier">
+                <a href="javascript:void(0);" onclick="carryImg('move');">MOVE</a>
+                <a href="javascript:void(0);" onclick="carryImg('copy');">COPY</a>
                 <a href="javascript:void(0);" id="deleteImg">DELETE</a>
                 <a href="javascript:void(0);">SHARE</a>
             </div>

@@ -6,7 +6,7 @@ $(document).ready(function() {
 
 <!-- This contains the hidden content for inline calls -->
 <div style="display:none">
-    <div id="addAlbum" style="padding:10px; background:#fff; height: 100px;">
+    <div id="addAlbum" style="padding:10px; background:#fff;">
         <div class="albums form">
             <?php echo $this->Form->create('Album', array('url' => $this->Session->read('Setting.url') . '/profile/addAlbum', 'id' => 'addAlbumForm')); ?>
             <fieldset>

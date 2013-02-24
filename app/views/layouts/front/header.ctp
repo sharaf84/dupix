@@ -10,7 +10,7 @@
     <!-- This contains the hidden content for inline calls -->
     <div style='display:none'>
         <!--log in form-->
-        <div id='loginForm' style='padding:10px; background:#fff;'>
+        <div id="loginForm" style="padding:10px; background:#fff;">
             <div class="members form">
                 <?php echo $this->Form->create('Member', array('url' => $this->Session->read('Setting.url') . '/profile/login')); ?>
                 <fieldset>
@@ -29,7 +29,7 @@
             </div>
         </div>
         <!--forgot form-->
-        <div id='forgotForm' style='padding:10px; background:#fff;'>
+        <div id="forgotForm" style="padding:10px; background:#fff;">
             <div class="members form">
                 <?php echo $this->Form->create('Member', array('url' => $this->Session->read('Setting.url') . '/profile/forgot')); ?>
                 <fieldset>
@@ -42,7 +42,7 @@
             </div>
         </div>
         <!--join us form-->
-        <div id='joinForm' style='padding:10px; background:#fff;'>
+        <div id="joinForm" style="padding:10px; background:#fff;">
             <div class="members form">
                 <?php echo $this->Form->create('Member', array('url' => $this->Session->read('Setting.url') . '/profile/register', 'id' => 'memeberRegister')); ?>
                 <fieldset>

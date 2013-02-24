@@ -45,7 +45,12 @@ class ProfileController extends AppController {
     function getAlbumImgs() {
         $json = false;
         $albumId = isset($this->params['form']['album_id']) ? $this->params['form']['album_id'] : null;
+        $imgAction = isset($this->params['form']['img_action']) ? $this->params['form']['img_action'] : null;
+        $imgId = isset($this->params['form']['img_id']) ? $this->params['form']['img_id'] : null;
         if ($albumId) {
+            if($imgAction && $imgId){
+                $this->carryImg($imgId, $imgAction, $albumId);
+            }
             $galley = array();
             $albumImgs = $this->Member->Album->find('first', array(
                 'conditions' => array(
@@ -65,6 +70,19 @@ class ProfileController extends AppController {
         }
         $this->autoRender = false;
         echo $json;
+    }
+    
+    //move or copy img to album
+    function carryImg($imgId, $action, $albumId) {
+        if ($imgId) {
+            $gal = $this->Member->Album->Gal->read(null, $imgId);
+            if ($gal['Album']['member_id'] == $this->Cookie->read('Member.id')) {
+                if($action == 'move'){
+                    $this->Member->Album->Gal->id = $imgId;
+                    $this->Member->Album->Gal->saveField('album_id', $albumId);    
+                }
+            }
+        }
     }
 
     // add Album (call by ajax)
