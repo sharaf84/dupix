@@ -1,9 +1,5 @@
 jQuery(document).ready(function($) {
     // We only want these styles applied when javascript is enabled
-    $('div.navigation').css({
-        'width' : '338px', 
-        'float' : 'left'
-    });
     $('div.content').css('display', 'block');
 
     // Initially set opacity on thumbs and add
@@ -36,7 +32,7 @@ jQuery(document).ready(function($) {
     // Initialize Advanced Galleriffic Gallery
     var gallery = $('#thumbs').galleriffic({
         delay:                     2500,
-        numThumbs:                 12,
+        numThumbs:                 imgsNo,
         preloadAhead:              10,
         enableTopPager:            true,
         enableBottomPager:         true,

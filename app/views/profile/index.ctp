@@ -1,8 +1,17 @@
+<script type="text/javascript">
+    var imgsNo = 12; //Important for jquery.galleriffic.custom
+    $(document).ready(function(){
+        $('div.navigation').css({
+            'width' : '338px', 
+            'float' : 'left'
+        });
+    });
+</script>
 <?php
 echo $this->Javascript->link(
     array(
+        'front/ajax/members',
         'ajaxupload/jquery.html5.upload',
-        //'ajaxupload/jquery.html5.upload.custom' //all code added to => 'front/jquery.galleriffic.custom'
         'front/jquery.jcarousel',
         'front/jquery.jcarousel.custom',
         'front/jquery.history',
@@ -13,12 +22,8 @@ echo $this->Javascript->link(
     , false
 );
 ?>
-<script type="text/javascript">
-    document.write('<style>.noscript { display: none; }</style>');
-</script>
 <div id="contain">
     <div id="container">
-
         <div class="profile-photos">
             <div class="profile-photos-left">
                 <div class="profile-pesonal-img"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>personal.jpg" width="180" height="180" border="0" /></div>
@@ -33,19 +38,12 @@ echo $this->Javascript->link(
                     <a href="javascript:void(0);" id="deleteAlbum">Delete Album</a> |
                     <a href="javascript:void(0);" onclick="toggleRename();">Rename Album</a> |
                     <a href="javascript:void(0);" id="shareAlbum">Share Album</a>
-                    
-                    
                 </div>
             </div>
         </div>
-
-        <?php include_once ('albums.ctp'); ?>
-
-        <?php
+        <?php 
+        include_once ('albums.ctp'); 
         include_once ('album_imgs.ctp');
-        if (($this->action == 'createProject') || ($this->action == 'editProject'))
-            include_once ('create_project.ctp');
         ?>
-
     </div>
 </div>
