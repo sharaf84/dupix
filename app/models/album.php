@@ -12,21 +12,14 @@ class Album extends AppModel {
 			'fields' => '',
 			'order' => ''
 		),
-            
-//		'Friend' => array(
-//			'className' => 'Friend',
-//			'foreignKey' => 'friend_id',
-//			'conditions' => '',
-//			'fields' => '',
-//			'order' => ''
-//		),
-//		'Owner' => array(
-//			'className' => 'Friend',
-//			'foreignKey' => 'owner_id',
-//			'conditions' => '',
-//			'fields' => '',
-//			'order' => ''
-//		)
+
+		'Friend' => array(
+			'className' => 'Friend',
+			'foreignKey' => 'friend_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		)
 	);
 
 	var $hasMany = array(
@@ -63,6 +56,7 @@ class Album extends AppModel {
 			'insertQuery' => ''
 		)
 	);
+
 
 }
 ?>

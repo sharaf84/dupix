@@ -20,32 +20,68 @@ class ProfileController extends AppController {
     function index() {
         $this->set('member', $this->currentMember);
     }
-
-    /* Albums Functions */
-
-    function albumImgs($albumId = null) {
-        $this->Member->Album->recursive = 1;
-        return $this->Member->Album->find('first', array('conditions' => array('Album.id' => $albumId, 'Album.member_id' => $this->Cookie->read('Member.id'))));
+    
+    function mydupix(){
+        $this->set('member', $this->currentMember);
     }
 
+    /* Albums Functions */
+    
+        //call by ajax
+    function getAlbums() {
+        $this->autoRender = false;
+        $json = false;
+        $albums = $this->Member->Album->find('list', array(
+            'conditions' => array(
+                'Album.member_id' => $this->Cookie->read('Member.id')
+            ),
+            'recursive' => -1
+        ));
+        $albums and $json = json_encode($albums);
+        echo $json;
+    }
+    
     //call by ajax
     function getAlbumImgs() {
         $json = false;
         $albumId = isset($this->params['form']['album_id']) ? $this->params['form']['album_id'] : null;
-        if ($albumId) {
-            $galley = array();
-            $albumImgs = $this->albumImgs($albumId);
-            if (!empty($albumImgs['Gal'])) {
-                foreach ($albumImgs['Gal'] as $albumImg) {
-                    $gallery[$albumImg['id']] = $albumImg['image'];
+        $imgAction = isset($this->params['form']['img_action']) ? $this->params['form']['img_action'] : null;
+        $imgId = isset($this->params['form']['img_id']) ? $this->params['form']['img_id'] : null;
+        if ($albumId && $this->relatedToMember('Album', $albumId)) {
+            if($imgAction && $imgId){
+                $this->carryImg($imgId, $imgAction, $albumId);
+            }
+            $gal = $this->Member->Album->Gal->find('list', array(
+                'conditions' => array('Gal.album_id' => $albumId),
+                'order' => array('Gal.updated' => 'DESC'),
+                'recursive' => -1
+            ));
+            !empty($gal) and $json = json_encode($gal);
+        }
+        $this->autoRender = false;
+        echo $json;
+    }
+    
+    //move or copy img to album
+    function carryImg($imgId, $action, $albumId) {
+        if ($imgId) {
+            $gal = $this->Member->Album->Gal->read(null, $imgId);
+            if ($gal['Album']['member_id'] == $this->Cookie->read('Member.id')) {
+                if($action == 'move'){
+                    $this->Member->Album->Gal->saveField('album_id', $albumId);    
                 }
-                if (!empty($gallery)) {
-                    $json = json_encode($gallery);
+                if($action == 'copy'){
+                    $dest = rand().$gal['Gal']['image'];
+                    copy($this->Upload->imageUploadDir.$gal['Gal']['image'], $this->Upload->imageUploadDir.$dest);
+                    copy($this->Upload->imageUploadDir.'thumb_'.$gal['Gal']['image'], $this->Upload->imageUploadDir.'thumb_'.$dest);
+                    unset($gal['Gal']['id']);
+                    $gal['Gal']['album_id'] = $albumId;
+                    $gal['Gal']['image'] = $dest;
+                    $this->Member->Album->Gal->create();
+                    $this->Member->Album->Gal->save($gal);
                 }
             }
         }
-        $this->autoRender = false;
-        return $json;
     }
 
     // add Album (call by ajax)
@@ -61,9 +97,10 @@ class ProfileController extends AppController {
                 $title = $this->data['Album']['title'];
             }
         }
-        echo '{"msg":"' . $msg . '", "title":"' . $title . '", "id":"' . $id . '"}';
         $this->data = null;
         $this->autoRender = false;
+        echo '{"msg":"' . $msg . '", "title":"' . $title . '", "id":"' . $id . '"}';
+        
     }
 
     // deleteAlbum(call by ajax)
@@ -72,34 +109,40 @@ class ProfileController extends AppController {
         $id = isset($this->params['form']['album_id']) ? $this->params['form']['album_id'] : null;
         if ($id != null) {
             //get album imgs to be deleted from server.
-            $this->Upload->filesToDelete = $this->Member->Album->Gal->find('list', array('fields' => 'Gal.image', 'conditions' => array('album_id' => $id)));
-            $this->Member->Album->recursive = -1;
+            $this->Upload->filesToDelete = $this->Member->Album->Gal->find(
+                'list',
+                array(
+                    'fields' => 'Gal.image', 
+                    'conditions' => array('Gal.album_id' => $id),
+                    'recursive' => -1
+                )
+            );
             if ($this->Member->Album->deleteAll(array(
                         'Album.id' => $id,
                         'Album.member_id' => $this->Cookie->read('Member.id')
                     ))) {
                 $this->Upload->deleteFiles();
-                return true;
+                echo true;
             }
         }
-        return false;
+        echo false;
     }
 
     // editAlbum (call by ajax)
-    function editAlbum() {
+    function renameAlbum() {
         $this->autoRender = false;
         $id = isset($this->params['form']['album_id']) ? $this->params['form']['album_id'] : null;
         $title = isset($this->params['form']['album_title']) ? $this->params['form']['album_title'] : null;
-        if ($id != null) {
+        if ($id) {
             $this->Member->Album->recursive = -1;
             if ($this->Member->Album->updateAll(
-                            array('Album.title' => "'$title'"), array('Album.id' => $id, 'Album.member_id' => $this->Cookie->read('Member.id')
-                    )))
-                return $title;
+                array('Album.title' => "'$title'"), array('Album.id' => $id, 'Album.member_id' => $this->Cookie->read('Member.id')
+            )))
+                echo $title;
         }else
-            return false;
+            echo false;
     }
-
+    
     // deleteAlbumImg(call by ajax)
     function deleteAlbumImg() {
         $this->autoRender = false;

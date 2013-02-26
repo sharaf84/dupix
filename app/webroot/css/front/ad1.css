@@ -1,0 +1,32 @@
+a#vlb{display:none}
+#wowslider-container2 { 
+/*	overflow: hidden; */
+	zoom: 1; 
+	position: relative; 
+	width:150px;
+	height:600px;
+	margin:0 auto;
+	z-index:100;
+}
+#wowslider-container2 .ws_images{
+	position: absolute;
+	left:0px;
+	top:0px;
+	width:150px;
+	height:600px;
+	overflow:hidden;
+}
+#wowslider-container2 .ws_images a{
+	color:transparent;
+}
+
+#wowslider-container2 .ws_images img{
+	top:0;
+	left:0;
+	border:none 0;
+}
+#wowslider-container2 a{ 
+	text-decoration: none; 
+	outline: none; 
+	border: none; 
+}

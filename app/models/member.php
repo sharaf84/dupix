@@ -4,6 +4,8 @@ class Member extends AppModel {
 
     var $name = 'Member';
     var $displayField = 'name';
+    //The Associations below have been created with all possible keys, those that are not needed can be removed
+    
     var $validate = array(
 //        'name' => array(
 //            'rule' => 'notEmpty',
@@ -45,9 +47,8 @@ class Member extends AppModel {
         return false;
     }
 
-    //The Associations below have been created with all possible keys, those that are not needed can be removed
     var $belongsTo = array(
-        'Member_Parent' => array(
+        'ParentMember' => array(
             'className' => 'Member',
             'foreignKey' => 'parent_id',
             'conditions' => '',
@@ -56,10 +57,23 @@ class Member extends AppModel {
         )
     );
     var $hasMany = array(
+        'Address' => array(
+            'className' => 'Address',
+            'foreignKey' => 'member_id',
+            'dependent' => false,
+            'conditions' => '',
+            'fields' => '',
+            'order' => '',
+            'limit' => '',
+            'offset' => '',
+            'exclusive' => '',
+            'finderQuery' => '',
+            'counterQuery' => ''
+        ),
         'Album' => array(
             'className' => 'Album',
             'foreignKey' => 'member_id',
-            'dependent' => true,
+            'dependent' => false,
             'conditions' => '',
             'fields' => '',
             'order' => '',
@@ -85,7 +99,7 @@ class Member extends AppModel {
         'Friend' => array(
             'className' => 'Friend',
             'foreignKey' => 'member_id',
-            'dependent' => true,
+            'dependent' => false,
             'conditions' => '',
             'fields' => '',
             'order' => '',
@@ -98,10 +112,36 @@ class Member extends AppModel {
         'Gal' => array(
             'className' => 'Gal',
             'foreignKey' => 'member_id',
-            'dependent' => true,
+            'dependent' => false,
             'conditions' => '',
             'fields' => '',
-            'order' => 'Gal.position ASC',
+            'order' => '',
+            'limit' => '',
+            'offset' => '',
+            'exclusive' => '',
+            'finderQuery' => '',
+            'counterQuery' => ''
+        ),
+        'ChildMember' => array(
+            'className' => 'Member',
+            'foreignKey' => 'parent_id',
+            'dependent' => false,
+            'conditions' => '',
+            'fields' => '',
+            'order' => '',
+            'limit' => '',
+            'offset' => '',
+            'exclusive' => '',
+            'finderQuery' => '',
+            'counterQuery' => ''
+        ),
+        'Order' => array(
+            'className' => 'Order',
+            'foreignKey' => 'member_id',
+            'dependent' => false,
+            'conditions' => '',
+            'fields' => '',
+            'order' => '',
             'limit' => '',
             'offset' => '',
             'exclusive' => '',
@@ -133,35 +173,25 @@ class Member extends AppModel {
             'exclusive' => '',
             'finderQuery' => '',
             'counterQuery' => ''
-        ),
-        'Order' => array(
-            'className' => 'Order',
-            'foreignKey' => 'member_id',
-            'dependent' => false,
-            'conditions' => '',
-            'fields' => '',
-            'order' => '',
-            'limit' => '',
-            'offset' => '',
-            'exclusive' => '',
-            'finderQuery' => '',
-            'counterQuery' => ''
-        ),
-        'Member_Child' => array(
-            'className' => 'Member',
-            'foreignKey' => 'parent_id',
-            'dependent' => false,
-            'conditions' => '',
-            'fields' => '',
-            'order' => '',
-            'limit' => '',
-            'offset' => '',
-            'exclusive' => '',
-            'finderQuery' => '',
-            'counterQuery' => ''
         )
     );
     var $hasAndBelongsToMany = array(
+        'Friend' => array(
+            'className' => 'Friend',
+            'joinTable' => 'friends_members',
+            'foreignKey' => 'member_id',
+            'associationForeignKey' => 'friend_id',
+            'unique' => true,
+            'conditions' => '',
+            'fields' => '',
+            'order' => '',
+            'limit' => '',
+            'offset' => '',
+            'finderQuery' => '',
+            'deleteQuery' => '',
+            'insertQuery' => ''
+        ),
+        
         'Album' => array(
             'className' => 'Album',
             'joinTable' => 'albums_members',
@@ -181,18 +211,14 @@ class Member extends AppModel {
 
     function afterSave($creat) {
         if ($creat)
-            $this->createDir();
+            $this->createDefaultAlbum();
     }
 
     //create member default album and projects dir.
-    function createDir() {
+    function createDefaultAlbum() {
         $album = array('title' => 'Default', 'member_id' => $this->id);
         $this->Album->create();
         $this->Album->save($album);
-
-//		$dir = IMAGES.'upload'.DS.$this->id.DS.'projects'.DS;
-//		if(!file_exists($dir))
-//			mkdir($dir, 0777, true);
     }
 
 }

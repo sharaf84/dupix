@@ -1,5 +1,5 @@
 $(function() {
-	$("#upload_field").html5_upload({
+	$("#multiUpload").html5_upload({
 	    url: function(number) {
 		return prompt(number + " url", siteUrl+"/profile/ajaxImgUpload/3");
 	    },

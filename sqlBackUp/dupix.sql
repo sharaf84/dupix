@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 10, 2013 at 07:44 PM
+-- Generation Time: Feb 17, 2013 at 09:29 PM
 -- Server version: 5.5.28
 -- PHP Version: 5.3.10-1ubuntu3.4
 
@@ -55,23 +55,17 @@ CREATE TABLE IF NOT EXISTS `albums` (
   `member_id` int(10) unsigned NOT NULL DEFAULT '0',
   `friend_id` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=105 ;
 
 --
 -- Dumping data for table `albums`
 --
 
 INSERT INTO `albums` (`id`, `title`, `tags`, `caption`, `access`, `share_type`, `password`, `owner_id`, `member_id`, `friend_id`) VALUES
-(1, 'Default', '', '', 0, 0, '', 0, 1, 0),
-(3, 'Default', '', '', 0, 0, '', 0, 3, 0),
-(4, 'Default', '', '', 0, 0, '', 0, 4, 0),
-(5, 'Default', '', '', 0, 0, '', 0, 5, 0),
-(6, 'Default', '', '', 0, 0, '', 0, 6, 0),
-(7, 'Default', '', '', 0, 0, '', 0, 7, 0),
-(8, 'Default', '', '', 0, 0, '', 0, 8, 0),
-(9, 'Default', '', '', 0, 0, '', 0, 9, 0),
+(3, 'Defalut', '', '', 0, 0, '', 0, 3, 0),
 (10, 'Default', '', '', 0, 0, '', 0, 10, 0),
-(11, 'Default', '', '', 0, 0, '', 0, 11, 0);
+(103, 'Album2', '', '', 0, 0, '', 0, 3, 0),
+(104, 'Empty', '', '', 0, 0, '', 0, 3, 0);
 
 -- --------------------------------------------------------
 
@@ -85,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `albums_members` (
   `member_id` int(11) NOT NULL,
   `status` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -137,11 +131,11 @@ INSERT INTO `contents` (`id`, `title`, `link`, `body`) VALUES
 
 CREATE TABLE IF NOT EXISTS `friends` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) NOT NULL,
+  `title` varchar(255) CHARACTER SET latin1 NOT NULL,
   `parent_id` int(10) unsigned NOT NULL DEFAULT '0',
   `member_id` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `friends`
@@ -163,7 +157,7 @@ CREATE TABLE IF NOT EXISTS `friends_members` (
   `member_id` int(11) NOT NULL,
   `friend_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -186,7 +180,48 @@ CREATE TABLE IF NOT EXISTS `gals` (
   `album_id` int(11) unsigned NOT NULL DEFAULT '0',
   `project_id` int(11) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=99 ;
+
+--
+-- Dumping data for table `gals`
+--
+
+INSERT INTO `gals` (`id`, `caption`, `image`, `quantity`, `tags`, `location`, `scale`, `crop_info`, `position`, `member_id`, `product_id`, `album_id`, `project_id`) VALUES
+(55, '', '98b47_11.jpg', 1, '', '', 1, '', 0, 0, 0, 3, 0),
+(56, '', '87003_12.jpg', 1, '', '', 1, '', 0, 0, 0, 3, 0),
+(57, '', 'f4a46_13.jpg', 1, '', '', 1, '', 0, 0, 0, 3, 0),
+(58, '', '36f57_14.jpg', 1, '', '', 1, '', 0, 0, 0, 3, 0),
+(59, '', '18f26_2.jpg', 1, '', '', 1, '', 0, 0, 0, 3, 0),
+(60, '', '62a51_CR7.jpg', 1, '', '', 1, '', 0, 0, 0, 3, 0),
+(61, '', '29aec_11.jpg', 1, '', '', 1, '', 0, 0, 0, 3, 0),
+(62, '', 'cbe93_12.jpg', 1, '', '', 1, '', 0, 0, 0, 3, 0),
+(63, '', '03afe_13.jpg', 1, '', '', 1, '', 0, 0, 0, 3, 0),
+(65, '', '8a8c6_CR7.jpg', 1, '', '', 1, '', 0, 0, 0, 3, 0),
+(66, '', '06393_11.jpg', 1, '', '', 1, '', 0, 0, 0, 3, 0),
+(67, '', '9dbc8_12.jpg', 1, '', '', 1, '', 0, 0, 0, 3, 0),
+(68, '', '91fdd_13.jpg', 1, '', '', 1, '', 0, 0, 0, 3, 0),
+(69, '', '05e08_14.jpg', 1, '', '', 1, '', 0, 0, 0, 3, 0),
+(70, '', 'ff4bd_CR7.jpg', 1, '', '', 1, '', 0, 0, 0, 3, 0),
+(71, '', 'a3a59_12.jpg', 1, '', '', 1, '', 0, 0, 0, 3, 0),
+(72, '', 'c798a_13.jpg', 1, '', '', 1, '', 0, 0, 0, 3, 0),
+(73, '', '86912_14.jpg', 1, '', '', 1, '', 0, 0, 0, 3, 0),
+(80, '', '71c12_12.jpg', 1, '', '', 1, '', 0, 0, 0, 11, 0),
+(81, '', '8c1ac_13.jpg', 1, '', '', 1, '', 0, 0, 0, 11, 0),
+(82, '', '54716_14.jpg', 1, '', '', 1, '', 0, 0, 0, 11, 0),
+(83, '', '315e3_CR7.jpg', 1, '', '', 1, '', 0, 0, 0, 11, 0),
+(86, '', '35126_11.jpg', 1, '', '', 1, '', 0, 0, 0, 71, 0),
+(87, '', 'b7533_12.jpg', 1, '', '', 1, '', 0, 0, 0, 71, 0),
+(88, '', '97aa1_13.jpg', 1, '', '', 1, '', 0, 0, 0, 71, 0),
+(89, '', '887a6_14.jpg', 1, '', '', 1, '', 0, 0, 0, 71, 0),
+(90, '', 'd8aa4_CR7.jpg', 1, '', '', 1, '', 0, 0, 0, 71, 0),
+(91, '', 'ec557_12.jpg', 1, '', '', 1, '', 0, 0, 0, 78, 0),
+(92, '', '650fb_13.jpg', 1, '', '', 1, '', 0, 0, 0, 78, 0),
+(93, '', 'f21e6_14.jpg', 1, '', '', 1, '', 0, 0, 0, 78, 0),
+(94, '', '7c842_11.jpg', 1, '', '', 1, '', 0, 0, 0, 103, 0),
+(95, '', 'a8e53_12.jpg', 1, '', '', 1, '', 0, 0, 0, 103, 0),
+(96, '', '73b88_13.jpg', 1, '', '', 1, '', 0, 0, 0, 103, 0),
+(97, '', '5defb_14.jpg', 1, '', '', 1, '', 0, 0, 0, 103, 0),
+(98, '', '0693c_CR7.jpg', 1, '', '', 1, '', 0, 0, 0, 103, 0);
 
 -- --------------------------------------------------------
 
@@ -230,7 +265,7 @@ CREATE TABLE IF NOT EXISTS `members` (
   `last_login` datetime NOT NULL,
   `parent_id` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `members`
@@ -238,8 +273,7 @@ CREATE TABLE IF NOT EXISTS `members` (
 
 INSERT INTO `members` (`id`, `name`, `birthdate`, `gender`, `email`, `password`, `confirm_code`, `confirmed`, `confirmed_date`, `newsletter`, `type`, `last_login`, `parent_id`) VALUES
 (3, 'Ahmed Sharaf', '0000-00-00', 1, 'a.sharaf@shift.com.eg', '123', '5112b119-cc0c-4ce7-ac4b-0ddf10737dc0', 1, '0000-00-00 00:00:00', 1, 0, '0000-00-00 00:00:00', 0),
-(10, 'Ahmed Sharaf', '0000-00-00', 1, 'sharaf.developer@gmail.com', '123', '5112d59a-fe40-421e-9dd0-172f10737dc0', 1, '0000-00-00 00:00:00', 1, 0, '0000-00-00 00:00:00', 0),
-(11, 'sharaf', '0000-00-00', 1, 'a.sharaf7@sthift.com.eg', '123', '5117d9c8-8ea0-4c02-8543-0db110737dc0', 0, '0000-00-00 00:00:00', 1, 0, '0000-00-00 00:00:00', 0);
+(10, 'Ahmed Sharaf', '0000-00-00', 1, 'sharaf.developer@gmail.com', '123', '5112d59a-fe40-421e-9dd0-172f10737dc0', 1, '0000-00-00 00:00:00', 1, 0, '0000-00-00 00:00:00', 0);
 
 -- --------------------------------------------------------
 

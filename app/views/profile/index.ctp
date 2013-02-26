@@ -1,40 +1,21 @@
-<!--<div id="content">
-    <div id="content_left">
-<?php //include_once ('left_albums.ctp'); ?>
-    </div>
-    <div id="content_right">
-<?php
-//        include_once ('album_imgs.ctp');
-//        if (($this->action == 'createProject') || ($this->action == 'editProject'))
-//            include_once ('create_project.ctp');
-?>
-    </div>
-</div>-->
 <?php
 echo $this->Javascript->link(
-        array(
-    'front/jquery.jcarousel.min',
-    'front/jquery.history',
-    'front/jquery.galleriffic',
-    'front/jquery.galleriffic.custom',
-    'front/jquery.opacityrollover',
-    'ajaxupload/jquery.html5.upload',
-    'ajaxupload/jquery.html5.upload.custom'
-        )
-        , false
+    array(
+        'ajaxupload/jquery.html5.upload',
+        //'ajaxupload/jquery.html5.upload.custom' //all code added to => 'front/jquery.galleriffic.custom'
+        'front/jquery.jcarousel',
+        'front/jquery.jcarousel.custom',
+        'front/jquery.history',
+        'front/jquery.galleriffic',
+        'front/jquery.galleriffic.custom',
+        'front/jquery.opacityrollover',
+    )
+    , false
 );
 ?>
 <script type="text/javascript">
     document.write('<style>.noscript { display: none; }</style>');
-    $(document).ready(function(){
-        //any code
-    });
-    
-    
 </script>
-
-
-
 <div id="contain">
     <div id="container">
 
@@ -45,7 +26,16 @@ echo $this->Javascript->link(
             </div>
             <div class="profile-photos-right">
                 <div class="profile-cover-img"><img src="<?php echo $this->Session->read('Setting.url') . '/img/front/'; ?>cover.jpg" width="505" height="180" border="0" /></div>
-                <div class="profile-menu"><a href="#">Create new Album</a> |  <input type="file" multiple="multiple" id="upload_field"/> | <a href="#addImage" id="addImageLink2">Upload a Photo</a> |   <a href="#removeImageByIndex" id="removeImageByIndexLink">Delete Photo(s)</a> </div>
+                <div class="profile-menu">
+                    <a href="#addAlbum" class="inlineAddAlbum">Create Album</a> |
+                    <input type="file" multiple="multiple" id="multiUpload" style="display: none">
+                    <a href="javascript:void(0);" onclick="$('#multiUpload').trigger('click');">Upload Photo(s)</a> | 
+                    <a href="javascript:void(0);" id="deleteAlbum">Delete Album</a> |
+                    <a href="javascript:void(0);" onclick="toggleRename();">Rename Album</a> |
+                    <a href="javascript:void(0);" id="shareAlbum">Share Album</a>
+                    
+                    
+                </div>
             </div>
         </div>
 

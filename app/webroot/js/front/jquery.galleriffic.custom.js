@@ -87,7 +87,7 @@ jQuery(document).ready(function($) {
     $.historyInit(pageload, "advanced.html");
 
     // set onlick event for buttons using the jQuery 1.3 live method
-    $("a[rel='history']").live('click', function() {
+    $("a[rel='history']").live('click', function(e) {
         if (e.button != 0) return true;
 
         var hash = this.href;
@@ -140,5 +140,169 @@ jQuery(document).ready(function($) {
         e.preventDefault();
     });
 				
-/****************************************************************************************/
+    /****************************************************************************************/
+
+    // html5_upload initiail and custom
+    
+    var perc = 0;
+    $("#multiUpload").html5_upload({
+        url: function(number) {
+            return siteUrl+"/profile/ajaxImgUpload/"+getCurrentAlbumId();
+        },
+        sendBoundary: window.FormData || $.browser.mozilla,
+        onStart: function(event, total) {
+            return true;
+            return confirm("You are trying to upload " + total + " files. Are you sure?");
+        },
+        onProgress: function(event, progress, name, number, total) {
+            //console.log(progress, number);
+        },
+        setName: function(text) {
+        //  $("#progress_report_name").text(text);
+        },
+        setStatus: function(text) {
+        //$("#progress_report_status").text(text);
+        },
+        setProgress: function(val) {
+            perc = Math.ceil(val*100)+"%";
+            $("#progress_report_bar").css('width', perc).text(perc);
+        },
+        onFinishOne: function(event, response, name, number, total) {
+            perc = 0;
+            $("#progress_report_bar").css('width', perc).text();
+            var obj = JSON.parse(response);
+            gallery.insertImage(createGalElm(obj.id, obj.name, false), 0);
+            gallery.gotoIndex(0);
+            if($('#placeHolder').length == 1)
+                gallery.removeImageByHash($('#placeHolder').attr('href').substr(1));
+            
+        },
+        onError: function(event, name, error) {
+            alert('error while uploading file ' + name);
+        }
+    });
+    
+    
+    /*Album imgs functions*/
+        
+    //get all album imgs  
+    $('#myAlbums').on('click', '.albumLink', function(e){
+        var albumId = $(this).attr('id').substr(5);
+        $('.albumLink').removeClass('current');
+        $(this).addClass('current');
+        var title = $.trim($(this).text());
+        $('.album-title').hide();
+        $('#albumTitle').text(title).show();
+        //to copy or move img to selected album befor get its imgs
+        var imgAction = null, imgId = null;
+        if(typeof $.data(document.body, "data") !== 'undefined'){
+            imgAction = $.data(document.body, "data").action;
+            imgId = $.data(document.body, "data").id;
+            $.removeData(document.body, "data");
+        }
+        $.ajax({
+            type: "POST",
+            data: {"album_id":albumId, "img_action":imgAction, "img_id":imgId},
+            url: siteUrl+'/profile/getAlbumImgs',
+            dataType: "json",
+            beforeSend: function(){
+                //any code.
+            },
+            success:function(result){
+                gallery.insertImage(placeHolderElm(), 0);//Add placeholder element.
+                var oldImgsNo = $('#thumbs .thumb').length;
+                //delete all old elements except placeholder (index 0) 3shan el gallery matedrabsh fe weshak.
+                for(var index = oldImgsNo-1; index > 0; index--){
+                    gallery.removeImageByIndex(index); 
+                }
+                if(result){
+                    //append new album imgs
+                    $.each(result, function(imgId, imgName){
+                        gallery.appendImage(createGalElm(imgId, imgName, false));//append new element
+                    });
+                    gallery.removeImageByIndex(0);//delete the placeholder element
+                }
+                gallery.gotoIndex(0);
+            }
+        });
+        e.preventDefault();
+    });
+    
+    //view imgs of first album
+    $('#myAlbums .albumLink:first').trigger('click');
+    
+    //delete img
+    $('#deleteImg').click(function (e){
+        e.preventDefault();
+        var selectedImg = getSelectedImg();
+        if(selectedImg.id == 'placeHolder'){
+            return $.colorbox({
+                html: "<p class='cbox-p'>Sorry! can't delete this img.</p>"
+            });
+        }
+        if(confirm('Confirm Deleting Image')){
+            $.ajax({
+                type: 'POST',
+                data: 'img_id='+selectedImg.imgId,
+                url: siteUrl+'/profile/deleteAlbumImg',
+                beforeSend: function(){
+                    //any code.
+                },
+                success:function(result){
+                    if(result == true){
+                        if($('#thumbs li').length == 1){
+                            gallery.insertImage(placeHolderElm(), 0);//Add placeholder element before delete last image.
+                        }
+                        gallery.removeImageByHash(selectedImg.hash);
+                        gallery.gotoIndex(0);
+                    }else{
+                        return $.colorbox({
+                            html: "<p class='cbox-p'>Error! please try again.</p>"
+                        });
+                    }
+                }
+            });
+        }
+        return false;	
+    });
+    
+    
 });
+
+function createGalElm(imgId, imgName, caption){
+    var elm = '<a class="thumb" id="img'+imgId+'" href="'+siteUrl+'/img/upload/'+imgName+'" >\
+                    <img src="'+siteUrl+'/img/upload/thumb_'+imgName+'" />\
+               </a>';
+    if(caption){
+       elm += '<div class="caption">\
+                    <div class="image-title">'+caption+'</div>\
+                </div>'; 
+    }
+    return '<li>'+elm+'</li>';
+}
+
+function placeHolderElm(){
+    return '<li>\
+                <a class="thumb" id="placeHolder" href="'+siteUrl+'/img/front/placeholder.jpg" >\
+                    <img src="'+siteUrl+'/img/front/thumb_placeholder.jpg" />\
+               </a>\
+            </li>';
+}
+
+function getSelectedImg(){
+    var $elm = $('#thumbs li.selected a.thumb');
+    return {"elm":$elm, "id":$elm.attr('id'), "imgId":$elm.attr('id').substr(3), "hash":$elm.attr('href').substr(1)};
+}
+
+function carryImg($action){
+    var selectedImg = getSelectedImg();
+    if(selectedImg.id == 'placeHolder'){
+        return $.colorbox({
+            html: "<p class='cbox-p'>Sorry! can't "+$action+" this img.</p>"
+        });
+    }
+    $.data(document.body, "data", {"action":$action, "id":selectedImg.imgId});
+    return $.colorbox({
+        html: "<p class='cbox-p'>Please click the album you want to "+$action+" img to.</p>"
+    });
+}
