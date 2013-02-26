@@ -1,9 +1,3 @@
-<script type="text/javascript">
-$(document).ready(function() {
-    //
-});
-</script>
-
 <!-- This contains the hidden content for inline calls -->
 <div style="display:none">
     <div id="addAlbum" style="padding:10px; background:#fff;">

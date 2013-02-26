@@ -183,7 +183,7 @@ class AppController extends Controller {
             $gal['image'] = $this->Upload->uploadImage( $_FILES['uploaded_file']);
             $this->Gal->create();
             $this->Gal->save($gal);
-            echo $gal['image'];
+            echo json_encode(array('id' => $this->Gal->id, 'name' => $gal['image']));
         }
         echo false;
     }

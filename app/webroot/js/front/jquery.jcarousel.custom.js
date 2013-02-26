@@ -89,7 +89,7 @@ function mycarousel_initCallback(carousel, state){
         var id = getCurrentAlbumId();
         if(id == getFirstAlbumId()){
             return $.colorbox({
-                html: "<p>Sorry can't delete Default album.</p>"
+                html: "<p class='cbox-p'>Sorry can't delete this album.</p>"
             });
         }
         if(confirm('Confirm Deleting Album')){
@@ -106,7 +106,7 @@ function mycarousel_initCallback(carousel, state){
                     }
                     else{
                         return $.colorbox({
-                            html: "<p>Error! Please try again.</p>"
+                            html: "<p class='cbox-p'>Error! Please try again.</p>"
                         });
                     }
                 }
@@ -195,7 +195,7 @@ function getAlbums(carousel, position){
                 }
             }else{
                 $.colorbox({
-                    html: "<p>No album found.</p>",
+                    html: "<p class='cbox-p'>No album found.</p>",
                     width: '40%'
                 });
             }

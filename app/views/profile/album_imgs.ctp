@@ -1,10 +1,3 @@
-<script type="text/javascript">
-    $(document).ready(function(){
-        $('#myAlbums .albumLink:first').trigger('click');
-
-    });
-</script>
-
 <style>
     #progress_report{width: 100%; float: left; margin-top: 10px;}
     #progress_report_bar_container{width: 100%; height: 10px; font-size: 9px; text-align: right;}
@@ -20,7 +13,6 @@
         </div>
         <div class="caption" style="display: block;">
             <div class="image-title">
-                <input type="hidden" id="imgCarrier">
                 <a href="javascript:void(0);" onclick="carryImg('move');">MOVE</a>
                 <a href="javascript:void(0);" onclick="carryImg('copy');">COPY</a>
                 <a href="javascript:void(0);" id="deleteImg">DELETE</a>

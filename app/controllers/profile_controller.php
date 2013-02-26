@@ -47,26 +47,16 @@ class ProfileController extends AppController {
         $albumId = isset($this->params['form']['album_id']) ? $this->params['form']['album_id'] : null;
         $imgAction = isset($this->params['form']['img_action']) ? $this->params['form']['img_action'] : null;
         $imgId = isset($this->params['form']['img_id']) ? $this->params['form']['img_id'] : null;
-        if ($albumId) {
+        if ($albumId && $this->relatedToMember('Album', $albumId)) {
             if($imgAction && $imgId){
                 $this->carryImg($imgId, $imgAction, $albumId);
             }
-            $galley = array();
-            $albumImgs = $this->Member->Album->find('first', array(
-                'conditions' => array(
-                    'Album.id' => $albumId, 
-                    'Album.member_id' => $this->Cookie->read('Member.id')
-                ),
-                'recursive' => 1
+            $gal = $this->Member->Album->Gal->find('list', array(
+                'conditions' => array('Gal.album_id' => $albumId),
+                'order' => array('Gal.updated' => 'DESC'),
+                'recursive' => -1
             ));
-            if (!empty($albumImgs['Gal'])) {
-                foreach ($albumImgs['Gal'] as $albumImg) {
-                    $gallery[$albumImg['id']] = $albumImg['image'];
-                }
-                if (!empty($gallery)) {
-                    $json = json_encode($gallery);
-                }
-            }
+            !empty($gal) and $json = json_encode($gal);
         }
         $this->autoRender = false;
         echo $json;
@@ -78,8 +68,17 @@ class ProfileController extends AppController {
             $gal = $this->Member->Album->Gal->read(null, $imgId);
             if ($gal['Album']['member_id'] == $this->Cookie->read('Member.id')) {
                 if($action == 'move'){
-                    $this->Member->Album->Gal->id = $imgId;
                     $this->Member->Album->Gal->saveField('album_id', $albumId);    
+                }
+                if($action == 'copy'){
+                    $dest = rand().$gal['Gal']['image'];
+                    copy($this->Upload->imageUploadDir.$gal['Gal']['image'], $this->Upload->imageUploadDir.$dest);
+                    copy($this->Upload->imageUploadDir.'thumb_'.$gal['Gal']['image'], $this->Upload->imageUploadDir.'thumb_'.$dest);
+                    unset($gal['Gal']['id']);
+                    $gal['Gal']['album_id'] = $albumId;
+                    $gal['Gal']['image'] = $dest;
+                    $this->Member->Album->Gal->create();
+                    $this->Member->Album->Gal->save($gal);
                 }
             }
         }

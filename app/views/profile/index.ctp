@@ -15,9 +15,6 @@ echo $this->Javascript->link(
 ?>
 <script type="text/javascript">
     document.write('<style>.noscript { display: none; }</style>');
-    $(document).ready(function(){
-        //any code
-    });
 </script>
 <div id="contain">
     <div id="container">

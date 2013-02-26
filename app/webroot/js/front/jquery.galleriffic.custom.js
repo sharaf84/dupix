@@ -168,10 +168,10 @@ jQuery(document).ready(function($) {
             $("#progress_report_bar").css('width', perc).text(perc);
         },
         onFinishOne: function(event, response, name, number, total) {
-            //console.log(response);
             perc = 0;
             $("#progress_report_bar").css('width', perc).text();
-            gallery.insertImage(createGalElm('id', response), 0);
+            var obj = JSON.parse(response);
+            gallery.insertImage(createGalElm(obj.id, obj.name, false), 0);
             gallery.gotoIndex(0);
             if($('#placeHolder').length == 1)
                 gallery.removeImageByHash($('#placeHolder').attr('href').substr(1));
@@ -184,7 +184,7 @@ jQuery(document).ready(function($) {
     
     
     /*Album imgs functions*/
-    
+        
     //get all album imgs  
     $('#myAlbums').on('click', '.albumLink', function(e){
         var albumId = $(this).attr('id').substr(5);
@@ -193,12 +193,12 @@ jQuery(document).ready(function($) {
         var title = $.trim($(this).text());
         $('.album-title').hide();
         $('#albumTitle').text(title).show();
-        //to copy or move img to selected album befor get imgs
+        //to copy or move img to selected album befor get its imgs
         var imgAction = null, imgId = null;
-        if(typeof $.data($("#imgCarrier")[0], "data") !== 'undefined'){
-            imgAction = $.data($("#imgCarrier")[0], "data").action;
-            imgId = $.data($("#imgCarrier")[0], "data").id;
-            $.removeData($("#imgCarrier")[0], "data");
+        if(typeof $.data(document.body, "data") !== 'undefined'){
+            imgAction = $.data(document.body, "data").action;
+            imgId = $.data(document.body, "data").id;
+            $.removeData(document.body, "data");
         }
         $.ajax({
             type: "POST",
@@ -209,7 +209,6 @@ jQuery(document).ready(function($) {
                 //any code.
             },
             success:function(result){
-                var count = 0;
                 gallery.insertImage(placeHolderElm(), 0);//Add placeholder element.
                 var oldImgsNo = $('#thumbs .thumb').length;
                 //delete all old elements except placeholder (index 0) 3shan el gallery matedrabsh fe weshak.
@@ -217,13 +216,11 @@ jQuery(document).ready(function($) {
                     gallery.removeImageByIndex(index); 
                 }
                 if(result){
-                    //insert new album imgs
-                    count = 0;
+                    //append new album imgs
                     $.each(result, function(imgId, imgName){
-                        gallery.insertImage(createGalElm(imgId, imgName, false), 0);//insert new element
-                        count++;
+                        gallery.appendImage(createGalElm(imgId, imgName, false));//append new element
                     });
-                    gallery.removeImageByIndex(count);//delete the placeholder element
+                    gallery.removeImageByIndex(0);//delete the placeholder element
                 }
                 gallery.gotoIndex(0);
             }
@@ -231,13 +228,16 @@ jQuery(document).ready(function($) {
         e.preventDefault();
     });
     
+    //view imgs of first album
+    $('#myAlbums .albumLink:first').trigger('click');
+    
     //delete img
     $('#deleteImg').click(function (e){
         e.preventDefault();
         var selectedImg = getSelectedImg();
         if(selectedImg.id == 'placeHolder'){
             return $.colorbox({
-                html: "<p>Sorry! can't delete this img.</p>"
+                html: "<p class='cbox-p'>Sorry! can't delete this img.</p>"
             });
         }
         if(confirm('Confirm Deleting Image')){
@@ -257,7 +257,7 @@ jQuery(document).ready(function($) {
                         gallery.gotoIndex(0);
                     }else{
                         return $.colorbox({
-                            html: "<p>Error! please try again.</p>"
+                            html: "<p class='cbox-p'>Error! please try again.</p>"
                         });
                     }
                 }
@@ -298,11 +298,11 @@ function carryImg($action){
     var selectedImg = getSelectedImg();
     if(selectedImg.id == 'placeHolder'){
         return $.colorbox({
-            html: "<p>Sorry! can't "+$action+" this img.</p>"
+            html: "<p class='cbox-p'>Sorry! can't "+$action+" this img.</p>"
         });
     }
-    $.data($("#imgCarrier")[0], "data", {"action":$action, "id":selectedImg.imgId});
+    $.data(document.body, "data", {"action":$action, "id":selectedImg.imgId});
     return $.colorbox({
-        html: "<p>Please click the album you want to "+$action+" img to.</p>"
+        html: "<p class='cbox-p'>Please click the album you want to "+$action+" img to.</p>"
     });
 }
