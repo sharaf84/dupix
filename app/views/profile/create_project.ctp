@@ -2,8 +2,9 @@
     var imgsNo = 6; //Important for jquery.galleriffic.custom
     $(document).ready(function(){
         $('div.navigation').css({
-            'width' : '730px', 
-            'float' : 'left'
+            'width'  : '730px',
+            'height' : '190px',
+            'float'  : 'left'
         });
     });
 </script>
