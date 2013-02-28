@@ -3,26 +3,42 @@
 class SchoolsController extends AppController {
 
     public $name = 'Schools';
-    public $uses = array('Section', 'Product');
+    public $uses = array('Member', 'Gal');
 
-    function index($sectionId = null, $redirect = true) {
-        $this->Section->recursive = -1;
-        $this->set('sections', $this->Section->find('all'));
-        $this->set('minPrices', $this->getMinPrices());
+    function index($id = null) {
+        $this->Member->recursive = 2;
+       $members = $this->Member->find('all', array(
+            'conditions' => array(
+                'Member.id' => $id,
+                'Member.type' => 1,
+                'Member.parent_id' => 0
+            )
+        ));
+//pr($members[0]['ChildMember']);
+//pr($members[0]['Gal']);
+       $this->set('members', $members);
     }
     
-    protected function getMinPrices(){
-        $results = $this->Product->find('all', array(
-            'fields' => array('Product.section_id', 'MIN(Product.price) AS min_price'),
-            'conditions' => array('Product.section_id !=' => 0),
-            'group' => 'Product.section_id',
-            'recursive' => -1
+    function details($id = null) {
+        $this->Member->recursive = 2;
+       $members = $this->Member->find('all', array(
+            'conditions' => array(
+                'Member.id' => $id,
+                'Member.type' => 1,
+                'Member.parent_id' => 0
+            )
         ));
-        $minPricesList = array();
-        foreach($results as $result){
-            $minPricesList[$result['Product']['section_id']] = $result[0]['min_price'];
-        }
-        return $minPricesList;
+       $this->set('members', $members);
+    }
+    
+    function gallaries($albumId) {
+       $gals = $this->Gal->find('all', array(
+            'conditions' => array(
+                'Gal.album_id' => $albumId,
+            )
+        ));
+       $this->set('gals', $gals);
+       $this->layout = 'ajax';
     }
 
 

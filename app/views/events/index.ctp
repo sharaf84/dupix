@@ -6,7 +6,7 @@
 			<th><?php echo $this->Paginator->sort('title');?></th>
 			<th><?php echo $this->Paginator->sort('date');?></th>
 			<th><?php echo $this->Paginator->sort('type');?></th>
-			<th><?php echo $this->Paginator->sort('member_id');?></th>
+			<th>School</th>
 			<th class="actions"><?php __('Actions');?></th>
 	</tr>
 	<?php
@@ -23,7 +23,7 @@
 		<td><?php echo $event['Event']['date']; ?>&nbsp;</td>
 		<td><?php echo $event['Event']['type']; ?>&nbsp;</td>
 		<td>
-			<?php echo $this->Html->link($event['Member']['name'], array('controller' => 'members', 'action' => 'view', $event['Member']['id'])); ?>
+			<?php echo $this->Html->link($event['Member']['name'], array('controller' => 'school', 'action' => 'view', $event['Member']['id'])); ?>
 		</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View', true), array('action' => 'view', $event['Event']['id'])); ?>

@@ -17,14 +17,7 @@ animatedcollapse.ontoggle=function($, divobj, state){ //fires each time a DIV is
 	//state: "block" or "none", depending on state
 }
 
-animatedcollapse.init() 
-jQuery(document).ready(function() {
-    jQuery('#mycarousel').jcarousel({
-        vertical: true,
-        scroll: 2
-    });
-});
-
+animatedcollapse.init()
 $(document).ready( function(){	
 		// buttons for next and previous item						 
 		var buttons = { previous:$('#jslidernews1 .button-previous') ,
@@ -41,24 +34,7 @@ $(document).ready( function(){
 											mainWidth		: 720,
 											buttons			: buttons } );	
 	});
-	$(document).ready( function(){	
-		// buttons for next and previous item						 
-		var buttons = { previous:$('#jslidernews2 .button-previous') ,
-						next:$('#jslidernews2 .button-next') };			
-		 $('#jslidernews2').lofJSidernews( { interval : 4000,
-											direction		: 'opacitys',	
-											easing			: 'easeInOutExpo',
-											duration		: 1200,
-											auto		 	: true,
-											maxItemDisplay  : 5,
-											navPosition     : 'horizontal', // horizontal
-											navigatorHeight : 65,
-											navigatorWidth  : 109,
-											mainWidth		: 600,
-											buttons			: buttons } );	
-	});
-	
 	
 $(document).ready(function(){
-//		$("#featured > ul").tabs({fx:{opacity: "toggle"}}).tabs("rotate", 5000, true);
+		$("#featured > ul").tabs({fx:{opacity: "toggle"}}).tabs("rotate", 5000, true);
 	});

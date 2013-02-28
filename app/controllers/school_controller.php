@@ -1,14 +1,16 @@
 <?php
 require_once '../auth_controller.php';
-class MembersController extends AuthController {
+class SchoolController extends AuthController {
 
-	var $name = 'Members';
+	var $name = 'School';
+        public $uses = array('Member');
         public $components = array('Upload'); //use upload component.
         
 	function index() {
 		$this->Member->recursive = 1;
+                
                 $this->paginate = array(
-                'conditions' => $this->arrKeyPrefix(array_merge(array('parent_id' => 0, 'type' => 0), (array)$this->Session->read('conditions')), 'Member'),
+                'conditions' => $this->arrKeyPrefix(array_merge(array('parent_id' => 0, 'type' => 1), (array)$this->Session->read('conditions')), 'Member'),
                 'limit' => isset($this->params['named']['limit']) ? $this->params['named']['limit'] : $this->paginate['limit'],
                 'page' => isset($this->params['named']['page']) ? $this->params['named']['page'] : $this->paginate['page'],
             );
@@ -24,7 +26,7 @@ class MembersController extends AuthController {
 		$this->set('member', $this->Member->read(null, $id));
 	}
 
-	function add() {
+	function add($id = null) {
 	    $memberList = array();	
             if (!empty($this->data)) {
                         
@@ -37,16 +39,25 @@ class MembersController extends AuthController {
 			$this->data['Member']['confirm_code'] = String::uuid();
 			$this->Member->create();
 			if ($this->Member->save($this->data)) {
-				$this->Session->setFlash(__('The member has been saved', true));
+				$this->Session->setFlash(__('The school has been saved', true));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The member could not be saved. Please, try again.', true));
+				$this->Session->setFlash(__('The school could not be saved. Please, try again.', true));
 			}
 		}
-                $memberList = $this->Member->find('list');
+                $memberList = $this->Member->find('list', array('conditions' => 
+                                                        array('Member.type =' => 1, 'Member.parent_id =' => 0)
+                                                  ));
 //                array_unshift($memberList, "Choose Parent");
                 
-                Configure::write('parentMems',$memberList); 
+                if($id){
+                    $this->set('mainId', $id);
+                }else{
+                    $this->set('mainId', 0);
+                    array_unshift($memberList, "Choose Parent");
+                }
+                
+                $this->set('parentMems', $memberList);
 	}
 
 	function edit($id = null) {
@@ -69,21 +80,24 @@ class MembersController extends AuthController {
                         
 			if ($this->Member->save($this->data)) {
                                 $this->Upload->deleteFiles(); //delete old files
-				$this->Session->setFlash(__('The member has been saved', true));
+				$this->Session->setFlash(__('The school has been saved', true));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The member could not be saved. Please, try again.', true));
+				$this->Session->setFlash(__('The school could not be saved. Please, try again.', true));
 			}
 		}
 		if (empty($this->data)) {
 			$this->data = $this->Member->read(null, $id);
 		}
-                $memberList = $this->Member->find('list');
+                $memberList = $this->Member->find('list', array('conditions' => 
+                                                        array('Member.type =' => 1)
+                                                  ));
                 array_unshift($memberList, "Choose Parent");
                 
-                Configure::write('parentMems',$this->Member->find('list', array(
-                                                                'conditions' => array('Member.id !=' => $id)
-                                                            )));
+                $parentMems = $this->Member->find('list', array('conditions' => 
+                                                        array('Member.id !=' => $id, 'Member.type =' => 1, 'Member.parent_id =' => 0)
+                                                  ));
+                $this->set('parentMems', $parentMems);
                 
 	}
 

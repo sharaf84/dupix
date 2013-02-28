@@ -3,6 +3,7 @@ require_once '../auth_controller.php';
 class GalsController extends AuthController {
 
 	var $name = 'Gals';
+        public $components = array('Upload'); //use upload component.
 
 	function index() {
 		$this->Gal->recursive = 0;
@@ -33,7 +34,18 @@ class GalsController extends AuthController {
 	}
 
 	function add() {
+            $albumId = 0;
+            $urlSegms = array();
+            $urlSegms = explode('/', $_REQUEST['url']);
+            if(sizeof($urlSegms) == 3){
+                $albumId = $urlSegms[sizeof($urlSegms)-1];
+            }
 		if (!empty($this->data)) {
+                        $this->Upload->masterImageWidth = 732;
+                        $this->Upload->masterImageHeight = 345;
+                        $this->Upload->resize = 1;
+                        $this->data['Gal']['image']=$this->Upload->uploadImage($this->data['Gal']['image']);
+            
 			$this->Gal->create();
 			if ($this->Gal->save($this->data)) {
 				$this->Session->setFlash(__('The gal has been saved', true));
@@ -46,6 +58,7 @@ class GalsController extends AuthController {
 		$albums = $this->Gal->Album->find('list');
 		$members = $this->Gal->Member->find('list');
 		$this->set(compact('products', 'albums', 'members'));
+		$this->set('albumId', $albumId);
 	}
 
 	function edit($id = null) {
@@ -54,7 +67,21 @@ class GalsController extends AuthController {
 			$this->redirect(array('action' => 'index'));
 		}
 		if (!empty($this->data)) {
+                        $this->Gal->id = $id;
+                        
+                        if ($this->data['Gal']['image']['name']) {
+                            $this->Upload->masterImageWidth = 732;
+                            $this->Upload->masterImageHeight = 345;
+                            
+                            
+                            $this->Upload->resize = 1;
+                            $this->Upload->filesToDelete = array($this->Gal->field('image'));
+                            $this->data['Gal']['image'] = $this->Upload->uploadImage($this->data['Gal']['image'] );
+                        }else
+                            unset($this->data['Gal']['image'] );
+                        
 			if ($this->Gal->save($this->data)) {
+                                $this->Upload->deleteFiles(); //delete old files
 				$this->Session->setFlash(__('The gal has been saved', true));
 				$this->redirect(array('action' => 'index'));
 			} else {
@@ -75,7 +102,13 @@ class GalsController extends AuthController {
 			$this->Session->setFlash(__('Invalid id for gal', true));
 			$this->redirect(array('action'=>'index'));
 		}
+                $this->Gal->id = $id;
+                $this->Upload->filesToDelete = array(
+                    $this->Gal->field('image')
+                );
+                
 		if ($this->Gal->delete($id)) {
+                        $this->Upload->deleteFiles();
 			$this->Session->setFlash(__('Gal deleted', true));
 			$this->redirect(array('action'=>'index'));
 		}

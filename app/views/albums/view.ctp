@@ -36,11 +36,11 @@
 			<?php echo $album['Album']['password']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Owner Id'); ?></dt>
+<!--		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Owner Id'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $album['Album']['owner_id']; ?>
 			&nbsp;
-		</dd>
+		</dd>-->
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Member'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $this->Html->link($album['Member']['name'], array('controller' => 'members', 'action' => 'view', $album['Member']['id'])); ?>
@@ -122,7 +122,7 @@
 
 	<div class="actions">
 		<ul>
-			<li><?php echo $this->Html->link(__('New Gal', true), array('controller' => 'gals', 'action' => 'add'));?> </li>
+			<li><?php echo $this->Html->link(__('New Gal', true), array('controller' => 'gals', 'action' => 'add', $album['Album']['id']));?> </li>
 		</ul>
 	</div>
 </div>

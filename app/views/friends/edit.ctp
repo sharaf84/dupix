@@ -32,9 +32,11 @@ function removeImage (obj){
                     <?php
                     echo $this->Form->input('id');
                     echo $this->Form->input('title');
-                    echo $this->Form->input('member_id');
+                    echo $this->Form->input('member_id', array('label' => 'School'));
                     ?>
-                    <?php echo $this->Form->input('parent_id', array('empty' => array(0 => 'Edit as Grade')));?>
+                    <div style="display: none;">
+                        <?php echo $this->Form->input('parent_id', array('empty' => array(0 => 'Edit as Grade')));?>
+                    </div>
                 </div>
             </div>
     </fieldset>

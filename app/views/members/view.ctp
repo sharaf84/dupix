@@ -13,7 +13,7 @@
 		</dd>
                 <dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Description'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $event['Event']['description']; ?>
+			<?php echo $member['Member']['description']; ?>
 			&nbsp;
 		</dd>   
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Birthdate'); ?></dt>
@@ -53,11 +53,11 @@
 			&nbsp;
 		</dd>
 		
-                <dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Type'); ?></dt>
+<!--                <dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Type'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo ($member['Member']['type']) ? 'School' : 'Normal'; ?>
 			&nbsp;
-		</dd>
+		</dd>-->
                 <dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Last Login'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo ($member['Member']['last_login']) ? 'Enabled' : 'Disabled'; ?>
@@ -115,7 +115,7 @@
 
 	<div class="actions">
 		<ul>
-			<li><?php echo $this->Html->link(__('New Album', true), array('controller' => 'albums', 'action' => 'add'));?> </li>
+			<li><?php echo $this->Html->link(__('New Album', true), array('controller' => 'albums', 'action' => 'add', $member['Member']['id']));?> </li>
 		</ul>
 	</div>
 </div>

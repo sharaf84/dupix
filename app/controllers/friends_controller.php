@@ -47,7 +47,7 @@ class FriendsController extends AuthController {
         
         if($parentId)
             $this->data['Friend']['parent_id'] = $parentId;
-        $members = $this->Friend->Member->find('list');
+        $members = $this->Friend->Member->find('list', array('conditions'=>array('Member.parent_id' => 0, 'Member.type' => 1)));
         $this->set(compact('parents', 'members'));
     }
 
@@ -71,7 +71,7 @@ class FriendsController extends AuthController {
             $this->data = $this->Friend->read(null, $id);
         }
         $parents = $this->Friend->find('list', array('conditions'=>array('Friend.parent_id' => 0)));
-        $members = $this->Friend->Member->find('list');
+        $members = $this->Friend->Member->find('list', array('conditions'=>array('Member.parent_id' => 0, 'Member.type' => 1)));
         $this->set(compact('parents', 'members'));
     }
 

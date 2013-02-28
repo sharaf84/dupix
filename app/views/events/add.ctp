@@ -7,7 +7,7 @@
 		echo $this->Form->input('description');
 		echo $this->Form->input('date');
 		echo $this->Form->input('type');
-		echo $this->Form->input('member_id');
+		echo $this->Form->input('member_id', array('label' => 'School'));
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit', true));?>

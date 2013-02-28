@@ -28,7 +28,7 @@ class EventsController extends AuthController {
 			}
 		}
 		$members = $this->Event->Member->find('list', array(
-                    'conditions' => array('Member.type' => 1)
+                    'conditions' => array('Member.type' => 1, 'Member.parent_id' => 0)
                 ));
 		$this->set(compact('members'));
 	}
@@ -50,7 +50,7 @@ class EventsController extends AuthController {
 			$this->data = $this->Event->read(null, $id);
 		}
 		$members = $this->Event->Member->find('list', array(
-                    'conditions' => array('Member.type' => 1)
+                    'conditions' => array('Member.type' => 1, 'Member.parent_id' => 0)
                 ));
 		$this->set(compact('members'));
 	}

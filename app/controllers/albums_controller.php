@@ -18,6 +18,20 @@ class AlbumsController extends AuthController {
 	}
 
 	function add() {
+            $urlSegms = array();
+            $urlSegms = explode('/', $_REQUEST['url']);
+            
+            
+            $refererController = '';
+            $refererId = 1;
+            if(strpos(Controller::referer(), 'members')){
+                $refererController = 'members';
+                $refererId = $urlSegms[sizeof($urlSegms)-1];
+            }elseif (strpos(Controller::referer(), 'friends')){
+                $refererController = 'friends';
+                $refererId = $urlSegms[sizeof($urlSegms)-1];
+            }
+
 		if (!empty($this->data)) {
 			$this->Album->create();
 			if ($this->Album->save($this->data)) {
@@ -27,10 +41,11 @@ class AlbumsController extends AuthController {
 				$this->Session->setFlash(__('The album could not be saved. Please, try again.', true));
 			}
 		}
-		$members = $this->Album->Member->find('list');
 		$friends = $this->Album->Friend->find('list');
 		$members = $this->Album->Member->find('list');
-		$this->set(compact('members', 'friends', 'members'));
+		$this->set(compact('friends', 'members'));
+		$this->set('refererController', $refererController);
+		$this->set('refererId', $refererId);
 	}
 
 	function edit($id = null) {

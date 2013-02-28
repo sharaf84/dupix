@@ -10,10 +10,10 @@
 		echo $this->Form->input('access');
 		echo $this->Form->input('share_type');
 		echo $this->Form->input('password');
-		echo $this->Form->input('owner_id');
+//		echo $this->Form->input('owner_id');
 		echo $this->Form->input('member_id');
 		echo $this->Form->input('friend_id');
-		echo $this->Form->input('Member');
+//		echo $this->Form->input('Member');
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit', true));?>

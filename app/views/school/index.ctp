@@ -14,49 +14,48 @@ echo $this->Javascript->link('dragdrop/main', false);
 <style>
     th, th a {padding: 2px;}
 </style>
-<div class="friends index">
-    <h2><?php echo "Grades"; ?></h2>
-    <?php echo $this->Form->create('Friend'); ?>
-    <table  cellpadding="0" cellspacing="0" style="margin-bottom:0px; width:870px;">
-        <tr>
-            <th style="width: 30px;"><?php echo $this->Paginator->sort('id'); ?></th>
-            <th style="width: 240px;"><?php echo $this->Paginator->sort('title'); ?></th>
-            <th style="width: 200px;"><?php __('Actions'); ?></th>
-        </tr>
-    </table>
-    <table cellpadding="0" cellspacing="0" style="width: 870px;">
+<div class="members index">
+	<h2><?php __('Schools'); ?></h2>
+        <table  cellpadding="0" cellspacing="0" style="margin-bottom:0px; width:870px;">
+            <tr>
+                <th style="width: 30px;"><?php echo $this->Paginator->sort('id'); ?></th>
+                <th style="width: 240px;"><?php echo $this->Paginator->sort('name'); ?></th>
+                <th style="width: 200px;"><?php __('Actions'); ?></th>
+            </tr>
+        </table>
+        <table cellpadding="0" cellspacing="0" style="width: 870px;">
         <tr>
             <td style="border-bottom:none; padding:0px;" >
                 <ul id="phonetic1" class="boxy">
                     <?php
                     $i = 0;
-                    foreach ($friends as $friend){
+                    foreach ($members as $member){
                         $class = null;
                         if ($i++ % 2 == 0) {
                             $class = ' class="altrow"';
                         }
                         ?>
                         <li style="width:870px;">
-                            <input type="hidden" name="data[Friend][ids][]" value="<?php echo $friend['Friend']['id']; ?>">
+                            <input type="hidden" name="data[Member][ids][]" value="<?php echo $member['Member']['id']; ?>">
                             <table cellpadding="0" cellspacing="0" style="margin-bottom:0px; width:870px;">
                                 <tr<?php echo $class; ?>>
-                                    <td style="width: 30px;"><?php echo $friend['Friend']['id']; ?>&nbsp;</td>
-                                    <td style="width: 240px;"><?php echo $friend['Friend']['title']; ?>&nbsp;</td>
+                                    <td style="width: 30px;"><?php echo $member['Member']['id']; ?>&nbsp;</td>
+                                    <td style="width: 240px;"><?php echo $member['Member']['name']; ?>&nbsp;</td>
                 
                                     <td class="actions" style="width: 200px;">
-                                        <span style="padding:10px;" onclick="$('.<?php echo 'child_'.$friend['Friend']['id']?>').slideToggle(200);" title="Collapse Childs">+</span>
-                                        <?php echo $this->Html->link(__('Add Class', true), array('action' => 'add', $friend['Friend']['id']), array('title' => 'Add Class to this Grade')); ?>
-                                        <?php echo $this->Html->link(__('View', true), array('action' => 'view', $friend['Friend']['id']), array('title' => 'View')); ?>
-                                        <?php echo $this->Html->link(__('Edit', true), array('action' => 'edit', $friend['Friend']['id']), array('title' => 'Edit')); ?>
-                                        <?php echo $this->Html->link(__('Delete', true), array('action' => 'delete', $friend['Friend']['id']), array('title' => 'Delete'), sprintf(__('Are you sure you want to delete # %s?', true), $friend['Friend']['id'])); ?>
+                                        <span style="padding:10px;" onclick="$('.<?php echo 'child_'.$member['Member']['id']?>').slideToggle(200);" title="Collapse Childs">+</span>
+                                        <?php echo $this->Html->link(__('Add Branch', true), array('action' => 'add', $member['Member']['id']), array('title' => 'Add New Branch')); ?>
+                                        <?php echo $this->Html->link(__('View', true), array('action' => 'view', $member['Member']['id']), array('title' => 'View')); ?>
+                                        <?php echo $this->Html->link(__('Edit', true), array('action' => 'edit', $member['Member']['id']), array('title' => 'Edit')); ?>
+                                        <?php echo $this->Html->link(__('Delete', true), array('action' => 'delete', $member['Member']['id']), array('title' => 'Delete'), sprintf(__('Are you sure you want to delete # %s?', true), $member['Member']['id'])); ?>
                                     </td>
                                 </tr>
                             </table>
-                            <?php foreach($friend['Friend_Child'] as $child){?>
-                                <table class="<?php echo 'child_'.$friend['Friend']['id']?>" cellpadding="0" cellspacing="0" style="width: 850px; margin-bottom:0px; float: right; display: none;">
+                            <?php foreach($member['ChildMember'] as $child){?>
+                                <table class="<?php echo 'child_'.$member['Member']['id']?>" cellpadding="0" cellspacing="0" style="width: 850px; margin-bottom:0px; float: right; display: none;">
                                     <tr<?php echo $class; ?>>
                                         <td style="width: 30px;"><?php echo $child['id']; ?>&nbsp;</td>
-                                        <td style="width: 220px;"><?php echo $child['title']; ?>&nbsp;</td>
+                                        <td style="width: 220px;"><?php echo $child['name']; ?>&nbsp;</td>
                                        
                                         <td class="actions" style="width: 200px;">
                                             <?php echo $this->Html->link(__('View', true), array('action' => 'view', $child['id']), array('title' => 'View')); ?>
@@ -84,11 +83,17 @@ echo $this->Javascript->link('dragdrop/main', false);
         <?php echo $this->Paginator->next(__('next', true) . ' >>', array(), null, array('class' => 'disabled')); ?>
         <?php echo $this->Paginator->last(__('last', true) . ' >>', array(), null, array('class' => 'disabled')); ?>
     </div>
- 
+
 </div>
 <div class="actions">
-    <h3><?php __('Actions'); ?></h3>
-    <ul>
-        <li><?php echo $this->Html->link(__('New Grade', true), array('action' => 'add')); ?></li>
-    </ul>
+	<h3><?php __('Actions'); ?></h3>
+	<ul>
+		<li><?php echo $this->Html->link(__('New School', true), array('action' => 'add')); ?></li>
+		<li><?php echo $this->Html->link(__('List Albums', true), array('controller' => 'albums', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Album', true), array('controller' => 'albums', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Projects', true), array('controller' => 'projects', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Project', true), array('controller' => 'projects', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Products', true), array('controller' => 'products', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Product', true), array('controller' => 'products', 'action' => 'add')); ?> </li>
+	</ul>
 </div>

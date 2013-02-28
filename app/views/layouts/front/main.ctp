@@ -23,6 +23,7 @@
             'front/style',
             'front/style1',
             'front/skin',
+            'front/skin2',
             'colorbox/colorbox_ex3'
         ));
         //SCRIPTS

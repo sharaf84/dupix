@@ -1,16 +1,34 @@
+<script type="text/javascript">
+    $(document).ready(function(){
+        //Add new order
+        var count = 0;
+        $("#addImage").click(function(){
+            var copy =$(".image:first").html().replace(/0/g, ++count);
+            $(".images").append('<div class="image">'+copy+'</div>'); 
+        });	
+    });
+    //Remove image
+    function removeImage (obj){
+        if(obj.parent().index() == 0)
+            alert("Sorry! Can't remove first image.");
+        else
+            if(confirm("Confirm removing."))	
+                obj.parent().remove();	
+    }
+</script>
 <div class="gals form">
-<?php echo $this->Form->create('Gal');?>
+<?php echo $this->Form->create('Gal', array('type' => 'file'));?>
 	<fieldset>
  		<legend><?php __('Add Gal'); ?></legend>
 	<?php
 		echo $this->Form->input('caption');
-		echo $this->Form->input('image');
+		echo $this->Form->input('image', array('type'=>'file', 'label'=>'Image for Schools (732px × 345px) for Grades (601px × 469px)'));
 		echo $this->Form->input('created');
 		echo $this->Form->input('location');
 		echo $this->Form->input('tags');
 		echo $this->Form->input('crop_info');
 		echo $this->Form->input('product_id');
-		echo $this->Form->input('album_id');
+		echo $this->Form->input('album_id', array('value' => $albumId));
 		echo $this->Form->input('member_id');
 	?>
 	</fieldset>

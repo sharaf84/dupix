@@ -17,23 +17,20 @@
     }
 </script>
 <div class="members form">
-<?php echo $this->Form->create('Member', array('type' => 'file'));?>
+<?php echo $this->Form->create('Member', array('type' => 'file', 'url' => '/school/add'));?>
 	<fieldset>
- 		<legend><?php __('Add Member'); ?></legend>
+ 		<legend><?php __('Add School'); ?></legend>
 	<?php
 		echo $this->Form->input('name');
                 echo $this->Form->input('description');
-		echo $this->Form->input('birthdate');
-		echo $this->Form->input('gender', array('type'=>'radio', 'options'=>array('Female', 'Male')));
                 echo $this->Form->input('logo', array('type'=>'file', 'label'=>'Logo 235px × 235px'));
 		echo $this->Form->input('email');
 		echo $this->Form->input('password');
 		echo $this->Form->input('confirm_password', array('type'=>'password'));
-		//echo $this->Form->input('confirm_code');
 		echo $this->Form->input('confirmed');
 		echo $this->Form->input('newsletter');
-                echo $this->Form->input('type', array('type'=>'hidden', 'value' => 0));
-                echo $this->Form->input('parent_id', array('type'=>'hidden', 'value' => 0));
+                echo $this->Form->input('type', array('value' => 1, 'type' => 'hidden'));
+         	echo $this->Form->select('parent_id', $options = $parentMems,(isset ($this->data['Member'])) ? $this->data['Member']['parent_id'] : $mainId, array(), array(), true); 
 
 	?>
 	</fieldset>

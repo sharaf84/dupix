@@ -17,24 +17,40 @@
     }
 </script>
 <div class="members form">
-<?php echo $this->Form->create('Member', array('type' => 'file'));?>
+<?php echo $this->Form->create('Member', array('type' => 'file', 'url' => '/school/edit/'.$this->data['Member']['id']));?>
 	<fieldset>
- 		<legend><?php __('Add Member'); ?></legend>
+ 		<legend><?php __('Edit Member'); ?></legend>
 	<?php
+		echo $this->Form->input('id');
 		echo $this->Form->input('name');
                 echo $this->Form->input('description');
-		echo $this->Form->input('birthdate');
-		echo $this->Form->input('gender', array('type'=>'radio', 'options'=>array('Female', 'Male')));
-                echo $this->Form->input('logo', array('type'=>'file', 'label'=>'Logo 235px × 235px'));
+//		echo $this->Form->input('birthdate');
+//		echo $this->Form->input('gender', array('type'=>'radio', 'options'=>array('Female', 'Male')));
+                
+                echo $this->element('backend/image_view', array(
+                        'data' => array(
+                            'image' => $this->data['Member']['logo'],
+                            'caption' => $this->data['Member']['name'],
+                            'size' => ''
+                        ),
+                        'delete' => array(
+                            'model' => 'Member',
+                            'id' => $this->data['Member']['id'],
+                            'field' => 'logo'
+                        ),
+                        'crop' => false
+                    ));
+                    echo $this->Form->input('logo', array('type'=>'file', 'label'=>'Logo 235px × 235px'));
+                    
+                
 		echo $this->Form->input('email');
 		echo $this->Form->input('password');
 		echo $this->Form->input('confirm_password', array('type'=>'password'));
 		//echo $this->Form->input('confirm_code');
 		echo $this->Form->input('confirmed');
 		echo $this->Form->input('newsletter');
-                echo $this->Form->input('type', array('type'=>'hidden', 'value' => 0));
-                echo $this->Form->input('parent_id', array('type'=>'hidden', 'value' => 0));
-
+                echo $this->Form->input('type', array('value' => 1, 'type' => 'hidden'));
+         	echo $this->Form->select('parent_id', $options = $parentMems,(isset ($this->data['Member'])) ? $this->data['Member']['parent_id'] : 0, array(), array(), true); 
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit', true));?>
@@ -43,6 +59,7 @@
 	<h3><?php __('Actions'); ?></h3>
 	<ul>
 
+		<li><?php echo $this->Html->link(__('Delete', true), array('action' => 'delete', $this->Form->value('Member.id')), null, sprintf(__('Are you sure you want to delete # %s?', true), $this->Form->value('Member.id'))); ?></li>
 		<li><?php echo $this->Html->link(__('List Members', true), array('action' => 'index'));?></li>
 		<li><?php echo $this->Html->link(__('List Albums', true), array('controller' => 'albums', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Album', true), array('controller' => 'albums', 'action' => 'add')); ?> </li>
