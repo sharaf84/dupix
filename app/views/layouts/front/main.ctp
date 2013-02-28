@@ -28,15 +28,7 @@
         ));
         //SCRIPTS
         echo $this->Html->scriptBlock("var siteUrl ='" . $this->Session->read('Setting.url') . "';"); //Define global var siteUrl
-        echo $this->Javascript->link(array(
-            'front/jquery',
-            'colorbox/jquery.colorbox',
-            'colorbox/jquery.colorbox.custum',
-            'front/animatedcollapse',
-            'front/ajax/members',
-        ));
-        echo $scripts_for_layout;
-        echo $this->Javascript->link(array('front/all'));
+        echo $this->Javascript->link(array('front/jquery'));
         ?>
     </head>
     <body>
@@ -47,5 +39,15 @@
         include_once('footer.ctp');
         ?>
         <?php echo '<div style="float:left; width:1000px;">' . $this->element('sql_dump') . '</div>'; ?>
+        <?php
+        //SCRIPTS
+        echo $this->Javascript->link(array(
+            'colorbox/jquery.colorbox',
+            'colorbox/jquery.colorbox.custum',
+            'front/animatedcollapse',
+        ));
+        echo $scripts_for_layout;
+        echo $this->Javascript->link(array('front/all'));
+        ?>
     </body>
 </html>

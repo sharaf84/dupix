@@ -178,7 +178,7 @@ class ProfileController extends AppController {
         $this->loadModel('Product');
         $this->Product->recursive = 1;
         $this->set('product', $this->Product->read(null, $productId));
-        $this->display();
+        $this->set('member', $this->currentMember);
     }
 
     //Edit project
