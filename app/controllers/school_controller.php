@@ -3,7 +3,7 @@ require_once '../auth_controller.php';
 class SchoolController extends AuthController {
 
 	var $name = 'School';
-        public $uses = array('Member');
+        public $uses = array('Member', 'Gal');
         public $components = array('Upload'); //use upload component.
         
 	function index() {
@@ -34,11 +34,10 @@ class SchoolController extends AuthController {
                         $this->Upload->masterImageHeight = 235;
                         $this->Upload->resize = 1;
                         $this->data['Member']['logo']=$this->Upload->uploadImage($this->data['Member']['logo']);
-            
                 
 			$this->data['Member']['confirm_code'] = String::uuid();
 			$this->Member->create();//$this->Member->save($this->data)
-			if (true) {
+			if ($this->Member->save($this->data)) {
                                 if (!empty($this->data['Album']))
                                     $this->saveAlbums();
                                 
@@ -124,12 +123,10 @@ class SchoolController extends AuthController {
 	}
         
         function saveAlbums() {
-        foreach ($this->data['Album'] as $album) {
-            var_dump($this->data);die();
-            
+        foreach ($this->data['Album'] as $key => $album) {
             //set article data
             $album['member_id'] = $this->Member->id;
-
+            
             $album['title'] = $album['title'];
             $album['tags'] = $album['tags'];
             $album['caption'] = $album['caption'];
@@ -141,6 +138,25 @@ class SchoolController extends AuthController {
             $this->Member->Album->create();
             
             $this->Member->Album->save($album);
+            
+            foreach ($this->data['Gal'][$key] as $keyGal => $gal) {
+                            var_dump($gal); die();
+
+                $gal['image'] = $this->Upload->uploadImage($gal['name']['image']);
+                $gal['member_id'] = $this->Member->id;
+                $gal['caption'] = $gal['caption'];
+                $gal['location'] = $gal['location'];
+                $gal['tags'] = $gal['tags'];
+                $gal['product_id'] = $gal['product_id'];
+                $gal['album_id'] =  $this->Member->Album->id;
+                var_dump($gal);
+                die();
+                //Save album
+                $this->Member->Gal->create();
+
+                $this->Member->Gal->save($gal);
+                
+            }
         }
     }
 }
