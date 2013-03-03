@@ -54,15 +54,15 @@
         </div>
         <div class="school-products">
             <a href="#"><img src="<?php echo $this->Session->read('Setting.url') .'/img/upload/';?>school-merch.jpg" width="179" height="197" border="0" /></a>
-            <a href="/schools/details/<?php echo $members[0]['Member']['id'];?>"><img src="<?php echo $this->Session->read('Setting.url') .'/img/upload/';?>school-photos.jpg" width="180" height="197" border="0" /></a>
-            <a href="#"><img src="<?php echo $this->Session->read('Setting.url') .'/img/upload/';?>school-cal.jpg" width="180" height="197" border="0" /></a>
+            <a href="http://dupix.local/schools/details/<?php echo $members[0]['Member']['id'];?>"><img src="<?php echo $this->Session->read('Setting.url') .'/img/upload/';?>school-photos.jpg" width="180" height="197" border="0" /></a>
+            <a href="http://dupix.local/calender/index/<?php echo $members[0]['Member']['id'];?>"><img src="<?php echo $this->Session->read('Setting.url') .'/img/upload/';?>school-cal.jpg" width="180" height="197" border="0" /></a>
             <a href="#"><img src="<?php echo $this->Session->read('Setting.url') .'/img/upload/';?>school-club.jpg" width="179" height="197" border="0" /></a>
         </div>
         <div class="school-gallery">
             <div id="wowslider-container1">
                 <div class="ws_images">
                     <?php for ($g = 0 ; $g < sizeof($members[0]['Gal']) ; $g++){?>
-                              <a href="#"><img src="<?php echo $this->Session->read('Setting.url') .'/img/upload/' . $members[0]['Gal'][$g]['image'];?>" border="0" id="wows<?php echo $g;?>"/></a>
+                    <a href="#"><img src="<?php echo $this->Session->read('Setting.url') .'/img/upload/' . $members[0]['Gal'][$g]['image'];?>" border="0" id="wows<?php echo $g;?>" height="345" width="732"/></a>
                     <?php }?>
                 </div>
             </div>

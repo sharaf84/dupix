@@ -1,27 +1,34 @@
-<?php //pr($members[0]['Friend'][0]);die();?>
+<?php //pr($albumsOfFirst);die();?>
 <?php echo $this->Javascript->link(array('front/jquery.jcarousel.min', 'front/jquery.easing', 'front/script', 'front/gallery-pro'), false); ?>
 <script type="text/javascript">
     $(document).ready(function(){
         var aId = $('li.album:first a').attr('data-id');
         $.ajax({
-              url: "/schools/gallaries/" + aId
-            }).done(function(data) {
-                  $("#gal").html( data );
-                });
+            url: "http://dupix.local/schools/gallaries/" + aId
+        }).done(function(data) {
+            $("#gal").html( data );
+        });
         
         $('a.grade').click(function(){
-            console.log($(this).attr('data-id'));
+            var gradeId = $(this).attr('data-id');
             $('a.grade').removeClass('selected');
             $(this).addClass('selected');
+            
+            $.ajax({
+                url: "http://dupix.local/schools/albums/" + gradeId
+            }).done(function(data) {
+                $("#albums").html( data );
+            });
+        
             return false;
         });
         
-        
-        $('li.album a').click(function(){
+        $("#albums").delegate("li.album a", "click", function() {
+//        $('li.album a').click(function(){
             var albumId = $(this).attr('data-id');
             console.log($(this));
             $.ajax({
-              url: "/schools/gallaries/" + albumId
+              url: "http://dupix.local/schools/gallaries/" + albumId
             }).done(function(data) {
                   $("#gal").html( data );
                 });
@@ -30,23 +37,23 @@
         
         
         
-        $('a.branche-logo').click(function(){
-            $('a.branche-logo img').removeClass('selected');
-            $(this).children('img').addClass('selected');
-            
-            //Show discription of hte clicked branch
-            var id = $(this).attr('id');
-            $('.school-desc').css('display', 'none');
-            $('#school-desc-' + id).css('display', 'block');
-            
-            return false;
-        });
-        
-        $('#main-school').click(function(){
-            $('a.branche-logo img').removeClass('selected');
-            $('.school-desc').css('display', 'none');
-            $('#school-desc').css('display', 'block');
-        });
+//        $('a.branche-logo').click(function(){
+//            $('a.branche-logo img').removeClass('selected');
+//            $(this).children('img').addClass('selected');
+//            
+//            //Show discription of hte clicked branch
+//            var id = $(this).attr('id');
+//            $('.school-desc').css('display', 'none');
+//            $('#school-desc-' + id).css('display', 'block');
+//            
+//            return false;
+//        });
+//        
+//        $('#main-school').click(function(){
+//            $('a.branche-logo img').removeClass('selected');
+//            $('.school-desc').css('display', 'none');
+//            $('#school-desc').css('display', 'block');
+//        });
         
         
     });
@@ -73,26 +80,28 @@
             <div class="grade-cont">
                 <div class="grade-tit">Select Grade </div>
                 <div class="grade-items">
-                    <?php for ($i = 0 ; $i < sizeof($members[0]['Friend']) ; $i++){?>
-                             <a href="#" class="<?php if($i == 0) echo 'selected';?> grade" data-id="<?php echo $members[0]['Friend'][$i]['id'];?>"><?php echo $members[0]['Friend'][$i]['title'];?></a><?php if ($i != (sizeof($members[0]['Friend']) - 1)) {?>-<?php }?>
+                    <?php for ($i = 0 ; $i < sizeof($grades) ; $i++){?>
+                             <a href="#" class="<?php if($i == 0) echo 'selected';?> grade" data-id="<?php echo $grades[$i]['Friend']['id'];?>"><?php echo $grades[$i]['Friend']['title'];?></a><?php if ($i != (sizeof($grades) - 1)) {?>-<?php }?>
                     <?php }?>
                 </div>
             </div>
             <div class="grade-school-share"><a href="#"><img src="<?php echo $this->Session->read('Setting.url') .'/img/upload/';?>album-share.jpg" width="124" height="21" border="0" /></a></div>
         </div>
         <div class="school-in-gallery">
-            <div class="school-in-gallery-left" style="background:#E10109;">
-                <ul id="mycarousel" class="jcarousel jcarousel-skin-tango">
-                    <?php for ($i = 0 ; $i < sizeof($members[0]['Friend'][0]['Album']) ; $i++) { ?>
-                    <li class="album"><a href="" data-id="<?php echo $members[0]['Friend'][0]['Album'][$i]['id']; ?>"><div class="vert-album"><?php echo $members[0]['Friend'][0]['Album'][$i]['title']; ?></div></a></li>
-                    <?php } ?>
-                </ul>
+            <div id="albums">
+                <div class="school-in-gallery-left" style="background:#E10109;">
+                    <ul id="mycarousel" class="jcarousel jcarousel-skin-tango">
+                        <?php for ($i = 0 ; $i < sizeof($albumsOfFirst) ; $i++) { ?>
+                        <li class="album"><a href="" data-id="<?php echo $albumsOfFirst[$i]['Album']['id']; ?>"><div class="vert-album"><?php echo $albumsOfFirst[$i]['Album']['title']; ?></div></a></li>
+                        <?php } ?>
+                    </ul>
+                </div>
             </div>
             <div id="gal">
-            <div class="school-in-gallery-right">
+<!--            <div class="school-in-gallery-right">
                 <div id="jslidernews2" class="lof-slidecontent2" style="width:600px; height:510px; display:block;">
                     <div class="preload"><div></div></div>
-                    <!-- MAIN CONTENT --> 
+                     MAIN CONTENT  
                     <div class="main-slider-content" style="width:600px; height:425px;">
                         <ul class="sliders-wrap-inner">
                             <li>
@@ -129,8 +138,8 @@
                             </li> 
                         </ul>  	
                     </div>
-                    <!-- END MAIN CONTENT --> 
-                    <!-- NAVIGATOR -->
+                     END MAIN CONTENT  
+                     NAVIGATOR 
                     <div class="navigator-content" style="background:#004475;">
                         <div  class="button-previous">Previous</div>
                         <div class="navigator-wrapper">
@@ -147,13 +156,13 @@
                         </div>
                         <div class="button-next">Next</div>
                     </div> 
-                    <!----------------- END OF NAVIGATOR --------------------->
-                    <!-- BUTTON PLAY-STOP -->
+                    --------------- END OF NAVIGATOR -------------------
+                     BUTTON PLAY-STOP 
                     <div class="button-control"><span></span></div>
-                    <!-- END OF BUTTON PLAY-STOP -->
+                     END OF BUTTON PLAY-STOP 
 
                 </div>
-            </div>
+            </div>-->
             </div>
         </div>
     </div>

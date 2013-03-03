@@ -1,6 +1,6 @@
 <?php //pr($gals);?>
 <?php echo $this->Javascript->link(array('front/jquery.jcarousel.min', 'front/jquery.easing', 'front/script', 'front/gallery-pro'), false); ?>
-<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+<!--<link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">-->
 <link href="css/style.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="<?php echo $this->Session->read('Setting.url').'/app/webroot/css/front/style1.css';?>" />
 <link rel="stylesheet" type="text/css" href="<?php echo $this->Session->read('Setting.url').'/app/webroot/css/front/skin2.css';?>" />

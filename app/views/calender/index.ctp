@@ -1,3 +1,4 @@
+<?php if($events){?>
 <link rel="stylesheet" href="css/front/eventCalendar.css">
 
 <!-- Theme CSS file: it makes eventCalendar nicer -->
@@ -17,3 +18,12 @@
     </div>
 </div>
 <script src="js/front/jquery.eventCalendar.js" type="text/javascript"></script>
+<?php }else{ ?>
+<div id="contain">
+    <div id="container">
+        <div style="padding:25px;">
+            <div class="product-info-tit">There are No Events for this school</div>
+        </div>
+    </div>
+</div>
+<?php }?>
