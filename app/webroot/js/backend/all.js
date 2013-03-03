@@ -15,7 +15,7 @@ $(document).ready(function () {
 	$("ul.tabs").tabs("div.panes > div");
 	
 	// setup ul.tabs to work as tabs for each div directly under div.panes
-	$("ul.tabs2").tabs("div.panes2 > div");
+	//$("ul.tabs2").tabs("div.panes2 > div");
 	  
 });
 

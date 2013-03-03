@@ -37,8 +37,11 @@ class SchoolController extends AuthController {
             
                 
 			$this->data['Member']['confirm_code'] = String::uuid();
-			$this->Member->create();
-			if ($this->Member->save($this->data)) {
+			$this->Member->create();//$this->Member->save($this->data)
+			if (true) {
+                                if (!empty($this->data['Album']))
+                                    $this->saveAlbums();
+                                
 				$this->Session->setFlash(__('The school has been saved', true));
 				$this->redirect(array('action' => 'index'));
 			} else {
@@ -119,5 +122,26 @@ class SchoolController extends AuthController {
 		$this->Session->setFlash(__('Member was not deleted', true));
 		$this->redirect(array('action' => 'index'));
 	}
+        
+        function saveAlbums() {
+        foreach ($this->data['Album'] as $album) {
+            var_dump($this->data);die();
+            
+            //set article data
+            $album['member_id'] = $this->Member->id;
+
+            $album['title'] = $album['title'];
+            $album['tags'] = $album['tags'];
+            $album['caption'] = $album['caption'];
+            $album['access'] = $album['access'];
+            $album['share_type'] = $album['share_type'];
+            $album['password'] = $album['password'];
+            $album['friend_id'] = $album['friend_id'];
+            //Save album
+            $this->Member->Album->create();
+            
+            $this->Member->Album->save($album);
+        }
+    }
 }
 ?>
