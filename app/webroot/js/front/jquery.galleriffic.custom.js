@@ -266,7 +266,7 @@ jQuery(document).ready(function($) {
 });
 
 function createGalElm(imgId, imgName, caption){
-    var elm = '<a class="thumb" id="img'+imgId+'" href="'+siteUrl+'/img/upload/'+imgName+'" >\
+    var elm = '<a class="thumb" id="img'+imgId+'" href="'+siteUrl+'/img/upload/medium_'+imgName+'" >\
                     <img src="'+siteUrl+'/img/upload/thumb_'+imgName+'" />\
                </a>';
     if(caption){
