@@ -147,8 +147,8 @@ jQuery(document).ready(function($) {
         },
         sendBoundary: window.FormData || $.browser.mozilla,
         onStart: function(event, total) {
+            $('.start_upload').show();
             return true;
-            return confirm("You are trying to upload " + total + " files. Are you sure?");
         },
         onProgress: function(event, progress, name, number, total) {
             //console.log(progress, number);
@@ -165,13 +165,18 @@ jQuery(document).ready(function($) {
         },
         onFinishOne: function(event, response, name, number, total) {
             perc = 0;
-            $("#progress_report_bar").css('width', perc).text();
+            $("#progress_report_bar").css('width', perc).text('');
             var obj = JSON.parse(response);
             gallery.insertImage(createGalElm(obj.id, obj.name, false), 0);
             gallery.gotoIndex(0);
             if($('#placeHolder').length == 1)
                 gallery.removeImageByHash($('#placeHolder').attr('href').substr(1));
             
+        },
+        onFinish: function(){
+            perc = 0;
+            $("#progress_report_bar").css('width', perc).text('');
+            $('.start_upload').hide();
         },
         onError: function(event, name, error) {
             alert('error while uploading file ' + name);

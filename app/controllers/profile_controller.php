@@ -95,10 +95,19 @@ class ProfileController extends AppController {
                     'recursive' => -1
                 )
             );
-            if ($this->Member->Album->deleteAll(array(
-                        'Album.id' => $id,
-                        'Album.member_id' => $this->Cookie->read('Member.id')
-                    ))) {
+//            if ($this->Member->Album->deleteAll(array(
+//                        'Album.id' => $id,
+//                        'Album.member_id' => $this->Cookie->read('Member.id')
+//                    ))) {
+//                $this->Upload->deleteFiles();
+//                echo true;
+//            }
+           if($this->Member->Album->query('
+                DELETE FROM albums 
+                WHERE albums.id = '.$id.'
+                AND albums.member_id = ' . $this->Cookie->read('Member.id')
+            )){
+                $this->Member->Album->Gal->deleteAll(array('Gal.album_id' => $id));
                 $this->Upload->deleteFiles();
                 echo true;
             }
