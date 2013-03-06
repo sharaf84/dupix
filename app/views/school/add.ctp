@@ -1,61 +1,86 @@
 <script type="text/javascript">
-    $(document).ready(function(){
+    $(document).ready(function() {
         //Add new order
         var count = 0;
-        $("#addImage").click(function(){
-            var copy =$(".image:first").html().replace(/0/g, ++count);
-            $(".images").append('<div class="image">'+copy+'</div>'); 
+        $("#addImage").click(function() {
+            var copy = $(".image:first").html().replace(/0/g, ++count);
+            $(".images").append('<div class="image">' + copy + '</div>');
         });
         // Added for multitabs and add new content:
         //Add new album
-        var albumCount = 1000;
-        $("#addAlbum").click(function(){
+        var gradeCount = 1000;
+        $("#addGrade").click(function() {
             //var randomNum = Math.floor(Math.random()*30)+1;
-            
-            var copy ='<div style="width:15px; position:absolute; margin-top:10px; margin-left:720px; color:#F00; font-size:large; cursor:pointer;" title="Remove" onclick="removeAlbum($(this));">X</div><fieldset class="album"><legend>Album</legend><input type="hidden" name="data[Member][index]" id="index" value="' + ++albumCount + '"><div class="input text"><label for="Album' + albumCount + 'Title">Title</label><input name="data[Album][' + albumCount + '][title]" type="text" maxlength="255" id="Album' + albumCount + 'Title"></div><div class="input text"><label for="Album' + albumCount + 'Tags">Tags</label><input name="data[Album][' + albumCount + '][tags]" type="text" maxlength="255" id="Album' + albumCount + 'Tags"></div><div class="input text"><label for="Album' + albumCount + 'Caption">Caption</label><input name="data[Album][' + albumCount + '][caption]" type="text" maxlength="255" id="Album' + albumCount + 'Caption"></div><div class="input checkbox"><input type="hidden" name="data[Album][' + albumCount + '][access]" id="Album' + albumCount + 'Access_" value="0"><input type="checkbox" name="data[Album][' + albumCount + '][access]" value="1" id="Album' + albumCount + 'Access"><label for="Album' + albumCount + 'Access">Access</label></div><div class="input checkbox"><input type="hidden" name="data[Album][' + albumCount + '][share_type]" id="Album' + albumCount + 'ShareType_" value="0"><input type="checkbox" name="data[Album][' + albumCount + '][share_type]" value="1" id="Album' + albumCount + 'ShareType"><label for="Album' + albumCount + 'ShareType">Share Type</label></div><div class="input password"><label for="Album' + albumCount + 'Password">Password</label><input type="password" name="data[Album][' + albumCount + '][password]" id="Album' + albumCount + 'Password"></div><input type="hidden" name="data[Album][' + albumCount + '][friend_id]" value="0" id="Album' + albumCount + 'FriendId"><div class="gals-container"><div class="gals"><div class="gal"><div style="width:15px; position:absolute; margin-top:10px; margin-left:600px; color:#F00; font-size:large; cursor:pointer;" title="Remove" onclick="removeGal($(this));">X</div><fieldset><legend>Images</legend><div class="input text"><label for="Gal' + albumCount + '' + albumCount + 'Caption">Caption</label><input name="data[Gal][' + albumCount + '][' + albumCount + '][caption]" type="text" id="Gal' + albumCount + '' + albumCount + 'Caption"></div><div class="input file"><label for="Gal' + albumCount + '' + albumCount + 'Image">Image</label><input type="file" name="data[Gal][' + albumCount + '][' + albumCount + '][image]" id="Gal' + albumCount + '' + albumCount + 'Image"></div><div class="input text"><label for="Gal' + albumCount + '' + albumCount + 'Tags">Tags</label><input name="data[Gal][' + albumCount + '][' + albumCount + '][tags]" type="text" id="Gal' + albumCount + '' + albumCount + 'Tags"></div><div class="input text"><label for="Gal' + albumCount + '' + albumCount + 'Location">Location</label><input name="data[Gal][' + albumCount + '][' + albumCount + '][location]" type="text" id="Gal' + albumCount + '' + albumCount + 'Location"></div><div class="input text"><label for="Gal' + albumCount + '' + albumCount + 'CropInfo">Crop Info</label><input name="data[Gal][' + albumCount + '][' + albumCount + '][crop_info]" type="text" id="Gal' + albumCount + '' + albumCount + 'CropInfo"></div><input type="hidden" name="data[Gal][' + albumCount + '][' + albumCount + '][product_id]" value="0" id="Gal' + albumCount + '' + albumCount + 'ProductId"><input type="hidden" name="data[Gal][' + albumCount + '][' + albumCount + '][friend_id]" value="0" id="Gal' + albumCount + '' + albumCount + 'FriendId">                                        </fieldset></div></div><input type="button" id="addGal" value="Add Image" style="width: 150px; margin-left: 300px;"></div></fieldset>';
+
+            var copy = $(".grade:first").html().replace(/1000/g, ++gradeCount);
 //            var copy =$(".album:first").html().replace(/1000/g, ++albumCount);
-            $(".albums").append('<div class="album">'+copy+'</div>'); 
-        });	
+            $(".grades").append('<div class="grade">' + copy + '</div>');
+        });
+
+        var albumCount = 1000;
+        $("#addAlbum").click(function() {
+            //var randomNum = Math.floor(Math.random()*30)+1;
+
+            var copy = '<div style="width:15px; position:absolute; margin-top:10px; margin-left:720px; color:#F00; font-size:large; cursor:pointer;" title="Remove" onclick="removeAlbum($(this));">X</div><fieldset class="album"><legend>Album</legend><input type="hidden" name="data[Member][index]" id="index" value="' + ++albumCount + '"><div class="input text"><label for="Album' + albumCount + 'Title">Title</label><input name="data[Album][' + albumCount + '][title]" type="text" maxlength="255" id="Album' + albumCount + 'Title"></div><div class="input text"><label for="Album' + albumCount + 'Tags">Tags</label><input name="data[Album][' + albumCount + '][tags]" type="text" maxlength="255" id="Album' + albumCount + 'Tags"></div><div class="input text"><label for="Album' + albumCount + 'Caption">Caption</label><input name="data[Album][' + albumCount + '][caption]" type="text" maxlength="255" id="Album' + albumCount + 'Caption"></div><div class="input checkbox"><input type="hidden" name="data[Album][' + albumCount + '][access]" id="Album' + albumCount + 'Access_" value="0"><input type="checkbox" name="data[Album][' + albumCount + '][access]" value="1" id="Album' + albumCount + 'Access"><label for="Album' + albumCount + 'Access">Access</label></div><div class="input checkbox"><input type="hidden" name="data[Album][' + albumCount + '][share_type]" id="Album' + albumCount + 'ShareType_" value="0"><input type="checkbox" name="data[Album][' + albumCount + '][share_type]" value="1" id="Album' + albumCount + 'ShareType"><label for="Album' + albumCount + 'ShareType">Share Type</label></div><div class="input password"><label for="Album' + albumCount + 'Password">Password</label><input type="password" name="data[Album][' + albumCount + '][password]" id="Album' + albumCount + 'Password"></div><input type="hidden" name="data[Album][' + albumCount + '][friend_id]" value="0" id="Album' + albumCount + 'FriendId"><div class="gals-container"><div class="gals"><div class="gal"><div style="width:15px; position:absolute; margin-top:10px; margin-left:600px; color:#F00; font-size:large; cursor:pointer;" title="Remove" onclick="removeGal($(this));">X</div><fieldset><legend>Images</legend><div class="input text"><label for="Gal' + albumCount + '' + albumCount + 'Caption">Caption</label><input name="data[Gal][' + albumCount + '][' + albumCount + '][caption]" type="text" id="Gal' + albumCount + '' + albumCount + 'Caption"></div><div class="input file"><label for="Gal' + albumCount + '' + albumCount + 'Image">Image</label><input type="file" name="data[Gal][' + albumCount + '][' + albumCount + '][image]" id="Gal' + albumCount + '' + albumCount + 'Image"></div><div class="input text"><label for="Gal' + albumCount + '' + albumCount + 'Tags">Tags</label><input name="data[Gal][' + albumCount + '][' + albumCount + '][tags]" type="text" id="Gal' + albumCount + '' + albumCount + 'Tags"></div><div class="input text"><label for="Gal' + albumCount + '' + albumCount + 'Location">Location</label><input name="data[Gal][' + albumCount + '][' + albumCount + '][location]" type="text" id="Gal' + albumCount + '' + albumCount + 'Location"></div><div class="input text"><label for="Gal' + albumCount + '' + albumCount + 'CropInfo">Crop Info</label><input name="data[Gal][' + albumCount + '][' + albumCount + '][crop_info]" type="text" id="Gal' + albumCount + '' + albumCount + 'CropInfo"></div><input type="hidden" name="data[Gal][' + albumCount + '][' + albumCount + '][product_id]" value="0" id="Gal' + albumCount + '' + albumCount + 'ProductId"><input type="hidden" name="data[Gal][' + albumCount + '][' + albumCount + '][friend_id]" value="0" id="Gal' + albumCount + '' + albumCount + 'FriendId">                                        </fieldset></div></div><input type="button" id="addGal" value="Add Image" style="width: 150px; margin-left: 300px;"></div></fieldset>';
+//            var copy =$(".album:first").html().replace(/1000/g, ++albumCount);
+            $(".albums").append('<div class="album">' + copy + '</div>');
+        });
         var galCount = 1000;
-        
-        $("body").delegate("#addGal", "click", function(){
+
+        $("body").delegate("#addGal", "click", function() {
             var $aId = $(this).parents('fieldset.album').children('input#index').val();
-            var copy = '<div style="width:15px; position:absolute; margin-top:10px; margin-left:600px; color:#F00; font-size:large; cursor:pointer;" title="Remove" onclick="removeGal($(this));">X</div><fieldset><legend>Images</legend><div class="input text"><label for="Gal'+ ++galCount +'Caption">Caption</label><input name="data[Gal]['+$aId+']['+ galCount +'][caption]" type="text" maxlength="255" id="Gal'+ galCount +'Caption"></div><div class="input file"><label for="Gal'+ galCount +'Image">Image</label><input type="file" name="data[Gal]['+$aId+']['+ galCount +'][image]" id="Gal'+ galCount +'Image"></div><div class="input text"><label for="Gal'+ galCount +'Tags">Tags</label><input name="data[Gal]['+$aId+']['+ galCount +'][tags]" type="text" maxlength="255" id="Gal'+ galCount +'Tags"></div><div class="input text"><label for="Gal'+ galCount +'Location">Location</label><input name="data[Gal]['+$aId+']['+ galCount +'][location]" type="text" maxlength="255" id="Gal'+ galCount +'Location"></div><div class="input text"><label for="Gal'+ galCount +'CropInfo">Crop Info</label><input name="data[Gal]['+$aId+']['+ galCount +'][crop_info]" type="text" maxlength="255" id="Gal'+ galCount +'CropInfo"></div><input type="hidden" name="data[Gal]['+$aId+']['+ galCount +'][product_id]" value="0" id="Gal'+ galCount +'ProductId"><input type="hidden" name="data[Gal]['+$aId+']['+ galCount +'][friend_id]" value="0" id="Gal'+ galCount +'FriendId"></fieldset>';
-           $(this).parents('fieldset.album').children('.gals-container').children('.gals').append('<div class="gal">'+copy+'</div>'); 
-            
-        });	
+            var copy = '<div style="width:15px; position:absolute; margin-top:10px; margin-left:600px; color:#F00; font-size:large; cursor:pointer;" title="Remove" onclick="removeGal($(this));">X</div><fieldset><legend>Images</legend><div class="input text"><label for="Gal' + ++galCount + 'Caption">Caption</label><input name="data[Gal][' + $aId + '][' + galCount + '][caption]" type="text" maxlength="255" id="Gal' + galCount + 'Caption"></div><div class="input file"><label for="Gal' + galCount + 'Image">Image</label><input type="file" name="data[Gal][' + $aId + '][' + galCount + '][image]" id="Gal' + galCount + 'Image"></div><div class="input text"><label for="Gal' + galCount + 'Tags">Tags</label><input name="data[Gal][' + $aId + '][' + galCount + '][tags]" type="text" maxlength="255" id="Gal' + galCount + 'Tags"></div><div class="input text"><label for="Gal' + galCount + 'Location">Location</label><input name="data[Gal][' + $aId + '][' + galCount + '][location]" type="text" maxlength="255" id="Gal' + galCount + 'Location"></div><div class="input text"><label for="Gal' + galCount + 'CropInfo">Crop Info</label><input name="data[Gal][' + $aId + '][' + galCount + '][crop_info]" type="text" maxlength="255" id="Gal' + galCount + 'CropInfo"></div><input type="hidden" name="data[Gal][' + $aId + '][' + galCount + '][product_id]" value="0" id="Gal' + galCount + 'ProductId"><input type="hidden" name="data[Gal][' + $aId + '][' + galCount + '][friend_id]" value="0" id="Gal' + galCount + 'FriendId"></fieldset>';
+            $(this).parents('fieldset.album').children('.gals-container').children('.gals').append('<div class="gal">' + copy + '</div>');
+
+        });
         /////////////////////////////////////////////////////
     });
     //Remove Album//////////////////////////////////////
-    function removeAlbum (obj){
-        if(obj.parent().index() == 0)
+    function removeGrade(obj) {
+        if (obj.parent().index() == 0)
+            alert("Sorry! Can't remove first Grade.");
+        else
+        if (confirm("Confirm removing."))
+            obj.parent().remove();
+    }
+
+    function removeAlbum(obj) {
+        if (obj.parent().index() == 0)
             alert("Sorry! Can't remove first album.");
         else
-            if(confirm("Confirm removing."))	
-                obj.parent().remove();	
+        if (confirm("Confirm removing."))
+            obj.parent().remove();
     }
     /////////////////////////////////////////////////////
     //Remove image
-    function removeGal (obj){
-        if(obj.parent().index() == 0)
+    function removeGal(obj) {
+        if (obj.parent().index() == 0)
             alert("Sorry! Can't remove first image.");
         else
-            if(confirm("Confirm removing."))	
-                obj.parent().remove();	
+        if (confirm("Confirm removing."))
+            obj.parent().remove();
     }
 </script>
 <div class="members form">
     <?php echo $this->Form->create('Member', array('type' => 'file', 'url' => '/school/add')); ?>
     <fieldset>
-        <legend><?php __('Add School'); ?></legend>
-        <div id="tapss">
-            <ul class="tabs">
-                <li><a class="current" href="#">General</a></li>
+        <?php if (isset($mainId) && $mainId > 0) { ?>
+            <legend><?php __('Add Branch for School <a href="/school/view/' . $mainId . '">' . $parentName . '</a>'); ?></legend>
+        <?php } else { ?>
+            <legend><?php __('Add School'); ?></legend>
+        <?php } ?>
+        <?php if (isset($mainId) && $mainId > 0) { ?> 
+            <div id="tapss">
+                <ul class="tabs">
+                    <li><a class="current" href="#">General</a></li>
+                    <?php if (isset($mainId) && $mainId > 0) { ?>
+                        <li><a class="" href="#">Grades</a></li>
+                    <?php } ?>
+                    <!--<li><a class="" href="#">Albums</a></li>-->
 
-                <li><a class="" href="#">Albums</a></li>
-
-            </ul>
-            <div class="panes">
+                </ul>
+                <div class="panes">
+                <?php } ?>
                 <!--General-->
                 <div style="display: block;">
                     <?php
@@ -68,54 +93,77 @@
                     echo $this->Form->input('confirmed');
                     echo $this->Form->input('newsletter');
                     echo $this->Form->input('type', array('value' => 1, 'type' => 'hidden'));
-                    echo $this->Form->select('parent_id', $options = $parentMems, (isset($this->data['Member'])) ? $this->data['Member']['parent_id'] : $mainId, array(), array(), true);
+                    echo $this->Form->input('parent_id', array('value' => $mainId, 'type' => 'hidden'));
                     ?>
-                </div>
-                <!--Albums-->
-                <div style="display: none;">
-                    <div class="albums">
-                        <div class="album">
-                            <div style="width:15px; position:absolute; margin-top:10px; margin-left:720px; color:#F00; font-size:large; cursor:pointer;" title="Remove" onclick="removeAlbum($(this));">X</div>
-                            <fieldset class="album">
-                                <legend>Album</legend>
-                                <?php
-                                echo $this->Form->input('index', array('id' => 'index', 'type' => 'hidden', 'value' => '1000'));
-                                echo $this->Form->input('Album.1000.title');
-                                echo $this->Form->input('Album.1000.tags');
-                                echo $this->Form->input('Album.1000.caption');
-                                echo $this->Form->input('Album.1000.access');
-                                echo $this->Form->input('Album.1000.share_type');
-                                echo $this->Form->input('Album.1000.password');
-                                echo $this->Form->input('Album.1000.friend_id', array('type' => 'hidden',  'value' => 0));
-                                ?>
-                                <div class="gals-container">
-                                <div class="gals">
-                                    <div class="gal">
-                                        <div style="width:15px; position:absolute; margin-top:10px; margin-left:600px; color:#F00; font-size:large; cursor:pointer;" title="Remove" onclick="removeGal($(this));">X</div>
-                                        <fieldset>
-                                            <legend>Images</legend>
-                                            <?php
-                                                echo $this->Form->input('Gal.1000.1000.caption');
-                                                echo $form->input('Gal.1000.1000.image', array('type'=>'file', 'label'=>'Image for Schools (732px × 345px) for Grades (601px × 469px)'));
-                                                echo $this->Form->input('Gal.1000.1000.tags');
-                                                echo $this->Form->input('Gal.1000.1000.location');
-                                                echo $this->Form->input('Gal.1000.1000.crop_info');
-                                                echo $this->Form->input('Gal.1000.1000.product_id', array('type' => 'hidden',  'value' => 0));
-                                                echo $this->Form->input('Gal.1000.1000.member_id', array('type' => 'hidden',  'value' => 0));
-                                                echo $this->Form->input('Gal.1000.1000.friend_id', array('type' => 'hidden',  'value' => 0));
-                                            ?>
-                                        </fieldset>
-                                    </div>
-                                </div>
-                                
-                                <input type="button" id="addGal" value="Add Image" style="width: 150px; margin-left: 300px;" />
-                                </div>
-                            </fieldset>
-                        </div>
+                    <?php if (isset($mainId) && $mainId > 0) { ?>
                     </div>
-                    <input type="button" id="addAlbum" value="Add album" style="width: 150px; margin-left: 300px;" />
-                </div>
-            </div></div>
+
+                    <!--Grades-->
+                    <div style="display: none;">
+                        <div class="grades">
+                            <div class="grade">
+                                <div style="width:15px; position:absolute; margin-top:10px; margin-left:720px; color:#F00; font-size:large; cursor:pointer;" title="Remove" onclick="removeGrade($(this));">X</div>
+                                <fieldset class="Grade">
+                                    <legend>Grade</legend>
+                                    <?php
+                                    echo $this->Form->input('Friend.1000.title');
+                                    echo $this->Form->input('Friend.1000.member_id', array('type' => 'hidden', 'value' => $mainId));
+                                    echo $this->Form->input('Friend.1000.parent_id', array('type' => 'hidden', 'value' => 0));
+                                    ?>
+
+                                </fieldset>
+                            </div>
+                        </div>
+                        <input type="button" id="addGrade" value="Add Grade" style="width: 150px; margin-left: 300px;" />
+                    </div>
+                <?php } ?>
+                <!--Albums-->
+                <!--                <div style="display: none;">
+                                    <div class="albums">
+                                        <div class="album">
+                                            <div style="width:15px; position:absolute; margin-top:10px; margin-left:720px; color:#F00; font-size:large; cursor:pointer;" title="Remove" onclick="removeAlbum($(this));">X</div>
+                                            <fieldset class="album">
+                                                <legend>Album</legend>
+                <?php
+                echo $this->Form->input('index', array('id' => 'index', 'type' => 'hidden', 'value' => '1000'));
+                echo $this->Form->input('Album.1000.title');
+                echo $this->Form->input('Album.1000.tags');
+                echo $this->Form->input('Album.1000.caption');
+                echo $this->Form->input('Album.1000.access');
+                echo $this->Form->input('Album.1000.share_type');
+                echo $this->Form->input('Album.1000.password');
+                echo $this->Form->input('Album.1000.friend_id', array('type' => 'hidden', 'value' => 0));
+                ?>
+                                                <div class="gals-container">
+                                                <div class="gals">
+                                                    <div class="gal">
+                                                        <div style="width:15px; position:absolute; margin-top:10px; margin-left:600px; color:#F00; font-size:large; cursor:pointer;" title="Remove" onclick="removeGal($(this));">X</div>
+                                                        <fieldset>
+                                                            <legend>Images</legend>
+                <?php
+                echo $this->Form->input('Gal.1000.1000.caption');
+                echo $form->input('Gal.1000.1000.image', array('type' => 'file', 'label' => 'Image for Schools (732px × 345px) for Grades (601px × 469px)'));
+                echo $this->Form->input('Gal.1000.1000.tags');
+                echo $this->Form->input('Gal.1000.1000.location');
+                echo $this->Form->input('Gal.1000.1000.crop_info');
+                echo $this->Form->input('Gal.1000.1000.product_id', array('type' => 'hidden', 'value' => 0));
+                echo $this->Form->input('Gal.1000.1000.member_id', array('type' => 'hidden', 'value' => 0));
+                echo $this->Form->input('Gal.1000.1000.friend_id', array('type' => 'hidden', 'value' => 0));
+                ?>
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                                
+                                                <input type="button" id="addGal" value="Add Image" style="width: 150px; margin-left: 300px;" />
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <input type="button" id="addAlbum" value="Add album" style="width: 150px; margin-left: 300px;" />
+                                </div>-->
+                <?php if (isset($mainId) && $mainId > 0) { ?>
+                </div></div>
+        <?php } ?>
     </fieldset>
     <?php echo $this->Form->end(__('Submit', true)); ?>
 </div>

@@ -17,7 +17,8 @@
 
     </div>
 </div>
-<script src="js/front/jquery.eventCalendar.js" type="text/javascript"></script>
+<?php echo $this->Javascript->link(array('front/jquery.eventCalendar'));?>
+<!--<script src="js/front/jquery.eventCalendar.js" type="text/javascript"></script>-->
 <?php }else{ ?>
 <div id="contain">
     <div id="container">

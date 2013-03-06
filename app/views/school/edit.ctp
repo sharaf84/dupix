@@ -19,7 +19,7 @@
 <div class="members form">
 <?php echo $this->Form->create('Member', array('type' => 'file', 'url' => '/school/edit/'.$this->data['Member']['id']));?>
 	<fieldset>
- 		<legend><?php __('Edit Member'); ?></legend>
+ 		<legend><?php __('Edit School'); ?></legend>
 	<?php
 		echo $this->Form->input('id');
 		echo $this->Form->input('name');
@@ -50,7 +50,10 @@
 		echo $this->Form->input('confirmed');
 		echo $this->Form->input('newsletter');
                 echo $this->Form->input('type', array('value' => 1, 'type' => 'hidden'));
-         	echo $this->Form->select('parent_id', $options = $parentMems,(isset ($this->data['Member'])) ? $this->data['Member']['parent_id'] : 0, array(), array(), true); 
+                if(isset ($this->data['Member']['parent_id']) && $this->data['Member']['parent_id'] > 0)
+                   echo $this->Form->input('parent_id', array('value' => $this->data['Member']['parent_id'], 'type' => 'hidden'));     
+                else
+                   echo $this->Form->select('parent_id', $options = $parentMems,(isset ($this->data['Member'])) ? $this->data['Member']['parent_id'] : 0, array(), array(), true); 
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit', true));?>
