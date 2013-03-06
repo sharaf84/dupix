@@ -61,28 +61,6 @@ class ProfileController extends AppController {
         $this->autoRender = false;
         echo $json;
     }
-    
-    //move or copy img to album
-    function carryImg($imgId, $action, $albumId) {
-        if ($imgId) {
-            $gal = $this->Member->Album->Gal->read(null, $imgId);
-            if ($gal['Album']['member_id'] == $this->Cookie->read('Member.id')) {
-                if($action == 'move'){
-                    $this->Member->Album->Gal->saveField('album_id', $albumId);    
-                }
-                if($action == 'copy'){
-                    $dest = rand().$gal['Gal']['image'];
-                    copy($this->Upload->imageUploadDir.$gal['Gal']['image'], $this->Upload->imageUploadDir.$dest);
-                    copy($this->Upload->imageUploadDir.'thumb_'.$gal['Gal']['image'], $this->Upload->imageUploadDir.'thumb_'.$dest);
-                    unset($gal['Gal']['id']);
-                    $gal['Gal']['album_id'] = $albumId;
-                    $gal['Gal']['image'] = $dest;
-                    $this->Member->Album->Gal->create();
-                    $this->Member->Album->Gal->save($gal);
-                }
-            }
-        }
-    }
 
     // add Album (call by ajax)
     function addAlbum() {
@@ -117,10 +95,19 @@ class ProfileController extends AppController {
                     'recursive' => -1
                 )
             );
-            if ($this->Member->Album->deleteAll(array(
-                        'Album.id' => $id,
-                        'Album.member_id' => $this->Cookie->read('Member.id')
-                    ))) {
+//            if ($this->Member->Album->deleteAll(array(
+//                        'Album.id' => $id,
+//                        'Album.member_id' => $this->Cookie->read('Member.id')
+//                    ))) {
+//                $this->Upload->deleteFiles();
+//                echo true;
+//            }
+           if($this->Member->Album->query('
+                DELETE FROM albums 
+                WHERE albums.id = '.$id.'
+                AND albums.member_id = ' . $this->Cookie->read('Member.id')
+            )){
+                $this->Member->Album->Gal->deleteAll(array('Gal.album_id' => $id));
                 $this->Upload->deleteFiles();
                 echo true;
             }
@@ -158,6 +145,30 @@ class ProfileController extends AppController {
             }
         }
         return false;
+    }
+    
+    //move or copy img to album
+    function carryImg($imgId, $action, $albumId) {
+        if ($imgId) {
+            $gal = $this->Member->Album->Gal->read(null, $imgId);
+            if ($gal['Album']['member_id'] == $this->Cookie->read('Member.id')) {
+                if($action == 'move'){
+                    $this->Member->Album->Gal->saveField('album_id', $albumId);    
+                }
+                if($action == 'copy'){
+                    $dest = rand().$gal['Gal']['image'];
+                    copy($this->Upload->imageUploadDir.$gal['Gal']['image'], $this->Upload->imageUploadDir.$dest);
+                    copy($this->Upload->imageUploadDir.'thumb_'.$gal['Gal']['image'], $this->Upload->imageUploadDir.'thumb_'.$dest);
+                    copy($this->Upload->imageUploadDir.'medium_'.$gal['Gal']['image'], $this->Upload->imageUploadDir.'medium_'.$dest);
+                    copy($this->Upload->imageUploadDir.'large_'.$gal['Gal']['image'], $this->Upload->imageUploadDir.'large_'.$dest);
+                    unset($gal['Gal']['id']);
+                    $gal['Gal']['album_id'] = $albumId;
+                    $gal['Gal']['image'] = $dest;
+                    $this->Member->Album->Gal->create();
+                    $this->Member->Album->Gal->save($gal);
+                }
+            }
+        }
     }
 
     /* Projects Functions */

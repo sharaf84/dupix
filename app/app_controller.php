@@ -33,7 +33,7 @@
 class AppController extends Controller {
 
     public $helpers = array('Html', 'Form', 'Javascript', 'Ajax', 'Session', 'Lang');
-    public $components = array('Session', 'Cookie', 'Upload');
+    public $components = array('Session', 'Cookie', 'Upload', 'Image');
 
     function beforeFilter() {
         //write settings in session
@@ -135,7 +135,7 @@ class AppController extends Controller {
     
     /**
      * Add prefix to array keys
-     * @author Ahmed Sharaf <john.doe@example.com>
+     * @author Ahmed Sharaf
      * @param array $arr
      * @param string $prefix
      * @return array
@@ -178,12 +178,17 @@ class AppController extends Controller {
         if ($albumId && $this->relatedToMember('Album', $albumId)) {
             set_time_limit(240);
             $this->loadModel('Gal');
-            $gal = array('album_id' => $albumId);
-            $this->Upload->resize = 3;
+            $gal = array('album_id' => $albumId, 'member_id' => $this->Cookie->read('Member.id'));
+            $this->Upload->resize = -1;
             $gal['image'] = $this->Upload->uploadImage( $_FILES['uploaded_file']);
-            $this->Gal->create();
-            $this->Gal->save($gal);
-            echo json_encode(array('id' => $this->Gal->id, 'name' => $gal['image']));
+            if($gal['image']){
+                $this->Image->load($this->Upload->imageUploadDir.$gal['image'])->best_fit(1000, 600)->save($this->Upload->imageUploadDir.'large_'.$gal['image']);
+                $this->Image->load($this->Upload->imageUploadDir.$gal['image'])->fit_and_crop(389, 366)->save($this->Upload->imageUploadDir.'medium_'.$gal['image']);
+                $this->Image->load($this->Upload->imageUploadDir.$gal['image'])->fit_and_crop(101, 63)->save($this->Upload->imageUploadDir.'thumb_'.$gal['image']);
+                $this->Gal->create();
+                $this->Gal->save($gal);
+                echo json_encode(array('id' => $this->Gal->id, 'name' => $gal['image']));
+            }
         }
         echo false;
     }

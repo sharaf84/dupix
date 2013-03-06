@@ -15,7 +15,9 @@ class UploadComponent extends AppController {
     public $imageTypes; //string of image types ex "jpeg,gif,png,jpg".
     public $fileTypes; //string of file types ex "zip, rar, flv".  
     public $maxUploadSize; //max file size in bytes.
-    //resize -> 0 no resizing, and make a Thumb copy whith $thumbWidth $thumbHight.
+    //resize:
+    //-1 -> no resizing.
+    // 0 -> no resizing, and make a Thumb copy whith $thumbWidth $thumbHight.
     // 1 -> resize image to $masterImageWidth and $masterImageHeight.
     // 2 -> resize image to $masterImageWidth and $masterImageHeight, and make a Thumb copy $thumbWidth and $thumbHight.
     // 3 -> resize image to $maxImageWidt (if image width > $maxImageWidth), and make a Thumb copy $thumbWidth and $thumbHight. 
@@ -223,11 +225,19 @@ class UploadComponent extends AppController {
                             $this->error .= 'Could not resize original image to ' . $this->maxImageWidth;
                     }
                 }
+                //size 4 special for fotosoora project.
+                if ($this->resize == 4) {
+                    $medium_uploadfile = $this->imageUploadDir . 'medium_' . $this->fileName;
+                    list($width, $height, $type, $attr) = getimagesize($uploadfile);
+                    if ($width > $this->maxImageWidth) {
+                        if (!$this->smartResizeImage($uploadfile, $this->maxImageWidth, 0, true, $medium_uploadfile))
+                            $this->error .= 'Could not resize original image to ' . $this->maxImageWidth;
+                    }else
+                        copy($uploadfile, $medium_uploadfile);
+                }
                 if ($this->resize == 0 || $this->resize == 2 || $this->resize == 3 || $this->resize == 4) {
-                    //if (!$this->smartResizeImage($uploadfile, $this->thumbWidth, $this->thumbHeight, true, $thumb_uploadfile))
-                        //$this->error .= 'Could not resize original image to ' . $this->thumbWidth . 'x' . $this->thumbHeight . ' ( Image ' . "[$cmdStatus] )";
-                
-                    $this->resizeCropedImage($uploadfile, 0, 0, $width, $height, $thumb_uploadfile, $this->thumbWidth, $this->thumbHeight);
+                    if (!$this->smartResizeImage($uploadfile, $this->thumbWidth, $this->thumbHeight, true, $thumb_uploadfile))
+                        $this->error .= 'Could not resize original image to ' . $this->thumbWidth . 'x' . $this->thumbHeight . ' ( Image ' . "[$cmdStatus] )";
                 }
             }
         }
@@ -394,8 +404,8 @@ class UploadComponent extends AppController {
     }
 
     //ResizeImage function. 
-    public function resizeCropedImage($imagePath, $shootX, $shootY, $shootWidth, $shootHeight, $cropPath, $cropWidth, $cropHeight) {
-        $cropImage = imagecreatetruecolor($cropWidth, $cropHeight);
+    public function resizeCropedImage($imagePath, $cropPath, $cropWidth, $cropHeight, $width, $height, $start_width, $start_height, $end_width, $end_height) {
+        $cropedImage = imagecreatetruecolor($cropWidth, $cropHeight);
         $ext = strtolower(substr(basename($imagePath), strrpos(basename($imagePath), ".") + 1));
         if ($ext == "png") {
             $source = imagecreatefrompng($imagePath);
@@ -404,13 +414,13 @@ class UploadComponent extends AppController {
         } elseif ($ext == "gif") {
             $source = imagecreatefromgif($imagePath);
         }
-        imagecopyresampled($cropImage, $source, 0, 0, $shootX, $shootY, $cropWidth, $cropHeight, $shootWidth, $shootHeight);
+        imagecopyresampled($cropedImage, $source, 0, 0, $start_width, $start_height, $cropWidth, $cropHeight, $width, $height);
         if ($ext == "png") {
-            imagepng($cropImage, $cropPath, 0);
+            imagepng($cropedImage, $cropPath, 0);
         } elseif ($ext == "jpg" || $ext == "jpeg") {
-            imagejpeg($cropImage, $cropPath, 90);
+            imagejpeg($cropedImage, $cropPath, 90);
         } elseif ($ext == "gif") {
-            imagegif($cropImage, $cropPath);
+            imagegif($cropedImage, $cropPath);
         }
         chmod($cropPath, 0777);
         return $cropPath;
